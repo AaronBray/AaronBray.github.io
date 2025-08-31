@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Operational Security"
+title: "Getting Started"
 author: "Aaron Bray"
 categories: documentation
 tags: [documentation,sample]
