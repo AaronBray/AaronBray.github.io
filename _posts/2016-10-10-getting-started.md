@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Getting Started"
-author: "Paul Le"
+title: "Op Sec Fundamentals"
+author: "Aaron Bray"
 categories: documentation
 tags: [documentation,sample]
 image: personal-data.jpg
