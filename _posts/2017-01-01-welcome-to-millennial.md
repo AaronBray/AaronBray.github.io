@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Offensive Security"
+title: "Operational Security"
 author: "Aaron Bray"
 categories: documentation
 tags: [documentation,sample]
