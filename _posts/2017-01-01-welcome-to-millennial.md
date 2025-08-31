@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Welcome to Millennial!"
-author: "Paul Le"
+title: "WHO AM I?"
+author: "Aaron Bray"
 categories: documentation
 tags: [documentation,sample]
 image: cuba-1.jpg
