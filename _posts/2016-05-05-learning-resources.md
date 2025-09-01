@@ -17,6 +17,8 @@ My personal favourite for learning full stack web development. They offer a grea
 
 Not only does Codecademy have many great courses on various web development languages such as [HTML](https://www.codecademy.com/learn/learn-html), [CSS](https://www.codecademy.com/learn/learn-css), and [JavaScript](https://www.codecademy.com/learn/introduction-to-javascript), but they even offer a course on [how to deploy a Jekyll site](https://www.codecademy.com/learn/deploy-a-website). If you are completely new to Jekyll, I would recommend working through that course as a great start for learning how to deploy your Jekyll site.
 
-## [Khan Academy](https://www.khanacademy.org/)
+## [Pwn Colllege](https://pwn.college/)
+The material on pwn.college is split into a number of "dojos", with each dojo typically covering a high-level topic. The material is designed to be tackled in order. You can, of course, jump around, but keep in mind that each dojo expects you to know everything taught by the previous ones. 
+
 
 A great resource not only for learning mathematics (what most people probably know Khan Academy for), but also [computer programming](https://www.khanacademy.org/computing/computer-programming). What Khan Academy offers that is different from the other two above resources is that it offers courses in [computer science related](https://www.khanacademy.org/computing/computer-science) topics, such as [algorithms](https://www.khanacademy.org/computing/computer-science/algorithms) and [cryptography](https://www.khanacademy.org/computing/computer-science/cryptography). This is unique in that most online resources mostly focus on the programming side of things.
