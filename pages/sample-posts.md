@@ -1,6 +1,7 @@
 ---
 layout: category
-title: Sample Posts
+title: Projects
 category: sample
-permalink: /sample-posts
+permalink: /Projects
 ---
+MyProjects will go here
