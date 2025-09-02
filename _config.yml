@@ -4,16 +4,16 @@
 paginate:            5
 
 # Build settings
-title: Aaron Bray
+
 markdown:            kramdown
 highlighter:         rouge
 permalink:           /:title
 plugins:             [jekyll-paginate, jekyll-sitemap, jekyll-feed, jekyll-seo-tag]
 
 # Customise atom feed settings (this is where Jekyll-Feed gets configuration information)
-title:		           "millennial"
-description:	       "a minimalist Jekyll theme for running a blog or publication"
-author:              "Paul Le"
+title:		           "Aaron Bray"
+description:	       "My blog for posting writeups and learning tips and methods"
+author:              "Aaron Bray"
 
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
 #feed:
