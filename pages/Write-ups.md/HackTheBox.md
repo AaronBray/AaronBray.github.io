@@ -1,7 +1,7 @@
 ---
 layout: category
-title: Learning Resources
-category: resources
-permalink: /resources
+title: Write-Ups
+category: write-ups
+permalink: /write-ups/hackthebox/
 ---
 need content
