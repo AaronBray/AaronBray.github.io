@@ -2,6 +2,6 @@
 layout: category
 title: Projects
 category: projects
-permalink: /Projects
+permalink: /projects
 ---
 MyProjects will go here
