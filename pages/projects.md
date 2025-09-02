@@ -1,7 +1,7 @@
 ---
 layout: category
 title: Projects
-category: sample
+category: projects
 permalink: /Projects
 ---
 MyProjects will go here
