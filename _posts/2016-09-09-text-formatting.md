@@ -1,10 +1,10 @@
 ---
 layout: post
-title: ""
-author: "Paul Le"
-categories: sample
-tags: [sample]
-image: personal-data.jpg
+title: "Web Exploitation"
+author: "A. Bray"
+categories: exploit
+tags: [exploit]
+image: linux.jpg
 ---
 
 # Markdown Support
