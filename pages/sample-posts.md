@@ -1,6 +1,7 @@
 ---
 layout: category
-title: Sample Posts
-category: sample
-permalink: /sample-posts
+title: Write-Ups
+category: write-ups
+permalink: /write-ups
 ---
+placeholder
