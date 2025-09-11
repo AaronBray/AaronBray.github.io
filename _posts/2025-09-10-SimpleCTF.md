@@ -31,15 +31,9 @@ ________________
 
 ![Deer Widget]({{ '/assets/images/deer.jpg' | relative_url }})
 
-
-{% highlight html %}
-{% raw %}
-![Deer Widget]({{ '/assets/images/deer.jpg' | relative_url }})
-{% endraw %}
-{% endhighlight html %}
 ______________________
 
-![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image }*(°0°)*
+![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image }My caption
 
 ________________
 
