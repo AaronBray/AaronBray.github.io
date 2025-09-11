@@ -29,6 +29,26 @@ Ran script and found:
 [+] Password found: 0c01f4468bd75d7a84c7eb73846e8d96
 ________________
 
+![Battery Widget]({{ '/assets/images/batWid1.png' | relative_url }})
+
+
+{% highlight html %}
+{% raw %}
+![Battery Widget]({{ '/assets/images/batWid1.png' | relative_url }})
+{% endraw %}
+{% endhighlight html %}
+______________________
+
+![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image }*(°0°)*
+
+{% highlight html %}
+{% raw %}
+![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image }*(°0°)*
+{% endraw %}
+{% endhighlight html %}
+
+________________
+
 check hashes.com and crack station - nothing found
 hashes.com Id hash as md5
 Tested john the ripper 
