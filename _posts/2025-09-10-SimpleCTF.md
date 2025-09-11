@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Simple CTF
-date: 2025-09-10 16:25:06
+date: #2025-09-10 16:25:06
 tags: tryhackme
 description: Simple CTF write-up
 ---
