@@ -4,7 +4,7 @@ title:  "Join PDF files"
 date:   2017-09-17 10:47:45
 comments: true
 tags:
- - notes
+ - projects
 ---
 
 IF you have several PDF documents, say scans, you can easily merge them into one PDF file using handy [`pdftk`](https://www.pdflabs.com/docs/pdftk-cli-examples/) tool:
