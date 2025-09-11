@@ -29,11 +29,10 @@ Ran script and found:
 [+] Password found: 0c01f4468bd75d7a84c7eb73846e8d96
 ________________
 
-![Deer Widget]({{ '/assets/images/deer.jpg' | relative_url }})
 
 ______________________
 
-![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image }My caption
+![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image } My caption
 
 ________________
 
