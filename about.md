@@ -4,5 +4,5 @@ title: About
 
 ---
 
-# Some info 
-...about how cool you are ;)
+# Aaron Bray
+Ethical Hacker
