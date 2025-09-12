@@ -15,8 +15,13 @@ description: Simple CTF write-up
 
 Nmap shows ports: 21(ftp) -- 80(http) -- & 2222(openssh)
 
+Turning our attention to the web server on port 80, we can use Dirb or gobuster to enumerate hidden directories. 
+{% highlight bash %}
+dirb http://<target_ip> 
+{% endhighlight bash %}
+>This will run a basic directory scan using the common.txt file located in /usr/share/wordlists/dirb/commmon.txt
 
-Using Dirb to enumerate hidden directories, We find: 
+We find:
 {% highlight bash %}
 -/robots.txt   
 -/simple  
