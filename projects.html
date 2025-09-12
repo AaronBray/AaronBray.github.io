@@ -13,7 +13,7 @@ title: Pojects
 					<ul class="posts">
 					{% capture year %}{{currentyear}}{% endcapture %} 
 				{% endif %}
-			<li><a href="{{ post.url | relative_url }}">{{ projectfiles.title }}</a></li>
+			<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
 	{% endfor %}
 	</div>
 </div>
