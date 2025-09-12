@@ -3,18 +3,17 @@ layout: page
 title: Pojects
 ---
 <div class="page-content wc-container">
-    <div class="post">
-        <h1>Projects</h1>
-        <ul>
-            {% for post in site.projectfiles %}
-            <li>
-                <div class="post-time">
-                    <i class="fa fa-calendar"></i>
-                    <time>{{ post.date | date: "%d-%m-%Y" }}</time>
-                    <a href="{{ site.url | prepend: site.url }}">{{ post.title }}</a>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
+	<div class="post">
+		<h1>Projects</h1>  
+		{% for post in site.projectfiles %}
+			{% capture currentyear %}{{post.date | date: "%Y"}}{% endcapture %}
+			{% if currentyear != year %}
+				{% unless forloop.first %}</ul>{% endunless %}
+					<h5>{{ currentyear }}</h5>
+					<ul class="posts">
+					{% capture year %}{{currentyear}}{% endcapture %} 
+				{% endif %}
+			<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+	{% endfor %}
+	</div>
 </div>
