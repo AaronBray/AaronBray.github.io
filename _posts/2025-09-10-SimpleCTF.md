@@ -29,10 +29,11 @@ Ran script and found:
 [+] Password found: 0c01f4468bd75d7a84c7eb73846e8d96
 ________________
 
+![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image }Caption test
 
 ______________________
 
-
+![Battery Widget]({{ '/assets/images/batWid1.png' | relative_url }})Caption test
 
 ________________
 
