@@ -5,23 +5,24 @@ date: 2025-09-10 16:25:06
 tags: tryhackme
 description: Simple CTF write-up
 ---
--Ran Nmap scan 
--port open - 21 -- 80 -- 2222(openssh)
--Ran dirb
--found /robots.txt /simple  /simple/admin 
--opened webpage 
--found web app name was - CMS made simple
--search exploit DB and found exploit 
-(can also use searchsploit cms made simple command in kali)
--SQL injection
--downloaded python script from exploit db - didn't work
--tried script from within kali -- searchspoit (same script) -- didn't work
--ran script with -u http://xxxx argument --crack and -w (tried without --crack) - no success
-did not work
-Found alternate script on GitHub for vulnerability
-WORKED!
+
+-We start by running a basic Nmap script scan to enumerate the open ports
+Nmap shows ports 21(ftp), 80(http), & 2222(openssh)
+
+
+Using Dirb to enumerate hidden directories, We find: 
+/robots.txt   /simple  /simple/admin 
+Opening the webpage in our browser shows that:
+-CMS made simple is being used to run the website
+-Lets search for CMS exploits
+
+I originally tested the script found on exploitdb and within Kali's searchsploit directory for a possible SQL injection.
+-ran script with -u http://xxxx argument --crack and -w (tried without --crack) - no success - did not work
+
+Eventually found an alternate exploit script on GitHub for CMS made simple vulnerability
+This exploit Worked!
 source:  https://github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3
-Ran script and found:
+Running the script against the target IP shows:
 
 [+] Salt for password found: 1dac0d92e9fa6bb2
 [+] Username found: mitch
@@ -33,10 +34,9 @@ ________________
 
 ______________________
 
-![Battery Widget]({{ '/assets/images/batWid1.png' | relative_url }})Caption test
 
-________________
-
+We know have an email, username, password and hash.
+Lets attempt to bruteforce the hash
 check hashes.com and crack station - nothing found
 hashes.com Id hash as md5
 Tested john the ripper 
