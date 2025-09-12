@@ -5,7 +5,7 @@ title: Pojects
 <div class="page-content wc-container">
 	<div class="post">
 		<h1>Projects</h1>  
-		{% for post in site.posts %}
+		{% for projectfiles in site.projectfiles %}
 			{% capture currentyear %}{{post.date | date: "%Y"}}{% endcapture %}
 			{% if currentyear != year %}
 				{% unless forloop.first %}</ul>{% endunless %}
@@ -13,7 +13,7 @@ title: Pojects
 					<ul class="posts">
 					{% capture year %}{{currentyear}}{% endcapture %} 
 				{% endif %}
-			<li><a href="{{ post.url | relative_url }}">{{ post.title }}</a></li>
+			<li><a href="{{ projectfiles.url | relative_url }}">{{ projectfiles.title }}</a></li>
 	{% endfor %}
 	</div>
 </div>
