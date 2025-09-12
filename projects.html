@@ -1,20 +1,28 @@
 ---
-layout: page
-title: projects
+layout: projects
 ---
-<div class="page-content wc-container">
-    <div class="post">
-        <h1>Projects</h1>
-        <ul>
-            {% for project in site.projectfiles %}
-            <li>
-                <div class="post-time">
-                    <i class="fa fa-calendar"></i>
-                    <time>{{ post.date | date: "%d-%m-%Y" }}</time>
-                    <a href="{{ post.url | prepend: site.url }}">{{ project.title }}</a>
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
+
+{% for project in site.data.projects.projects %}
+  <div class="row">
+    <div class="col-md-4">
+      <h2>
+        {% if project.links.site %}
+          <i class="fa fa-globe"></i> <a href="{{ project.links.site }}">{{project.name}}</a>
+        {% else %}
+          {{project.name}}
+        {% endif %}
+      </h2>
+      {{project.technologies}}
     </div>
-</div>
+
+    <div class="col-md-8" style="margin-top:2em; margin-bottom:1em">
+      <div>{{project.description}}</div>
+      {% if project.links.github %}
+        <div><i class="fa fa-github"></i> <a href="{{ project.links.github }}">{{project.name}}</a></div>
+      {% endif %}
+    </div>
+  </div>
+  {% if forloop.last == false %}
+    <hr/>
+  {% endif %}
+{% endfor %}
