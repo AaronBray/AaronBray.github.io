@@ -8,16 +8,21 @@ description: Simple CTF write-up
 
 -We start by running a basic Nmap script scan to enumerate the open ports
 
+{% highlight bash %}
 >:$ Nmap -sC <target_ip>
+{% endhighlight bash %}
+
 
 Nmap shows ports 21(ftp), 80(http), & 2222(openssh)
 
 
 Using Dirb to enumerate hidden directories, We find: 
+{% highlight bash %}
 -/robots.txt   
 -/simple  
 -/simple/admin 
 -/simple/admin/login
+{% endhighlight bash %}
 
 Opening the webpage in our browser shows that:
 -CMS made simple is being used to run the website
@@ -31,11 +36,12 @@ This exploit Worked!
 source:  [github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3](https://github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3)
 
 Running this exploit script against the target IP shows:
-
+{% highlight bash %}
 [+] Salt for password found: 1dac0d92e9fa6bb2
 [+] Username found: mitch
 [+] Email found: admin@admin.com
 [+] Password found: 0c01f4468bd75d7a84c7eb73846e8d96
+{% highlight bash %}
 ________________
 
 ![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image }Caption test
