@@ -14,6 +14,7 @@ Using Dirb to enumerate hidden directories, We find:
 -/robots.txt   
 -/simple  
 -/simple/admin 
+-/simple/admin/login
 
 Opening the webpage in our browser shows that:
 -CMS made simple is being used to run the website
@@ -39,50 +40,66 @@ ________________
 ______________________
 
 
-We know have an email, username, password and hash.
+We now have an email, username, password and hash.
 Lets attempt to bruteforce the hash
 
 Checking [hashes.com](https://hashes.com/en/decrypt/hash) and [crack station](https://crackstation.net/) - nothing found
-hashes.com Id hash as md5
-Tested john the ripper 
-Didnt work as expected and could not get any reliable output or any results
-Switched to hashcat -Way Easier
-Played around with possible -m options for the has after running auto detect mode
-Nothing worked
-Ended up adding salt to the end of hash  -> passwordhash:salt
-0c01f4468bd75d7a84c7eb73846e8d96:1dac0d92e9fa6bb2
-ran autodetect mode and got differenct -m options to try
-second option was -m 20 (md5($salt.$pass))
-WORKED!
+Using hashes.com to identify the hash type shows this as an md5 hash
+Moving beyond online hash crackers lets load the hash into a text file and use Hashcate or JohnTheRipper to check against the rockyou password list
+Tested john the ripper - Didnt work as expected and could not get any reliable output or any results
 
-***HASH CRACKED!!! --- password is -> secret
+Running the hash in hashcat in autodetect mode shows that all-m hashtype options do not work
+Lets add the salt to the hash
+Adding the salt to the end of hash like so -> passwordhash:salt
 
-logged into webpage /simple/admin/login
-logged in as mitch 
+-0c01f4468bd75d7a84c7eb73846e8d96:1dac0d92e9fa6bb2
 
-logged into ssh session on port 2222
-ran "/bin/bash" to run shell normal
-found flag in user.txt
+running autodetect mode now shows differenct -m options to try
+Our second option shows that we can use:
 
+-m 20 (md5($salt.$pass))
 
-***FLAG #1!!!!
+This hash type works and Hashcat was able to crack the hash!
 
-looked for ways to get root
-find / -type f -perm -04000 -ls 2>/dev/null-- listed files with suid set - nothing promising
-getcap -r / 2>/dev/null -- list enabled binary capabilities -- nothing promising
-ran sudo -l --FOUND VIM is allowed with sudo 
-Search FTGObins and found command:
-sudo vim -c ':!/bin/sh'
+-Password is -> secret
 
-****GOT ROOT!!!!
+We know have the username email, and cracked password
+Let's login to the webpage at /simple/admin/login
+logging in as mitch shows that the password is accepted
 
-searched directories for root flag
-found root.txt under /root
+Lets know try this login information to access the server via ssh
+Remember that ssh is being run on port 2222 (not port 22)
 
-GOT ROOT FLAG!!!!!!!!!
+Logging into ssh session on port 2222
+We can see that the credentials are accepted
+Lets run - "/bin/bash" - to convert into a bash shell to make things easier
+Immediately we are shown the user.txt file
 
+Lets cat out this file to uncover the user flag
+We know have the initial User flag
 
++USER FLAG!!!!!!!!!!!!!
+_______________________________
 
+We know need to escalate our privilege in order to gain to root flag
+looking for ways to get root
+Searching:
+:$ find / -type f -perm -04000 -ls 2>/dev/null-- listed files with suid set -- nothing promising
+:$ getcap -r / 2>/dev/null -- list enabled binary capabilities -- nothing promising
+:$ sudo -l --shows that VIM commands are allowed to be run as sudo 
+
+Searching [FTGObins](https://gtfobins.github.io/) shows that we can use VIM to escalate our privilege:
+
+Running the commnd:
+:$ sudo vim -c ':!/bin/sh'
+
+We can see this command was accepted and we are now the root user
+Lets move into the root directory and capture the root flag
+
+We now have the root.txt flag file lsited in the /root directory able to be accessed
+When we cat out this file we can see that we have now uncovered the root flag!
+
++ROOT FLAG!!!!!!!!!
 
 
 
