@@ -2,7 +2,7 @@
 layout: post
 title:  "Join PDF files"
 date:   2017-09-17 10:47:45
-comments: true
+comments: false
 tags:
  - projects
 ---
