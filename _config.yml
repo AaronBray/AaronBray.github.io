@@ -28,6 +28,10 @@ social:
   instagram: ''
   rss: feed.xml
 
+collections:
+  projectfiles:
+    output: true
+    
 # Google Analytics key, leave blank to ignore
 google_analytics_key:
 # Yandex metrica (https://metrica.yandex.com/) leave blank to ignore or put true to use
