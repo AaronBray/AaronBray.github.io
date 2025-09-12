@@ -6,14 +6,18 @@ tags: tryhackme
 description: Simple CTF write-up
 ---
 
--We start by running a basic Nmap script scan to enumerate the open ports
+-We start by running a Nmap scan to enumerate all open ports with the -p- argument
 
 {% highlight bash %}
->:$ Nmap -sC <target_ip>
+>:$ Nmap -p- <target_ip>
 {% endhighlight bash %}
 
 
 Nmap shows ports: 21(ftp) -- 80(http) -- & 2222(openssh)
+
+This gives us our fist two answers
+>Answer: 2
+>ssh
 
 Turning our attention to the web server on port 80, we can use Dirb or gobuster to enumerate hidden directories. 
 {% highlight bash %}
@@ -36,8 +40,11 @@ Opening the webpage in our browser shows that:
 I tested and played around the CMS made simple exploit found on exploitdb as well as within Kali's searchsploit (exploit) directory for a possible SQL injection.
 
 Eventually found an alternate exploit script on GitHub for CMS made simple vulnerability
-This exploit Worked!
+This exploit Worked as well as gave us our third and fourth answer
 source:  [github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3](https://github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3)
+
+>Answer: CVE-2019-9053
+>Answer: sqli
 
 Running this exploit script against the target IP shows:
 {% highlight bash %}
@@ -75,24 +82,38 @@ Our second option shows that we can use:
 
 This hash type works and Hashcat was able to crack the hash!
 
--Password is -> secret
+We now get our fifth answer
+
+>Password is -> secret
 
 We know have the username email, and cracked password
 Let's login to the webpage at /simple/admin/login
 logging in as mitch shows that the password is accepted
 
-Lets now try this login information to access the server via ssh
+Lets see where else we can use this information to login
+Lets try this login information to access the server via ssh
 Remember that ssh is being run on port 2222 (not port 22)
 
 Logging into ssh session on port 2222
 We can see that the credentials are accepted
+
+This gives us our sixth answser
+>Answer: ssh
+
 Lets run - "/bin/bash" - to convert into a bash shell to make things easier
 Immediately we are shown the user.txt file
 
 Lets cat out this file to uncover the user flag
 We know have the initial User flag
 
-+USER FLAG!!!!!!!!!!!!!
+
+>USER FLAG:  [not shows on purpose]
+
+
+Looking around the directories shows us another user 
+
+>Answer: sunbath
+
 _______________________________
 
 We now need to escalate our privilege in order to gain to root flag
@@ -108,18 +129,22 @@ Running the commnd:
 >:$ sudo vim -c ':!/bin/sh'
 
 We can see this command was accepted and we are now the root user
+
+This gives our our seventh answer
+>Answer: VIM
+
 Lets move into the root directory and capture the root flag
 
 We now have the root.txt flag file shown in the /root directory accessible
 When we cat out this file we can see that we have now uncovered the root flag!
 
-+ROOT FLAG!!!!!!!!!
-
+ROOT FLAG!!!!!!!!!
+>Answer:[not shown on purpose]
 
 
 Lessons:
-try sudo -l first forpriv esc
-if one exploit doesn't work- dont give up- find another ie. GitHub, exploitdb, writing your own, etc
-johntheripper sucks on windows
-hashcat is easier on windows if you know -m hash type
-play around with different -m types, and adding salt to beginning or end of hash
+-Try sudo -l first for privilege escalation attempts
+-If one exploit doesn't work- dont give up- find another ie. GitHub, exploitdb, writing your own, etc
+-Hashcat is easier on windows if you know -m hash type and you gain advantage of using gpu to crack password as opposed ti using linux withing a VM
+-JohnTheRipper is easier to run on linux than on windows
+-Play around with different -m types, as well as adding salt to beginning or end of hash
