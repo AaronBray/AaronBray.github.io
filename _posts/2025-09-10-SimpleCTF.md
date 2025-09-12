@@ -11,7 +11,10 @@ Nmap shows ports 21(ftp), 80(http), & 2222(openssh)
 
 
 Using Dirb to enumerate hidden directories, We find: 
-/robots.txt   /simple  /simple/admin 
+-/robots.txt   
+-/simple  
+-/simple/admin 
+
 Opening the webpage in our browser shows that:
 -CMS made simple is being used to run the website
 -Lets search for CMS exploits
