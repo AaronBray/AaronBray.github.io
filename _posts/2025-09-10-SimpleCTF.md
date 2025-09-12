@@ -26,8 +26,8 @@ I originally tested the script found on exploitdb and within Kali's searchsploit
 Eventually found an alternate exploit script on GitHub for CMS made simple vulnerability
 This exploit Worked!
 source:  [github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3](https://github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3)
-(Download, change file permissions and run script against target IP)
-Running the script against the target IP shows:
+
+Running this exploit script against the target IP shows:
 
 [+] Salt for password found: 1dac0d92e9fa6bb2
 [+] Username found: mitch
@@ -46,9 +46,10 @@ Lets attempt to bruteforce the hash
 Checking [hashes.com](https://hashes.com/en/decrypt/hash) and [crack station](https://crackstation.net/) - nothing found
 Using hashes.com to identify the hash type shows this as an md5 hash
 Moving beyond online hash crackers lets load the hash into a text file and use Hashcate or JohnTheRipper to check against the rockyou password list
-Tested john the ripper - Didnt work as expected and could not get any reliable output or any results
 
-Running the hash in hashcat in autodetect mode shows that all-m hashtype options do not work
+Tested john the ripper - Didnt work as expected on windows and could not get any reliable output or any results
+
+Running the hash in hashcat in autodetect mode shows that all -m hashtype options do not work
 Lets add the salt to the hash
 Adding the salt to the end of hash like so -> passwordhash:salt
 
@@ -67,7 +68,7 @@ We know have the username email, and cracked password
 Let's login to the webpage at /simple/admin/login
 logging in as mitch shows that the password is accepted
 
-Lets know try this login information to access the server via ssh
+Lets now try this login information to access the server via ssh
 Remember that ssh is being run on port 2222 (not port 22)
 
 Logging into ssh session on port 2222
@@ -81,22 +82,22 @@ We know have the initial User flag
 +USER FLAG!!!!!!!!!!!!!
 _______________________________
 
-We know need to escalate our privilege in order to gain to root flag
-looking for ways to get root
+We now need to escalate our privilege in order to gain to root flag
+Lets look for ways to get root
 Searching:
-:$ find / -type f -perm -04000 -ls 2>/dev/null-- listed files with suid set -- nothing promising
-:$ getcap -r / 2>/dev/null -- list enabled binary capabilities -- nothing promising
-:$ sudo -l --shows that VIM commands are allowed to be run as sudo 
+>:$ find / -type f -perm -04000 -ls 2>/dev/null-- listed files with suid set -- nothing promising was found
+>:$ getcap -r / 2>/dev/null -- list enabled binary capabilities -- nothing promising was found
+>:$ sudo -l -- shows that VIM commands are allowed to be run as sudo 
 
 Searching [FTGObins](https://gtfobins.github.io/) shows that we can use VIM to escalate our privilege:
 
 Running the commnd:
-:$ sudo vim -c ':!/bin/sh'
+>:$ sudo vim -c ':!/bin/sh'
 
 We can see this command was accepted and we are now the root user
 Lets move into the root directory and capture the root flag
 
-We now have the root.txt flag file lsited in the /root directory able to be accessed
+We now have the root.txt flag file shown in the /root directory accessible
 When we cat out this file we can see that we have now uncovered the root flag!
 
 +ROOT FLAG!!!!!!!!!
@@ -104,7 +105,8 @@ When we cat out this file we can see that we have now uncovered the root flag!
 
 
 Lessons:
-if one exploit doesn't work- dont give up- find another ie. GitHub
-johntheripper sucks/will take more practice
-hashcat is easy
-play around with different -m output and adding salt to beginning or end 
+try sudo -l first forpriv esc
+if one exploit doesn't work- dont give up- find another ie. GitHub, exploitdb, writing your own, etc
+johntheripper sucks on windows
+hashcat is easier on windows if you know -m hash type
+play around with different -m types, and adding salt to beginning or end of hash
