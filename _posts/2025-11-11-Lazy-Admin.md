@@ -3,7 +3,7 @@ layout: post
 title: LazyAdmin writeup
 date:   2025-09-09 11:07
 description: tryhackme writeup
-comments: true
+comments: false
 ---
 
 
