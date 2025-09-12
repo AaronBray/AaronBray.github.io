@@ -32,7 +32,7 @@ ________________
 
 ______________________
 
-![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image } My caption
+
 
 ________________
 
