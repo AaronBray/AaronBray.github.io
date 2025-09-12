@@ -11,7 +11,7 @@ title: projects
                 <div class="post-time">
                     <i class="fa fa-calendar"></i>
                     <time>{{ project.date | date: "%d-%m-%Y" }}</time>
-                    <a href="{{ project.url | prepend: site.url }}">{{ project.title }}</a>
+                    <a href="{{ post.url | prepend: site.url }}">{{ project.title }}</a>
                 </div>
             </li>
             {% endfor %}
