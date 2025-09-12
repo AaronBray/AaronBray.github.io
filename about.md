@@ -5,7 +5,7 @@ title: About
 ---
 
 # Aaron Bray
-Ethical Hacker 
+Ethical Hacker --- Blog for CTF writeups and projects
 
 
 
