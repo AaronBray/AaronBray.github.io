@@ -7,6 +7,9 @@ description: Simple CTF write-up
 ---
 
 -We start by running a basic Nmap script scan to enumerate the open ports
+
+>:$ Nmap -sC <target_ip>
+
 Nmap shows ports 21(ftp), 80(http), & 2222(openssh)
 
 
