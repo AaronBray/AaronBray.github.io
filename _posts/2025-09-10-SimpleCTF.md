@@ -13,7 +13,7 @@ description: Simple CTF write-up
 {% endhighlight bash %}
 
 
-Nmap shows ports 21(ftp), 80(http), & 2222(openssh)
+Nmap shows ports: 21(ftp) -- 80(http) -- & 2222(openssh)
 
 
 Using Dirb to enumerate hidden directories, We find: 
@@ -28,8 +28,7 @@ Opening the webpage in our browser shows that:
 -CMS made simple is being used to run the website
 -Lets search for CMS exploits
 
-I originally tested the script found on exploitdb and within Kali's searchsploit directory for a possible SQL injection.
--ran script with -u http://xxxx argument --crack and -w (tried without --crack) - no success - did not work
+I tested and played around the CMS made simple exploit found on exploitdb as well as within Kali's searchsploit (exploit) directory for a possible SQL injection.
 
 Eventually found an alternate exploit script on GitHub for CMS made simple vulnerability
 This exploit Worked!
