@@ -1,8 +1,9 @@
 ---
 layout: post
-title: LazyAdmin writeup
+title: LazyAdmin
 date:   2025-09-09 11:07
 description: tryhackme writeup
+tags: tryhackme
 comments: false
 ---
 
