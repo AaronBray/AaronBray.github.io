@@ -6,16 +6,15 @@ title: projects
     <div class="post">
         <h1>Projects</h1>
         <ul>
-            {% for projects in site.projectfiles %}
+            {% for project in site.projectfiles %}
             <li>
                 <div class="post-time">
                     <i class="fa fa-calendar"></i>
-                    <time>{{ projects.date | date: "%d-%m-%Y" }}</time>
-                    <a href="{{ projects.url | prepend: site.url }}">{{ projects.title }}</a>
+                    <time>{{ project.date | date: "%d-%m-%Y" }}</time>
+                    <a href="{{ project.url | prepend: site.url }}">{{ project.title }}</a>
                 </div>
             </li>
             {% endfor %}
         </ul>
     </div>
 </div>
-
