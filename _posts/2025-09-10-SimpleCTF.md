@@ -39,7 +39,7 @@ ______________________
 We know have an email, username, password and hash.
 Lets attempt to bruteforce the hash
 
-Checking [hashes.com](https://hashes.com/en/decrypt/hash) and [crack station](www.crackstation.net) - nothing found
+Checking [hashes.com](https://hashes.com/en/decrypt/hash) and [crack station](https://crackstation.net/) - nothing found
 hashes.com Id hash as md5
 Tested john the ripper 
 Didnt work as expected and could not get any reliable output or any results
