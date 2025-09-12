@@ -41,7 +41,7 @@ Running this exploit script against the target IP shows:
 [+] Username found: mitch
 [+] Email found: admin@admin.com
 [+] Password found: 0c01f4468bd75d7a84c7eb73846e8d96
-{% highlight bash %}
+{% endhighlight bash %}
 ________________
 
 ![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image }Caption test
