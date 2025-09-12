@@ -21,7 +21,8 @@ I originally tested the script found on exploitdb and within Kali's searchsploit
 
 Eventually found an alternate exploit script on GitHub for CMS made simple vulnerability
 This exploit Worked!
-source:  https://github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3
+source:  [github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3](https://github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3)
+(Download, change file permissions and run script against target IP)
 Running the script against the target IP shows:
 
 [+] Salt for password found: 1dac0d92e9fa6bb2
@@ -37,7 +38,8 @@ ______________________
 
 We know have an email, username, password and hash.
 Lets attempt to bruteforce the hash
-check hashes.com and crack station - nothing found
+
+Checking [hashes.com](https://hashes.com/en/decrypt/hash) and [crack station](www.crackstation.net) - nothing found
 hashes.com Id hash as md5
 Tested john the ripper 
 Didnt work as expected and could not get any reliable output or any results
