@@ -81,7 +81,7 @@ Running this exploit script against the target IP shows:
 {% endhighlight bash %}
 ________________
 
-*add 
+*add python pic
 
 ______________________
 
@@ -95,6 +95,7 @@ Using hashes.com to identify the hash type shows this as an md5 hash
 
 Testing the hash without the salt in hashcat using autodetect mode shows that all the -m hashtype options do not work
 Lets add the salt to the hash and see if that works
+Adding the hash to the beggining is outputting errors
 We will need to add the salt to the end of hash -> passwordhash:salt
 
 >0c01f4468bd75d7a84c7eb73846e8d96:1dac0d92e9fa6bb2
@@ -104,48 +105,60 @@ Our second option shows that we can use:
 
 >m 20 (md5($salt.$pass))
 
-This hash type works and Hashcat was able to crack the hash!
+using the -m option,-a 0 option for wordlist attack mode, and the rockyou.txt password file we are able to crack the hash!
+>hashcat.exe -m 20 -a 0 hash.txt password_list.txt
+
+*Add hashcatpassword
 
 We now get our fifth answer
 
 >Password is -> secret
 
-We know have the username email, and cracked password
+We now have the username email, and cracked password
 Let's login to the webpage at /simple/admin/login
-logging in as mitch shows that the password is accepted
+Logging in as mitch shows that the password is accepted!
 
 Lets see where else we can use this information to login
 Lets try this login information to access the server via ssh
 Remember that ssh is being run on port 2222 (not port 22)
 
-Logging into ssh session on port 2222
-We can see that the credentials are accepted
+Logging into an ssh session as mitch on port 2222
+>ssh mitch@i<p> -p 2222
 
+We can see that the credentials are accepted
 This gives us our sixth answser
+
 >Answer: ssh
 
 Lets run - "/bin/bash" - to convert into a bash shell to make things easier
 Immediately we are shown the user.txt file
 
-Lets cat out this file to uncover the user flag
-We know have the initial User flag
+
+*Add user flag pic
 
 
->USER FLAG:  [not shows on purpose]
+Lets open this file to uncover the user flag
+We now have the initial user flag and our 7th answer
 
+
+>Answer: USER FLAG [not shows on purpose]
+
+
+______________________________________________________________
 
 Looking around the directories shows us another user 
 
->Answer: sunbath
+*sunbath pic
 
-_______________________________
+>Answer: sunbath
 
 We now need to escalate our privilege in order to gain to root flag
 Lets look for ways to get root
 Searching:
->:$ find / -type f -perm -04000 -ls 2>/dev/null-- listed files with suid set -- nothing promising was found
->:$ getcap -r / 2>/dev/null -- list enabled binary capabilities -- nothing promising was found
->:$ sudo -l -- shows that VIM commands are allowed to be run as sudo 
+>:$ sudo -l
+We see that VIM commands are allowed to be run as sudo
+
+*sudo pic
 
 Searching [FTGObins](https://gtfobins.github.io/) shows that we can use VIM to escalate our privilege:
 
@@ -162,12 +175,14 @@ Lets move into the root directory and capture the root flag
 We now have the root.txt flag file shown in the /root directory accessible
 When we cat out this file we can see that we have now uncovered the root flag!
 
-ROOT FLAG!!!!!!!!!
->Answer:[not shown on purpose]
+
+*Add root pic
+
+>Answer: ROOT FLAG!!!!!!!!! [not shown on purpose]
 
 
 Lessons:
--Try sudo -l first for privilege escalation attempts
+
 -If one exploit doesn't work- dont give up- find another ie. GitHub, exploitdb, writing your own, etc
 -Hashcat is easier on windows if you know -m hash type and you gain advantage of using gpu to crack password as opposed ti using linux withing a VM
 -JohnTheRipper is easier to run on linux than on windows
