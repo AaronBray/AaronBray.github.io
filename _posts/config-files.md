@@ -1,10 +1,4 @@
----
-layout: post
-title: Table of content
-date:   2015-12-12 
-description: For some big articles you can use table on content
-toc: true
----
+
 
 Above you can see how it looks like. 
 
