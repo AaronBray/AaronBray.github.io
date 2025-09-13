@@ -2,7 +2,7 @@
 layout: post
 title: Simple CTF
 date: 2025-09-01 16:25:06
-tags: tryhackme
+tags: tryhackme sqli VIM
 description: Simple CTF write-up
 ---
 
