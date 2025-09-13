@@ -108,7 +108,7 @@ Our second option shows that we can use:
 using the -m option,-a 0 option for wordlist attack mode, and the rockyou.txt password file we are able to crack the hash!
 >hashcat.exe -m 20 -a 0 hash.txt password_list.txt
 
-*Add hashcatpassword
+*Add hashcatpassword pic
 
 We now get our fifth answer
 
@@ -123,14 +123,20 @@ Lets try this login information to access the server via ssh
 Remember that ssh is being run on port 2222 (not port 22)
 
 Logging into an ssh session as mitch on port 2222
+{% highlight bash %}
 >ssh mitch@i<p> -p 2222
+{% endhighlight bash %}
 
 We can see that the credentials are accepted
 This gives us our sixth answser
 
 >Answer: ssh
 
-Lets run - "/bin/bash" - to convert into a bash shell to make things easier
+Lets run:
+{% highlight bash %}
+"/bin/bash"
+{% endhighlight bash %}
+This will convert into a bash shell
 Immediately we are shown the user.txt file
 
 
@@ -155,7 +161,9 @@ Looking around the directories shows us another user
 We now need to escalate our privilege in order to gain to root flag
 Lets look for ways to get root
 Searching:
->:$ sudo -l
+{% highlight bash %}
+:$ sudo -l
+>{% endhighlight bash %}
 We see that VIM commands are allowed to be run as sudo
 
 *sudo pic
@@ -163,8 +171,9 @@ We see that VIM commands are allowed to be run as sudo
 Searching [FTGObins](https://gtfobins.github.io/) shows that we can use VIM to escalate our privilege:
 
 Running the commnd:
->:$ sudo vim -c ':!/bin/sh'
-
+{% highlight bash %}
+:$ sudo vim -c ':!/bin/sh'
+{% endhighlight bash %}
 We can see this command was accepted and we are now the root user
 
 This gives our our seventh answer
