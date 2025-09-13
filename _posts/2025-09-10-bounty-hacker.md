@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Bounty Hacker writeup coming soon !
+title: Coming soon !
 date: 2025-09-10 16:25:06
-tags: hackthebox tryhackme
+tags: tryhackme
 description: Bounty Hacker Writeup - tryhackme
 ---
 # BOUNTY HACKER TRYHACKME WRITEUP
