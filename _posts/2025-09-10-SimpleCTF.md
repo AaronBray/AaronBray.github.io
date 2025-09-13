@@ -116,7 +116,7 @@ We will need to add the salt to the end of hash -> passwordhash:salt
 >0c01f4468bd75d7a84c7eb73846e8d96:1dac0d92e9fa6bb2
 
 
-Running autodetect mode now shows differenct -m options to try
+Running autodetect mode now shows different -m options to try
 
 
 ![img]({{ '/assets/images/9-simple-ctf.png' | relative_url }}){: .center-image }
@@ -124,11 +124,11 @@ Running autodetect mode now shows differenct -m options to try
 
 Our second option shows that we can use:
 
->m 20 (md5($salt.$pass))
+>-m 20 (md5($salt.$pass))
 
 
 
-Using the -m option,-a 0 option for wordlist attack mode, and the rockyou.txt password file 
+Using the -m option, -a 0 option for wordlist attack mode, and the rockyou.txt password file 
 We are able to crack the hash!
 
 
@@ -153,11 +153,12 @@ Lets try this login information to access the server via ssh
 Remember that ssh is being run on port 2222 (not port 22)
 
 Logging into an ssh session as mitch on port 2222
+We can see that the credentials are accepted
 {% highlight bash %}
 :$ ssh mitch@<ip> -p 2222
 {% endhighlight bash %}
 
-We can see that the credentials are accepted
+
 This gives us our sixth answser
 Question 6 asks? Where can you login with the details obtained?
 
@@ -167,7 +168,7 @@ Lets run:
 {% highlight bash %}
 "/bin/bash"
 {% endhighlight bash %}
-This will convert into a bash shell
+This will convert us into a bash shell
 Immediately we are shown the user.txt file
 
 
@@ -191,7 +192,7 @@ Looking around the directories shows us another user
 
 We now need to escalate our privilege in order to gain to root flag
 Lets look for ways to get root
-Searching:
+Running:
 {% highlight bash %}
 :$ sudo -l
 {% endhighlight bash %}
@@ -212,8 +213,8 @@ This gives our our seventh answer
 
 Lets move into the root directory and capture the root flag
 
-We now have the root.txt flag file shown in the /root directory accessible
-When we cat out this file we can see that we have now uncovered the root flag!
+The root.txt flag file shown in the /root directory should now be accessible
+When we cat out this file we can see that we have now captured the root flag!
 
 
 ![img]({{ '/assets/images/14-simple-ctf.png' | relative_url }}){: .center-image }
@@ -222,11 +223,13 @@ When we cat out this file we can see that we have now uncovered the root flag!
 
 
 Lessons:
--If one exploit doesn't work- dont give up- find another ie. GitHub, exploitdb, writing your own, etc
--Play around with different -m types, as well as adding salt to beginning or end of hash
+If one exploit doesn't work- dont give up- find another ie. GitHub, exploitdb, writing your own, etc
+Play around with different -m types, as well as adding salt to beginning or end of hash
 
-Remediation
-This box was able to be exploited due to un outdated web app that was vulnerable to sqli.
-We were able to enumerate usernames, passwords hashes and salts. 
-Using a password dictionary attack we were able to crack a weak password and gain user access. 
-Exploiting a vulnerability with VIM privilege allowed us to gain root access and uncover retricted files. 
+Remediation:
+This machine was able to be exploited through a web app that was vulnerable to a known sqli attack.
+I was able to enumerate usernames, password hashes and emails due to a lack of input validation/sterlization.
+Using a dictionary attack we were able to crack a weak password hash and gain user access. 
+Exploiting a vulnerability using a sudo VIM privilege escalation script allowed us to gain root access and uncover retricted files. 
+
+--Updating the webapp, Enforcing stricter password requirements, as well as increasing validation/sterlization efforts would prevent this type of attack in the future.
