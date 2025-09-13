@@ -7,7 +7,7 @@ tags: tryhackme
 comments: false
 ---
 
-
+#LAZY ADMIN WRITEUP 
 
 -Found port 22/80 open with nmap
 -enumerated directories with dirb
