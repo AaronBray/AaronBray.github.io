@@ -45,10 +45,6 @@ gobuster dir -u http://<target_ip> -w /path/to/wordlist/
 
 Using Dirb we find:
 
-
-![img]({{ '/assets/images/3-simple-ctf.png' | relative_url }}){: .center-image }
-
-
 {% highlight bash %}
 -/robots.txt   
 -/simple  
