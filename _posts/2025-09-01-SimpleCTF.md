@@ -102,8 +102,8 @@ ______________________
 
 
 We now have an email, username, and unencrypted password
+This gives us our 5th answer
 
-We now get our 5th answer
 Question 5 asks? What's the password?
 
 
