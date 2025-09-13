@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Coming Soon!
-date:   2025-09-10 11:07
+date:   2025-09-5 11:07
 description: tryhackme writeup
 tags: tryhackme
 comments: false
