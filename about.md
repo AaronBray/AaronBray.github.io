@@ -4,21 +4,17 @@ title: About
 
 ---
 
-# Aaron Bray
-Ethical Hacker --- Personal blog for CTF writeups and projects
+# Aaron Bray 
+## -Ethical Hacker-
+This is my personal page for CTF Write-Ups, and Personal Projects. 
+Do not hack this site or steal any of my work as your own. 
+What is posted here is intended for educational purposes only and should not be used for malicious intent.
+Remember only hack systems you have permission to hack :)
 
 
 
 
-link to original theme: [github.com/streetturtle/jekyll-clean-dark](https://github.com/streetturtle/jekyll-clean-dark)
 
-
-## Installation
-
-If you dont't have your own blog you can clone this repository and put your articles in a `_posts` folder.
-If you already have your own blog then I think you can clone this repository and copy-paste content keeping your `_posts` folder.
-
-After you will have to set up your `_config.yml`
 
 ## License
 
@@ -38,6 +34,12 @@ respective owners:
 * js/bootstrap.min.js - [bootstrap](http://getbootstrap.com)
 * css/bootstrap.min.css - [bootstrap](http://getbootstrap.com)
 * js/jquery.min.js - [jquery](https://jquery.com)
+
+ 
+link to original theme: [github.com/streetturtle/jekyll-clean-dark](https://github.com/streetturtle/jekyll-clean-dark)
+
+
+
 
 
 
