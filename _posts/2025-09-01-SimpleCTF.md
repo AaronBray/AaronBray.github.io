@@ -101,7 +101,7 @@ Running this exploit script against the target IP shows:
 ______________________
 
 
-We now have an email, username, and unencrypted password hash
+We now have an email, username, and unencrypted password
 
 We now get our 5th answer
 Question 5 asks? What's the password?
