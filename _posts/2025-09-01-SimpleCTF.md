@@ -26,12 +26,12 @@ Question #1 asks? How many services are running under port 1000?
 >Answer: 2
 
 
-
+Question #2 asks? What is running on the higher port?
 Adding the -sV flag and specifying port 2222 will give us our second answer.
 
 ![img]({{ '/assets/images/2-simple-ctf.png' | relative_url }}){: .center-image }
 
-Question #2 asks? What is running on the higher port?
+
 
 
 >Answer: ssh
