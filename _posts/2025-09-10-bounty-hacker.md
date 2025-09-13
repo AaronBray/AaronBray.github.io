@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Coming soon !
+title: Coming Soon !
 date: 2025-09-10 16:25:06
 tags: tryhackme
 description: Bounty Hacker Writeup - tryhackme
