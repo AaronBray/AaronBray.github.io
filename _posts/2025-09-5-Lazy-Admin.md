@@ -2,7 +2,7 @@
 layout: post
 title: Coming Soon!
 date:   2025-09-5 11:07
-description: tryhackme writeup
+description: tryhackme Lazy Admin CTF write-up
 tags: tryhackme
 comments: false
 ---
