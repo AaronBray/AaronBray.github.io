@@ -229,14 +229,10 @@ When we cat out this file we can see that we have now captured the root flag!
 >Answer: ROOT FLAG!!!!!!!!! [not shown on purpose]
 
 
-Lessons:
-If one exploit doesn't work- dont give up- find another ie. GitHub, exploitdb, writing your own, etc
-Play around with different -m types, as well as adding salt to beginning or end of hash
 
-Remediation:
+Findings:
 This machine was able to be exploited through a web app that was vulnerable to a known sqli attack.
-I was able to enumerate usernames, password hashes and emails due to a lack of input validation/sterlization.
-Using a dictionary attack we were able to crack a weak password hash and gain user access. 
+I was able to enumerate username, email, and password due to a lack of input validation/sterlization.
 Exploiting a vulnerability using a sudo VIM privilege escalation script allowed us to gain root access and uncover retricted files. 
 
---Updating the webapp, Enforcing stricter password requirements, as well as increasing validation/sterlization efforts would prevent this type of attack in the future.
+- Updating the webapp, Enforcing stricter password requirements, as well as increasing validation/sterlization efforts would prevent this type of attack in the future.
