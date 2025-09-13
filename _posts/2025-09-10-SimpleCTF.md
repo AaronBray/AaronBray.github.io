@@ -13,19 +13,29 @@ description: Simple CTF write-up
 {% endhighlight bash %}
 
 
-Nmap shows ports: 21(ftp) -- 80(http) -- & 2222(openssh)
+Nmap shows open ports: 21, 80, & 2222
 
-This gives us our fist two answers
+*Add pic 1-nmap
+
+Question #1 asks? How many services are running under port 1000?
+
 >Answer: 2
->ssh
+
+Question #2 asks? What is running on the higher port?
+Adding the -sV flag and specifying port 2222 will give us our second answer.
+
+*Add pic 2-nmap
+
+>Answer: ssh
 
 Turning our attention to the web server on port 80, we can use Dirb or gobuster to enumerate hidden directories. 
 {% highlight bash %}
-dirb http://<target_ip> 
+dirb http://<target_ip> --This will run a basic directory scan using the common.txt file located in /usr/share/wordlists/dirb/commmon.txt
+gobuster dir -u http://<target_ip> -w /path/to/wordlist/ -r  -- (-r) instructs gobuster to follow HTTP redirects
 {% endhighlight bash %}
->This will run a basic directory scan using the common.txt file located in /usr/share/wordlists/dirb/commmon.txt
 
-We find:
+
+Using Dirb we find:
 {% highlight bash %}
 -/robots.txt   
 -/simple  
@@ -33,20 +43,36 @@ We find:
 -/simple/admin/login
 {% endhighlight bash %}
 
-Opening the webpage in our browser shows that:
--CMS made simple is being used to run the website
--Lets search for CMS exploits
+*Add dirb pic
 
-I tested and played around the CMS made simple exploit found on exploitdb as well as within Kali's searchsploit (exploit) directory for a possible SQL injection.
+Double checking our results with gobuster we show the /simple directory
 
-Eventually found an alternate exploit script on GitHub for CMS made simple vulnerability
+
+*Add gobuster pic 1
+
+Enumerating this directory further shows us the /simple/admin page
+
+*Add gobuster pic 2
+
+Opening /simple in our web browser shows "This site is powered by CMS Made Simple version 2.2.8"
+Navigating to /simple/admin redirects us to /simple/admin/login.php and shows a login page also displaying CMS Made Simple
+A quick google search shows:
+"CMS Made Simple is a free, open-source content management system (CMS) that provides a web-based interface for developers and site owners to manage websites. It is written in PHP and is known for its flexibility and ease of use..."
+
+Lets search for CMS Made Simple exploits...
+
+I originally tested and played around the CMS made simple exploit found on exploitdb as well as within Kali's searchsploit (exploit) directory for a possible SQL injection.
+I wasnt able to get any of these exploits to work unfortunately. I decided to check online again for another exploit.
+Eventually found an alternate exploit script on GitHub for a CMS made simple sqli vulnerability
+Source:  [github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3](https://github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3)
 This exploit Worked as well as gave us our third and fourth answer
-source:  [github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3](https://github.com/Mahamedm/CVE-2019-9053-Exploit-Python-3)
 
 >Answer: CVE-2019-9053
 >Answer: sqli
 
+
 Running this exploit script against the target IP shows:
+>python3 46635.py -u http://<target_ip>/simple/ --crack -w /usr/share/wordlists/rockyou.txt
 {% highlight bash %}
 [+] Salt for password found: 1dac0d92e9fa6bb2
 [+] Username found: mitch
@@ -55,7 +81,7 @@ Running this exploit script against the target IP shows:
 {% endhighlight bash %}
 ________________
 
-![img]({{ '/assets/images/deer.jpg' | relative_url }}){: .center-image }Caption test
+*add 
 
 ______________________
 
@@ -63,22 +89,20 @@ ______________________
 We now have an email, username, password and hash.
 Lets attempt to bruteforce the hash
 
-Checking [hashes.com](https://hashes.com/en/decrypt/hash) and [crack station](https://crackstation.net/) - nothing found
-Using hashes.com to identify the hash type shows this as an md5 hash
+Checking [hashes.com](https://hashes.com/en/decrypt/hash) and [crack station](https://crackstation.net/) - Both sites failed to crack the hash
 Moving beyond online hash crackers lets load the hash into a text file and use Hashcate or JohnTheRipper to check against the rockyou password list
+Using hashes.com to identify the hash type shows this as an md5 hash
 
-Tested john the ripper - Didnt work as expected on windows and could not get any reliable output or any results
+Testing the hash without the salt in hashcat using autodetect mode shows that all the -m hashtype options do not work
+Lets add the salt to the hash and see if that works
+We will need to add the salt to the end of hash -> passwordhash:salt
 
-Running the hash in hashcat in autodetect mode shows that all -m hashtype options do not work
-Lets add the salt to the hash
-Adding the salt to the end of hash like so -> passwordhash:salt
+>0c01f4468bd75d7a84c7eb73846e8d96:1dac0d92e9fa6bb2
 
--0c01f4468bd75d7a84c7eb73846e8d96:1dac0d92e9fa6bb2
-
-running autodetect mode now shows differenct -m options to try
+Running autodetect mode now shows differenct -m options to try
 Our second option shows that we can use:
 
--m 20 (md5($salt.$pass))
+>m 20 (md5($salt.$pass))
 
 This hash type works and Hashcat was able to crack the hash!
 
