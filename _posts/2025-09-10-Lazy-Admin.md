@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LazyAdmin write-up coming soon!
+title: Coming Soon!
 date:   2025-09-10 11:07
 description: tryhackme writeup
 tags: tryhackme
