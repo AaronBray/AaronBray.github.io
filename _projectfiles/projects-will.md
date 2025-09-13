@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Coming Soon"
+title:  "Coming Soon!"
 date:   2017-09-17 10:47:45
 comments: false
 tags:
