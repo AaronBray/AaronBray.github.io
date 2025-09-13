@@ -1,6 +1,6 @@
 ---
 layout: post
-title: LazyAdmin
+title: LazyAdmin write-up coming soon!
 date:   2025-09-10 11:07
 description: tryhackme writeup
 tags: tryhackme
@@ -33,9 +33,9 @@ manager
 -used burpsuite to modify to request to bypyass filter and sent form and .phtml instead of .php
 -GOT USER FLAG
 
--netcat super unstable dropped connection 2-3 times
+(-netcat super unstable dropped connection 2-3 times)
 
--used walkthough for root after all perl escalation attempts failed
+-checked walkthough to get hint to next step
 -sudo -l shows that there is a 'backup.pl" file which shows /etc/copy.sh
 -/etc/copy is a reverse shell script to complete a connection for a remote listener
 -modified script to point to my ip
