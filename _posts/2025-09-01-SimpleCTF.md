@@ -101,8 +101,17 @@ Running this exploit script against the target IP shows:
 ______________________
 
 
-We now have an email, username, password and hash.
-Lets attempt to crack the hash
+We now have an email, username, and unencrypted password hash
+
+We now get our 5th answer
+Question 5 asks? What's the password?
+
+
+>Password is -> secret
+
+
+__________________________
+Just for fun, Lets attempt to crack the hash for extra practice
 
 Checking [hashes.com](https://hashes.com/en/decrypt/hash) and [crack station](https://crackstation.net/) - Both sites failed to crack the hash
 Lets load the hash into a text file and use Hashcate or JohnTheRipper to check against the rockyou password list
@@ -138,12 +147,8 @@ We are able to crack the hash!
 
 ![img]({{ '/assets/images/10-simple-ctf.png' | relative_url }}){: .center-image }
 
-We now get our 5th answer
-Question 5 asks? What's the password?
 
-
->Password is -> secret
-
+__________________________________________________________
 
 
 We now have the username email, and cracked password
