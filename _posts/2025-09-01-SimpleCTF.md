@@ -2,8 +2,8 @@
 layout: post
 title: Simple CTF
 date: 2025-09-01 16:25:06
-tags: tryhackme sqli VIM
-description: Simple CTF write-up
+tags: tryhackme sqli VIM 
+description: TryHackMe SimpleCTF CTF writeup 
 ---
 
 We start by running a Nmap scan to enumerate all open ports with the -p- argument
