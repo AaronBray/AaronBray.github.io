@@ -41,7 +41,7 @@ Using the following commands will allow us to download multiple files to our mac
 
 {% highlight bash %}
 $ prompt
-$ mget file1 files2 etc...
+$ mget file1 file2 file3 etc...
 {% endhighlight bash %}
 
 ![img]({{ '/assets/images/5-bountyhacker.png' | relative_url }}){: .center-image }
@@ -67,7 +67,9 @@ We can see what looks to be a list of passwords
 ![img]({{ '/assets/images/7-bountyhacker.png' | relative_url }}){: .center-image }
 
 Our next question asks? What service can you bruteforce with the text file found?
-Remembering our Nmap scan, lets see if we can bruteforce SSH access with the newly found username and password list
+Remembering our Nmap scan, 
+Lets see if we can bruteforce SSH access with the newly found username and password list
+
 
 We will use this script with hydra to attempt ssh bruteforce
 
@@ -75,7 +77,7 @@ We will use this script with hydra to attempt ssh bruteforce
 $ hydra -l <user> -P <passwd_file> ssh://<target_ip>
 {% endhighlight bash %}
 
-Looking at our scan results we can that hydra was able to find a valid password in the text file
+Looking at our scan results we can that hydra was able to find a valid password
 
 
 ![img]({{ '/assets/images/8-bountyhacker.png' | relative_url }}){: .center-image }
@@ -133,13 +135,13 @@ Lets run the command below
 $ sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
 {% endhighlight bash %}
 
-Afer running the command above we can now see that we are the root user by running the command below
-
+After running the command above, 
+We can now see that we are the root user by running the 'whoami' command
 {% highlight bash %}
 $ whoami
 {% endhighlight bash %}
 
-Lets now move into the root directory and capture the root flag and answer the final question
+Lets now move into the root directory and capture the root flag to answer the final question
 
 
 ![img]({{ '/assets/images/11-bountyhacker.png' | relative_url }}){: .center-image }
@@ -154,11 +156,18 @@ We now have our ROOT FLAG!
 
 
 
-Recap:
-This machine was able to be exploited due to a password file that was able to be accessed by the anonymous user.
-We were able to brute force access into an ssh session and escalate our privilege to uncover restricted files
 
-This attack could have been mitigated by ensuring sensitive files are reticted to unauthorized users
+
+
+
+
+
+Recap:
+This machine was able to be exploited due to an easily accessible password file
+We were able to brute force access into an ssh session
+We then escalated our privilege to uncover restricted files
+
+This attack could have been mitigated by ensuring sensitive files are restricted to unauthorized users
 
 
 
