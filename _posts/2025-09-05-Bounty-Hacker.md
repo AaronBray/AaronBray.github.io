@@ -6,7 +6,7 @@ tags: tryhackme
 description: TryHackMe Bounty Hacker Write-Up
 ---
 # BOUNTY HACKER 
-TRYHACKME CTF WRITEUP
+-TRYHACKME CTF WRITEUP-
 
 We start this CTF off with an IP address and a series of challenge questions
 Our first two questions tell us to start the target machine and enumerate the open ports
