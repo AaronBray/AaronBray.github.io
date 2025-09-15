@@ -154,7 +154,7 @@ We now have our ROOT FLAG!
 
 
 
-lESSONS:
+Recap:
 This machine was able to be exploited due to a password file that was able to be accessed by the anonymous user.
 We were able to brute force access into an ssh session and escalate our privilege to uncover restricted files
 
