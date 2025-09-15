@@ -7,7 +7,7 @@ description: TryHackMe Bounty Hacker Write-Up
 ---
 # BOUNTY HACKER 
 -TRYHACKME CTF WRITEUP- 
-[link](https://tryhackme.com/room/cowboyhacker)
+[Link To CTF](https://tryhackme.com/room/cowboyhacker)
 
 
 
