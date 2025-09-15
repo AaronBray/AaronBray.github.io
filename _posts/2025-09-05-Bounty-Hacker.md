@@ -26,7 +26,7 @@ Logging in with no username or password gives us the output that we are able to 
 
 ![img]({{ '/assets/images/2-bountyhacker.png' | relative_url }}){: .center-image }
 
-Lets try anonymous with no password...
+Lets try to log in as anonymous with no password...
 
 
 ![img]({{ '/assets/images/3-bountyhacker.png' | relative_url }}){: .center-image }
