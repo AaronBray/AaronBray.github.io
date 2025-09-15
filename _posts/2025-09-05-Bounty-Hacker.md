@@ -151,7 +151,7 @@ Lets now move into the root directory and capture the root flag to answer the fi
 ![img]({{ '/assets/images/11-bountyhacker.png' | relative_url }}){: .center-image }
 
 
-We now have our ROOT FLAG!
+We now have our ROOT FLAG !
 
 
 
