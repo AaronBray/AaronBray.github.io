@@ -6,7 +6,11 @@ tags: tryhackme ftp
 description: TryHackMe Bounty Hacker Write-Up
 ---
 # BOUNTY HACKER 
--TRYHACKME CTF WRITEUP-
+-TRYHACKME CTF WRITEUP- 
+[link](https://tryhackme.com/room/cowboyhacker)
+
+
+
 
 We start this CTF off with an IP address and a series of challenge questions
 Our first two questions tell us to start the target machine and enumerate the open ports
