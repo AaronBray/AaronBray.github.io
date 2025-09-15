@@ -2,7 +2,7 @@
 layout: post
 title: Bounty Hacker
 date: 2025-09-05 16:25:06
-tags: tryhackme
+tags: tryhackme ftp
 description: TryHackMe Bounty Hacker Write-Up
 ---
 # BOUNTY HACKER 
