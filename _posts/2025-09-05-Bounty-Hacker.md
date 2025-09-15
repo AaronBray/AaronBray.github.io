@@ -40,8 +40,8 @@ We can see that there are two interesting files
 Using the following commands will allow us to download multiple files to our machine
 
 {% highlight bash %}
-:$ prompt
-:$ mget file1 files2 etc...
+$ prompt
+$ mget file1 files2 etc...
 {% endhighlight bash %}
 
 ![img]({{ '/assets/images/5-bountyhacker.png' | relative_url }}){: .center-image }
@@ -72,7 +72,7 @@ Remembering our Nmap scan, lets see if we can bruteforce SSH access with the new
 We will use this script with hydra to attempt ssh bruteforce
 
 {% highlight bash %}
-:$ hydra -l <user> -P <passwd_file> ssh://<target_ip>
+$ hydra -l <user> -P <passwd_file> ssh://<target_ip>
 {% endhighlight bash %}
 
 Looking at our scan results we can that hydra was able to find a valid password in the text file
@@ -115,7 +115,7 @@ This give us our answer
 Lets attempt to escalate our privilege in order to capture the root flag
 
 {% highlight bash %}
-:$ sudo -l 
+$ sudo -l 
 {% endhighlight bash %}
 
 Running the command above shows that we have sudo permissions for /bin/tar
@@ -136,7 +136,7 @@ Lets run the command below
 Afer running the command above we can now see that we are the root user by running the command below
 
 {% highlight bash %}
-:$ whoami
+$ whoami
 {% endhighlight bash %}
 
 Lets now move into the root directory and capture the root flag and answer the final question
