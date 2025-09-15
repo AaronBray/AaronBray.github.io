@@ -7,7 +7,7 @@ description: TryHackMe SimpleCTF CTF Write-Up
 ---
 
 # SIMPLE CTF 
--TryHackME WRITE-UP-
+-TryHackMe WRITE-UP-
 
 
 Let's start by running a Nmap scan to enumerate all open ports with the -p- argument
