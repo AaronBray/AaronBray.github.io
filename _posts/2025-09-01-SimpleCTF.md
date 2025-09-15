@@ -6,9 +6,11 @@ tags: tryhackme sqli VIM
 description: TryHackMe SimpleCTF CTF Write-Up 
 ---
 
-# SIMPLE CTF WRITE-UP
+# SIMPLE CTF 
+TryHackME WRITE-UP
 
-We start by running a Nmap scan to enumerate all open ports with the -p- argument
+
+Let's start by running a Nmap scan to enumerate all open ports with the -p- argument
 
 {% highlight bash %}
 :$ Nmap -p- <target_ip>
