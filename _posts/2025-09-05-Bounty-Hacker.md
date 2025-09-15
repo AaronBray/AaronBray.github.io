@@ -1,6 +1,6 @@
 ---
 layout: post
-title: BOUNTY HACKER 
+title: Bounty Hacker
 date: 2025-09-05 16:25:06
 tags: tryhackme
 description: TryHackMe Bounty Hacker Write-Up
