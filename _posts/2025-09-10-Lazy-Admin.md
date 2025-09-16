@@ -28,7 +28,7 @@ manager
 -tried manager - WORKED!!!
 
 -tried to upload reverse php shell - failed - no shell
--created new reverse shell - fatrat- php - laptop died - hung out with sis and didn't try
+-created new reverse shell - fatrat- php - laptop died - 
 -used pentestmonkey reverse php shell - uploaded to media form
 -used burpsuite to modify to request to bypyass filter and sent form and .phtml instead of .php
 -GOT USER FLAG
