@@ -71,6 +71,7 @@ We can see what looks to be a list of passwords
 ![img]({{ '/assets/images/7-bountyhacker.png' | relative_url }}){: .center-image }
 
 Our next question asks? What service can you bruteforce with the text file found?
+
 Remembering our Nmap scan, 
 Lets see if we can bruteforce SSH access with the newly found username and password list
 
@@ -89,6 +90,7 @@ Looking at our scan results we can that hydra was able to find a valid password
 
 
 This gives us the answer to the next question
+
 What is the users password? 
 
 
@@ -132,7 +134,7 @@ Running the command above shows that we have sudo permissions for /bin/tar
 
 
 Searching [GTFObins](https://gtfobins.github.io/gtfobins/tar/#sudo) for tar 
-We can see that we have the ability to escalate our privilege and commands as root
+We can see that we have the ability run a tar command as root
 Lets run the command below
 
 {% highlight bash %}
