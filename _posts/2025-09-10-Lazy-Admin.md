@@ -50,12 +50,13 @@ Moving further into the directory into the "/content/as" page shows us that ther
 ![img]({{ '/assets/images/4-lazyadmin.png' | relative_url }}){: .center-image }
 
 
-I tested different credentials as well as a sqli injection but did not have any success
-I also found a "sweetrice" file upload vulnerability that may be possible, but also could not find a working exploit for this
+I tested different credentials as well as a sqli injection login bypass, but did not have any success
+I also found a "sweetrice" file upload vulnerability that may be possible, but this also failed for me
 
-Going back to the dirb scan I inspected alternate web pages that were enumerated
-Navigating to "/content/inc" we find a directory list and site map!
-We show 30 different files and direrectories here but one caught my eye... 
+Going back to our directory scan, lets inspected alternate web pages that were enumerated
+
+Navigating to "/content/inc" we find a directory list and site map
+We show ~30 different files and direrectories here, but one caught my eye... 
 mysql_backup/
 
 
@@ -80,21 +81,19 @@ Looking at this file we can see that it shows us an admin username and hashed pa
 ![img]({{ '/assets/images/8-lazyadmin.png' | relative_url }}){: .center-image }
 
 
-admin
-manager
-42f749ade7f9e195bf475f37a44cafcb 
+>manager
+>42f749ade7f9e195bf475f37a44cafcb 
 
 
 Lets try to crack this hash first with an online crack tool
-Using [haches.com](https://hashes.com/en/decrypt/hash)
-We are able to crack the hash 
+Using [hashes.com](https://hashes.com/en/decrypt/hash)
+We are able to crack the hash easily
 
 
 
 ![img]({{ '/assets/images/9-lazyadmin.png' | relative_url }}){: .center-image }
 
 
->Password123
 
 Let's try to Login with the new credentials at the login page...
 >Account: manager
@@ -144,7 +143,8 @@ Lets move into the /home directory and capture our root flag
 
 _________________
 
-We now got the User Flag
+We now got the User Flag !!!
+
 Lets try and escalate our privilege to get the root flag...
 
 
