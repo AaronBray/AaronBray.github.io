@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Coming Soon !
+title: Lazy Admin
 date:   2025-09-10 11:07
 description: TryHackMe Lazy Admin CTF Write-Up
 tags: tryhackme
