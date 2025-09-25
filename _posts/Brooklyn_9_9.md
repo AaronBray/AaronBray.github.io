@@ -1,0 +1,133 @@
+---
+layout: post
+title: Brooklyn Nine Nine
+date:   2025-09-10 11:07
+description: TryHackMe Lazy Admin CTF Write-Up
+tags: tryhackme
+comments: false
+---
+
+# Brooklyn Nine Nine 
+TRYHACKME CTF WRITE-UP
+https://tryhackme.com/room/brooklynninenine
+
+
+Lets start by enumerating open ports with Nmap
+
+We find ports 21 - 22 - 80 are open 
+
+
+![img]({{ '/assets/images/1-brooklyn.png' | relative_url }}){: .center-image }
+
+
+Adding flags to our nmap scan shows us that port 21 is an ftp server which allows anonymous login
+
+![img]({{ '/assets/images/2-brooklyn.png' | relative_url }}){: .center-image }
+
+Here i combined the -sC and the -sV flag into -sCV to our nmap scan
+This runs a basic script scan as well as a version scan 
+
+
+
+Lets go ahead and login to the ftp server as anonymous
+
+
+![img]({{ '/assets/images/3-brooklyn.png' | relative_url }}){: .center-image }
+
+
+Now that we are logged in
+We can now see a file labeled "note_to_jake.txt"
+Lets download this file to our machine using the "get" command
+
+
+
+![img]({{ '/assets/images/4-brooklyn.png' | relative_url }}){: .center-image }
+
+
+
+Opening this file shows a note from a user named "Amy" telling "Jake" that his password is weak
+As well as mentioning someone named "holt" who appears to be a boss/supervisor
+
+![img]({{ '/assets/images/5-brooklyn.png' | relative_url }}){: .center-image }
+
+
+Jake seems like an easy target...
+Lets see if we can use a password list to bruteforce ssh access into Jakes profile
+
+Using hydra, lets test the rockyou text file to see if ssh access is possible
+
+
+
+>hydra -l Jake -P /usr/share/wordlists/rockyou.txt ssh://10.201.84.91
+
+
+
+A few seconds later we can see that the password was successfully cracked
+
+
+
+![img]({{ '/assets/images/6-brooklyn.png' | relative_url }}){: .center-image }
+
+
+
+
+
+Lets go ahead and login to an ssh session using our newly acquired username and password
+
+>Username: Jake    Password:  [REDACTED]
+
+
+We can see that the password was accepted
+Lets look for the user flag 
+
+Looking in our current directory we can see a few hidden files but not the user flag
+
+
+![img]({{ '/assets/images/7-brooklyn.png' | relative_url }}){: .center-image }
+
+
+
+
+Moving back a directory we can see users "amy" holt" & "jake"
+Lets check out the user: "holt"
+
+
+Here we find the USER FLAG !!!
+
+
+![img]({{ '/assets/images/8-brooklyn.png' | relative_url }}){: .center-image }
+
+
+Let's look for ways to escalate our privilege to gain the root flag
+
+Running the command 
+
+>$ sudo -l 
+
+We can see that we can run the "less" command as sudo
+
+
+
+![img]({{ '/assets/images/9-brooklyn.png' | relative_url }}){: .center-image }
+
+
+
+searching [GTFObins](https://gtfobins.github.io/gtfobins/less/#sudo) gives us a script we can run to escalate our privilege to read files as sudo
+
+
+>sudo less /file/to/read
+
+
+Lets run the command:
+
+
+>sudo less /root/root.txt
+
+
+This command is accepted and gives us our ROOT FLAG !
+
+![img]({{ '/assets/images/10-brooklyn.png' | relative_url }}){: .center-image }
+
+
+
+
