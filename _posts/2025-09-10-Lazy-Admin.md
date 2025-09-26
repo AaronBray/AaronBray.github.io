@@ -9,7 +9,7 @@ comments: false
 
 #LAZY ADMIN WRITEUP 
 
-[](https://tryhackme.com/room/lazyadmin)
+[tryhackme.com/room/lazyadmin](https://tryhackme.com/room/lazyadmin)
 
 
 
