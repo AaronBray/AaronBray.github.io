@@ -8,7 +8,6 @@ comments: false
 ---
 
 #LAZY ADMIN WRITEUP 
-
 [tryhackme.com/room/lazyadmin](https://tryhackme.com/room/lazyadmin)
 
 
