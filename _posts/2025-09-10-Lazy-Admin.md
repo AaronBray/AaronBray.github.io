@@ -143,7 +143,7 @@ Lets start our listner and navigate to the reverse shell we just uploaded by cli
 We now get a successful shell on our machine connecting to the target machine
 
 
-Lets move into the /home directory and capture our root flag
+Lets move into the /home directory and capture the user flag
 
 
 
@@ -212,7 +212,14 @@ Lets cat out /root/root.txt to capture the ROOT FLAG
 We have now captured the root flag and pwnd the machine !
 
 
+# LESSONS LEARNED:
 
+This machine was able to be exploited due to an easily accessible credential file found on an unfinished webserver
+We were able to crack a weak password hash, bypass an upload filter, and compromise the system by gaining access as an authorized user
+We were later able to abuse these privileges by modifying an accessible script with root access 
+
+This attack could have been prevented by emplimenting stronger passwords 
+As well as ensuring credential files are not easily accessible
 
 
 
