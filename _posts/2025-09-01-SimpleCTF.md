@@ -232,7 +232,7 @@ When we cat out this file we can see that we have now captured the root flag!
 
 
 
-Findings:
+# LESSONS LEARNED:
 This machine was able to be exploited through a web app that was vulnerable to a known sqli attack.
 I was able to enumerate username, email, and password due to a lack of input validation/sterlization.
 Exploiting a vulnerability using a sudo VIM privilege escalation script allowed us to gain root access and uncover retricted files. 
