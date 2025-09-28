@@ -168,7 +168,7 @@ We now have our ROOT FLAG !
 
 
 
-# LESSONS LEARNED
+# LESSONS LEARNED:
 This machine was able to be exploited due to an easily accessible password file
 We were able to brute force access into an ssh session
 We then escalated our privilege to uncover restricted files
