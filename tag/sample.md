@@ -1,5 +1,5 @@
 ---
 layout: tag_index
-tag: images 
+tag: sample
 ---
 https://aaronbray.github.io/write-ups
