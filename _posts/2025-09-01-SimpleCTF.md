@@ -20,7 +20,7 @@ $ Nmap -p- <target_ip>
 Nmap shows open ports: 21, 80, & 2222
 
 
-![img]({{ '/assets/images/1-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/1-simple-ctf.png' | relative_url }}){: .center-image }
 
 Question #1 asks? How many services are running under port 1000?
 
@@ -31,7 +31,7 @@ Question #1 asks? How many services are running under port 1000?
 Question #2 asks? What is running on the higher port?
 Adding the -sV flag and specifying port 2222 will give us our second answer.
 
-![img]({{ '/assets/images/2-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/2-simple-ctf.png' | relative_url }}){: .center-image }
 
 
 
@@ -61,16 +61,16 @@ Using Dirb we find:
 Double checking our results with gobuster we show: /simple
 
 
-![img]({{ '/assets/images/4-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/4-simple-ctf.png' | relative_url }}){: .center-image }
 
 Enumerating this directory further shows us the /simple/admin directory
 
-![img]({{ '/assets/images/5-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/5-simple-ctf.png' | relative_url }}){: .center-image }
 
 Opening /simple in our web browser shows "This site is powered by CMS Made Simple version 2.2.8"
 Navigating to /simple/admin redirects us to /simple/admin/login.php and shows a login page also displaying CMS Made Simple
 
-![img]({{ '/assets/images/6-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/6-simple-ctf.png' | relative_url }}){: .center-image }
 
 A quick google search shows:
 "CMS Made Simple is a free, open-source content management system (CMS) that provides a web-based interface for developers and site owners to manage websites. It is written in PHP and is known for its flexibility and ease of use..."
@@ -98,7 +98,7 @@ Running this exploit script against the target IP shows:
 >$ python3 exploit.py -u http://<target_ip>/simple/ --crack -w /usr/share/wordlists/rockyou.txt
 
 
-![img]({{ '/assets/images/8-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/8-simple-ctf.png' | relative_url }}){: .center-image }
 
 ______________________
 
@@ -132,7 +132,7 @@ We will need to add the salt to the end of hash -> passwordhash:salt
 Running autodetect mode now shows different -m options to try
 
 
-![img]({{ '/assets/images/9-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/9-simple-ctf.png' | relative_url }}){: .center-image }
 
 
 Our second option shows that we can use:
@@ -147,7 +147,7 @@ We are able to crack the hash!
 
 >hashcat.exe -m 20 -a 0 hash.txt passwd_list.txt
 
-![img]({{ '/assets/images/10-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/10-simple-ctf.png' | relative_url }}){: .center-image }
 
 
 __________________________________________________________
@@ -181,7 +181,7 @@ This will convert us into a bash shell
 Immediately we are shown the user.txt file
 
 
-![img]({{ '/assets/images/11-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/11-simple-ctf.png' | relative_url }}){: .center-image }
 
 
 Lets open this file to uncover the user flag
@@ -195,7 +195,7 @@ ______________________________________________________________
 Question 6 asks? Is there any other user in the home directory? What's its name?
 Looking around the directories shows us another user 
 
-![img]({{ '/assets/images/12-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/12-simple-ctf.png' | relative_url }}){: .center-image }
 
 >Answer: sunbath
 
@@ -207,7 +207,7 @@ $ sudo -l
 {% endhighlight bash %}
 We see that VIM commands are allowed to be run as sudo
 
-![img]({{ '/assets/images/13-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/13-simple-ctf.png' | relative_url }}){: .center-image }
 
 Searching [FTGObins](https://gtfobins.github.io/) shows that we can use VIM to escalate our privilege:
 
@@ -226,7 +226,7 @@ The root.txt flag file shown in the /root directory should now be accessible
 When we cat out this file we can see that we have now captured the root flag!
 
 
-![img]({{ '/assets/images/14-simple-ctf.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/simplectf/14-simple-ctf.png' | relative_url }}){: .center-image }
 
 >Answer: ROOT FLAG!!!!!!!!! [not shown on purpose]
 
