@@ -43,7 +43,6 @@ ________________________________________________________________________________
 This is my personal page for CTF Write-Ups, and Personal Projects. 
 Everything published here was done with explicit permission and/or without malicious action
 <br>
-<br>
 Do not hack this site or steal any of my work as your own. 
 What is posted here is intended for educational purposes only and should not be used for malicious intent.
 Remember only hack systems you have permission to hack :)
