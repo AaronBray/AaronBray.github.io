@@ -41,6 +41,7 @@ ________________________________________________________________________________
 ## -Ethical Hacker-
 
 This is my personal page for CTF Write-Ups, and Personal Projects. 
+Everything published here was done with explicit permission and/or without malicious action
 <br>
 <br>
 Do not hack this site or steal any of my work as your own. 
