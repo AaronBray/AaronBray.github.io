@@ -10,12 +10,9 @@ comments: false
 
 
 We start of by enumerating the open ports with nmap
+
 Looking at our output we see:
 {% highlight bash %}
-map 10.201.65.240
-Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-12 21:31 MDT
-Nmap scan report for 10.201.65.240
-Host is up (0.19s latency).
 Not shown: 989 closed tcp ports (reset)
 PORT    STATE SERVICE
 21/tcp  open  ftp
@@ -43,24 +40,25 @@ Running our Nmap scan with the -sCV flag shows us where to find "the key"
 |_    http://localhost/key_rev_key <- You will find the key here!!!
 {% endhighlight bash %}
 
-Here we can see a blantant hint showing the directory path of the secret
+Here we can see text that shows us the directory path of the secret key
 
 
 **************2
 
-Moving here we can download the key_rev_key file
+Moving here on our webpage we can download the key_rev_key file
 {% highlight bash %}
 http://x.x.x.x/key_rev_key
 {% endhighlight bash %}
 
 **************3
 
-Looking at this file we can see its an elf file and already compiled
+Looking at this file we can see it's an elf file and already compiled
 
 lets run the program:
-
-./key_rev_key
 {% highlight bash %}
+./key_rev_key
+{% endhighlight bash %}
+
 permission denied - we will have to modify permissions
 
 {% highlight bash %}
@@ -71,7 +69,7 @@ Now lets run it again
 
 **************4
 
-Looks like its asking for a name
+Looks like it's asking for a name
 
 
 I tested willy, mrwonka,& Charlie but they all failed 
@@ -80,7 +78,7 @@ I tested willy, mrwonka,& Charlie but they all failed
 Lets run strings on the file for more clues
 
 {% highlight bash %}
->strings key_rev_key 
+$ strings key_rev_key 
 {% endhighlight bash %}
 
 
@@ -92,7 +90,7 @@ b'-VkgXhFf6sAEcAwrC6YR-SZbiuSb8ABXeQuvhcGSQzY='
  Keep its safe
 {% endhighlight bash %}
 
-Here we can see the key and the answer to ? #1
+Here we can see the key and the answer to quewstion #1
 
 {% highlight bash %}
  congratulations you have found the key:   
@@ -121,7 +119,7 @@ PORT   STATE SERVICE VERSION
 
 
 
-Yup!Anonymous is allowed
+Anonymous is allowed ! 
 
 Lets logon to the ftp server
 
@@ -130,7 +128,7 @@ Lets logon to the ftp server
 
 We see 'gum_room.txt' file
 
-lets download this and inspect it
+Lets download this and inspect it
 
 {% highlight bash %}
 >> get gum_room.jpg
