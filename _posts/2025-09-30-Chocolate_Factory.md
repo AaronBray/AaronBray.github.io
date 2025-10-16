@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Chocolate Factory
-date:   2025-09-30 11:00
+date:   2025-09-30 11:05
 description: TryHackMe chocolate factory CTF Write-Up
 tags: tryhackme 
 comments: false
