@@ -28,7 +28,7 @@ PORT    STATE SERVICE
 125/tcp open  locus-map                     
 {% endhighlight bash %}
 
-![Battery Widget]({{ '/assets/images/batWid1.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/1-wonka.png' | relative_url }})
 
 
 Running our Nmap scan with the -sCV flag shows us where to find "the key"
