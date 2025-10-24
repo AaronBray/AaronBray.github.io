@@ -22,7 +22,7 @@ Running this gives us the answers to the first 3 questions
 
 {% highlight html %}
 {% raw %}
-![img]({{ '/assets/images/anon/1-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/1-anon.png' | relative_url }})
 {% endraw %}
 {% endhighlight html %}
 
@@ -42,7 +42,7 @@ $ smbmap -H <target_IP>
 Running this we can see the answer to question 4
 
 
-![img]({{ '/assets/images/anon/2-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/2-anon.png' | relative_url }})
 >
 There's a share on the user's computer.  What's it called?
 >
@@ -65,7 +65,7 @@ $ ftp anonymous@<target_IP>
 
 We can see a directory named scripts...interesting...:
 
-![img]({{ '/assets/images/anon/3-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/3-anon.png' | relative_url }})
 
 
 Lets download the files inside to our local machine
@@ -79,7 +79,7 @@ ftp> mget clean.sh removed_files.log to_do.txt
 Lets inspect 'clean.sh'
 Looking at this shows us not only a bash script, but a scheduled task
 
-![img]({{ '/assets/images/anon/4-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/4-anon.png' | relative_url }})
 
 
 Let's modify this and reupload it to the target machine 
@@ -98,7 +98,7 @@ Lets replace the contents of clean.sh with the following:
 {% endhighlight bash %}
 
 
-![img]({{ '/assets/images/anon/5-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/5-anon.png' | relative_url }})
 
 
 Now lets start up our netcat listener 
@@ -114,20 +114,20 @@ Now lets go back to the FTP server and upload the new file, replacing the old sc
 ftp> put clean.sh
 {% endhighlight bash %}
 
-![img]({{ '/assets/images/anon/6-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/6-anon.png' | relative_url }})
 
 
 
 Within a few moments we get a connection back to our listener
 
 
-![img]({{ '/assets/images/anon/7-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/7-anon.png' | relative_url }})
 
 
 We can immediately see the user flag:
 
 
-![img]({{ '/assets/images/anon/8-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/8-anon.png' | relative_url }})
 
 
 We now have access to the target machine and have captured the user flag
@@ -144,7 +144,7 @@ We cannot run sudo -l...
 But running the "id" command 
 We can see this user has access to the lxd group
 
-![img]({{ '/assets/images/anon/9-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/9-anon.png' | relative_url }})
 
 
 
@@ -173,7 +173,7 @@ $ sudo bash build-alpine
 
 Check for the .tar.gz file:
 
-![img]({{ '/assets/images/anon/10-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/10-anon.png' | relative_url }})
 
 Create a web server to transfer the file to the victim machine 
 
@@ -201,9 +201,9 @@ lxc config device add anon mydevice disk source=/ path=/mnt/root recursive=true
 lxc start anon
 {% endhighlight bash %}
 
-![img]({{ '/assets/images/anon/11-anon.png' | relative_url }}){: .center-image }
-![img]({{ '/assets/images/anon/12-anon.png' | relative_url }}){: .center-image }
-![img]({{ '/assets/images/anon/13-anon.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/anon/11-anon.png' | relative_url }})
+![img]({{ '/assets/images/anon/12-anon.png' | relative_url }})
+![img]({{ '/assets/images/anon/13-anon.png' | relative_url }})
 
 
 We can now run 'lxc exec anon /bin/sh' to get root:
@@ -214,7 +214,7 @@ $ lxc exec anon /bin/sh
 
 
 
-![img]({{ '/assets/images/anon/14-anon.png' | relative_url }}){: .center-image 
+![img]({{ '/assets/images/anon/14-anon.png' | relative_url }})
 
 
 We then get the flag on the /mnt directory where we had mounted our root folder to from the earlier command
@@ -225,7 +225,7 @@ cat root.txt
 {% endhighlight bash %}
 
 
-![img]({{ '/assets/images/anon/15-anon.png' | relative_url }}){: .center-image 
+![img]({{ '/assets/images/anon/15-anon.png' | relative_url }})
 
 
 WE HAVE NOW PWND THE MACHINE AND ESCALATED PRIVILEGES TO CAPTURE THE ROOT FLAG
