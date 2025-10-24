@@ -94,13 +94,13 @@ This gives us the answer to the next question
 What is the users password? 
 
 
->Answer: RedDr4gonSynd1cat3
+>Answer: [redacted]
 
 
 Lets now log in via SSH with our username and password
 
 {% highlight bash %}
-Username: lin     Password: RedDr4gonSynd1cat3
+Username: lin     Password: [redacted]
 {% endhighlight bash %}
 
 
@@ -115,7 +115,7 @@ This give us our answer
 
 
 
->Answer: THM{CR1M3_SyNd1C4T3}
+>Answer: [redacted]
 
 
 
@@ -157,7 +157,7 @@ We now have our ROOT FLAG !
 
 
 
->Answer: THM{80UN7Y_h4cK3r}
+>Answer: [redacted]
 
 
 
