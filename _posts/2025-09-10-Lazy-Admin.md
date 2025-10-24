@@ -7,7 +7,7 @@ tags: tryhackme
 comments: false
 ---
 
-#LAZY ADMIN WRITEUP 
+# LAZY ADMIN WRITEUP 
 [tryhackme.com/room/lazyadmin](https://tryhackme.com/room/lazyadmin)
 
 
