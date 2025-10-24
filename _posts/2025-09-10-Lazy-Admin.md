@@ -7,8 +7,8 @@ tags: tryhackme
 comments: false
 ---
 
-# LAZY ADMIN WRITEUP 
-[tryhackme.com/room/lazyadmin](https://tryhackme.com/room/lazyadmin)
+# LAZY ADMIN =
+[LINK TO CTF](https://tryhackme.com/room/lazyadmin)
 
 
 
