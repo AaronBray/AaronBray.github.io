@@ -17,7 +17,7 @@ Our first two questions tell us to start the target machine and enumerate the op
 
 Lets run a basic Nmap scan against the target IP
 
-![img]({{ '/assets/images/1-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/1-bountyhacker.png' | relative_url }}){: .center-image }
 
 We find open ports: 21 - 22 - 80
 
@@ -28,18 +28,18 @@ This gives us a hint that there is a file that can be read
 Lets see if we can log on to the ftp server
 Logging in with no username or password gives us the output that we are able to login as "anonymous"
 
-![img]({{ '/assets/images/2-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/2-bountyhacker.png' | relative_url }}){: .center-image }
 
 Lets try to log in as anonymous with no password...
 
 
-![img]({{ '/assets/images/3-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/3-bountyhacker.png' | relative_url }}){: .center-image }
 
 As you can see the ftp server allows login as the anonymous user without authentication
 
 We can see that there are two interesting files
 
-![img]({{ '/assets/images/4-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/4-bountyhacker.png' | relative_url }}){: .center-image }
 
 Using the following commands will allow us to download multiple files to our machine
 
@@ -48,14 +48,14 @@ $ prompt
 $ mget file1 file2 file3 etc...
 {% endhighlight bash %}
 
-![img]({{ '/assets/images/5-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/5-bountyhacker.png' | relative_url }}){: .center-image }
 
 
 Now that we have the two downloaded text files on our machine
 Lets inspect the task file
 
 
-![img]({{ '/assets/images/6-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/6-bountyhacker.png' | relative_url }}){: .center-image }
 
 
 We now have our answer. 
@@ -68,7 +68,7 @@ Turning our attention to the "locks.txt" file
 We can see what looks to be a list of passwords
 
 
-![img]({{ '/assets/images/7-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/7-bountyhacker.png' | relative_url }}){: .center-image }
 
 Our next question asks? What service can you bruteforce with the text file found?
 
@@ -85,7 +85,7 @@ $ hydra -l <user> -P <passwd_file> ssh://<target_ip>
 Looking at our scan results we can that hydra was able to find a valid password
 
 
-![img]({{ '/assets/images/8-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/8-bountyhacker.png' | relative_url }}){: .center-image }
 
 
 
@@ -108,7 +108,7 @@ Immediately we are able capture the USER FLAG
 
 
 
-![img]({{ '/assets/images/9-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/9-bountyhacker.png' | relative_url }}){: .center-image }
 
 
 This give us our answer
@@ -129,7 +129,7 @@ $ sudo -l
 Running the command above shows that we have sudo permissions for /bin/tar
 
 
-![img]({{ '/assets/images/10-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/10-bountyhacker.png' | relative_url }}){: .center-image }
 
 
 
@@ -150,7 +150,7 @@ $ whoami
 Lets now move into the root directory and capture the root flag to answer the final question
 
 
-![img]({{ '/assets/images/11-bountyhacker.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/bountyhacker/11-bountyhacker.png' | relative_url }}){: .center-image }
 
 
 We now have our ROOT FLAG !
