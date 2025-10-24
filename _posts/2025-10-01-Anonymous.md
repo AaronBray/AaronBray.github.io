@@ -9,7 +9,7 @@ comments: false
 
 # ANONYMOUS
 -TRYHACKME CTF WRITEUP-
-[Link To CTF](https://tryhackme.com/room/anonymous))
+[Link To CTF](https://tryhackme.com/room/anonymous)
 
 
 
