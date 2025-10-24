@@ -6,8 +6,9 @@ description: TryHackMe chocolate factory CTF Write-Up
 tags: tryhackme 
 comments: false
 ---
-
-
+# CHOCOLATE FACTORY
+-TRYHACKME CTF WRITEUP-
+[Link To CTF](https://tryhackme.com/room/chocolatefactory)
 
 We start of by enumerating the open ports with nmap
 
