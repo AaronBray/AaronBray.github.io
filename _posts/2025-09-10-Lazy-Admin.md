@@ -9,7 +9,7 @@ comments: false
 
 # LAZY ADMIN 
 -TRYHACKME CTF WRITEUP-
-[LINK TO CTF](https://tryhackme.com/room/lazyadmin)
+[Link TO CTF](https://tryhackme.com/room/lazyadmin)
 
 
 
