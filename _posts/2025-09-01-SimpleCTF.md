@@ -109,7 +109,7 @@ This gives us our 5th answer
 Question 5 asks? What's the password?
 
 
->Password is -> secret
+>Password is -> [redacted]
 
 
 __________________________
@@ -188,7 +188,7 @@ Lets open this file to uncover the user flag
 We now have the initial user flag and our 7th answer
 
 
->Answer: USER FLAG [not shows on purpose]
+>Answer: [redacted]
 
 
 ______________________________________________________________
@@ -228,7 +228,7 @@ When we cat out this file we can see that we have now captured the root flag!
 
 ![img]({{ '/assets/images/simplectf/14-simple-ctf.png' | relative_url }}){: .center-image }
 
->Answer: ROOT FLAG!!!!!!!!! [not shown on purpose]
+>Answer: [redacted]
 
 
 
