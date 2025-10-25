@@ -1,0 +1,225 @@
+---
+layout: post
+title: Mr.Robot
+date:   2025-10-01 11:05
+description: TryHackMe chocolate factory CTF Write-Up
+tags: tryhackme lxd 
+comments: false
+---
+# Mr. Robot
+
+
+
+Startin off with an Nmap scan 
+We can see port 22, 80, and 443 are open
+
+![img]({{ '/assets/images/robot/1-robot.png' | relative_url }}){: .center-image }
+
+Navigiating to the home web page shows us a really cool Mr. Robot themed interactive site
+As cool as this is, there is not much for us to exploit here.
+
+
+![img]({{ '/assets/images/robot/2-robot.png' | relative_url }}){: .center-image }
+
+
+Lets further enumerate the web directories
+
+
+> gobuster dir -u http://<TARGET_IP> -w -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt 
+
+
+
+![img]({{ '/assets/images/robot/3-robot.png' | relative_url }}){: .center-image }
+
+
+/login and /wp-login take us to the same wordpress login page
+As we dont have any usernames or passwords we will need to come back to this
+
+![img]({{ '/assets/images/robot/4-robot.png' | relative_url }}){: .center-image }\
+
+/robots.txt shows flag 1 and a 'focity.dic' (dictionary) file
+
+
+![img]({{ '/assets/images/robot/5-robot.png' | relative_url }}){: .center-image }
+
+
+
+Moving to the key directory gives us Key 1:
+
+
+>http://x.x.x.x/key-1-of-3.txt
+
+
+_______________________
+
+Let's turn our attention back to the dictionary file at /fsocity.dic
+Moving here shows us a long list of what we can assume are usernames and passwords
+
+
+![img]({{ '/assets/images/robot/6-robot.png' | relative_url }}){: .center-image }
+
+Running a scan with wpscan didn't turn up anything
+
+Let's user hydra to attempt to bruteforce a username and then a password
+
+Using burpsuite to capture a failed login
+We can then get the form data and error message needed for the attack
+
+
+Moving to the login page enter false credentials and capture the request in Burpsuite
+Enter: 
+username: test
+password: test 
+
+![img]({{ '/assets/images/robot/7-robot.png' | relative_url }}){: .center-image }
+
+
+![img]({{ '/assets/images/robot/8-robot.png' | relative_url }}){: .center-image }
+
+
+We now have the information we need to plug into hydra
+
+>hydra -L fsocity.dic -p test <target_ip> http-post-form "/wp-login:log=^USER^&pwd=^USER^:Invalid username" 
+
+
+------------------
+To better understand this command see this excerpt from [Hydra Module-Specific Options](https://labex.io/tutorials/hydra-explore-hydra-module-specific-options-550767)
+hydra: The command to invoke Hydra.
+-l <username>: Specifies a single username to use for the attack. If you have a list of usernames, you can use the -L <username_list> option instead.
+-P <password_list>: Specifies the path to a file containing a list of passwords to try.
+<target_ip>: The IP address of the target server.
+http-post-form: Specifies that we are using the HTTP POST form module. This module is designed to attack web forms that use the POST method.
+"<url>:<post_data>:<failure_string>": This is a crucial part that tells Hydra how to interact with the login form.
+
+    <url>: The path to the login script or page that handles the POST request (e.g., /login.php).
+    <post_data>: The data that will be sent in the body of the POST request. This typically includes the names of the username and password fields from the HTML form, along with placeholders for the username and password that Hydra will fill in. The placeholders are usually ^USER^ for the username and ^PASS^ for the password (e.g., username=^USER^&password=^PASS^).
+    <failure_string>: A string that appears in the response of a failed login attempt. Hydra uses this string to determine if a login attempt was unsuccessful. You need to identify this string by manually attempting a login with incorrect credentials and observing the response.
+---------------------
+
+
+Within a few moments we get a Valid Username
+
+![img]({{ '/assets/images/robot/9-robot.png' | relative_url }}){: .center-image }
+
+
+Let's capture a new failed login message and modify our hydra attack 
+This time we will enter the valid username with a known false password
+
+
+![img]({{ '/assets/images/robot/10-robot.png' | relative_url }}){: .center-image }
+
+
+
+> hydra -l Elliot -P mrrobot 10.201. http-post-form "/wp-login.php:log=^USER^&pwd=^PASS^:The password you entered for the username" -t 30
+
+
+We know have a valid username and a valid password
+
+![img]({{ '/assets/images/robot/11-robot.png' | relative_url }}){: .center-image }1
+
+
+Let's user this to login
+
+
+Username:  Elliot 
+Passowrd:  ER28-0652
+
+
+Once logged in and taking a look around
+We can see that the editor page is vulnerable to a reverse shell script upload
+
+![img]({{ '/assets/images/robot/12-robot.png' | relative_url }}){: .center-image }
+
+There is a 404 page that includes a php script
+Lets modify this script with the pentest monkeey reverse php script
+
+https://github.com/pentestmonkey/php-reverse-shell
+
+
+![img]({{ '/assets/images/robot/13-robot.png' | relative_url }}){: .center-image }
+
+Let's now start a netcat listener and then navigate to the 404 page 
+
+> nv -lvnp <port>
+
+> http://10.201.23.83/wp-content/themes/twentyfiftenen/404.php
+
+
+After navigating to the 404 page we get a reverse connection
+
+![img]({{ '/assets/images/robot/14-robot.png' | relative_url }}){: .center-image }
+
+We can stabilize our shell with the command below:
+
+> python3 -c 'import pty; pty.spawn("/bin/bash")'
+
+
+
+Moving into the /home directory we can see the user 'robot'
+
+We are not allowed to read the key file but we can read the md5 password hash file
+
+![img]({{ '/assets/images/robot/15-robot.png' | relative_url }}){: .center-image }
+
+
+Putting this into an online cracker shows us our unhashed password quickly
+
+https://hashes.com/en/decrypt/hash
+
+
+
+![img]({{ '/assets/images/robot/16-robot.png' | relative_url }}){: .center-image }
+
+
+
+c3fcd3d76192e4007dfb496cca67e13b:abcdefghijklmnopqrstuvwxyz
+
+
+
+We are now able to switch users and enter the password
+Now as the user 'robot', We can read the file for key 2
+
+![img]({{ '/assets/images/robot/17-robot.png' | relative_url }}){: .center-image }
+
+
+
+
+
+
+
+
+
+# PRIV ESC
+
+running <sudo -l> we can see that the user is not allowed sudo privileges
+
+Lets run the command below to check for binaries with the SUID bit set:
+
+
+>  find / -type f -perm -04000 -ls 2>/dev/null
+
+
+Looking at our output we can see that nmap has the 's' bit set
+
+Lets search GTFO bins for exploits:  https://gtfobins.github.io/#nmap
+
+
+Here we can see a command for to spawn a shell that does not use the sudo command
+
+
+![img]({{ '/assets/images/robot/18-robot.png' | relative_url }}){: .center-image }
+
+
+
+
+We now are the root user and are able to read to 3rd and final key !!!
+
+
+
+![img]({{ '/assets/images/robot/19-robot.png' | relative_url }}){: .center-image }
+
+
+![img]({{ '/assets/images/robot/20-robot.png' | relative_url }}){: .center-image }
+
+
+
