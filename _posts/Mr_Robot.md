@@ -7,7 +7,8 @@ tags: tryhackme lxd
 comments: false
 ---
 # Mr. Robot
-
+-TRYHACKME CTF WRITEUP-
+[Link To CTF](https://tryhackme.com/room/mrrobot)
 
 
 Startin off with an Nmap scan 
