@@ -3,6 +3,7 @@ layout: page
 title: About
 
 ---
+
 ![img]({{ '/assets/random/MyAvatar.png' | relative_url }}){: .center-image }
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 # Aaron Bray
