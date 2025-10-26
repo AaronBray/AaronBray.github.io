@@ -4,7 +4,7 @@ title: About
 
 ---
 
-![img]({{ '/assets/random/MyAvatar.png' | relative_url }}){: .center-image }
+<img src="/assets/images/random/MyAvatar.png" alt="Avatar">
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 # Aaron Bray
 ______________________________________________________________________________________________________________________
