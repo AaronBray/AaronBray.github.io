@@ -10,7 +10,7 @@ title: About
 ______________________________________________________________________________________________________________________
 ## -Ethical Hacker-
 
-This is my personal page for CTF Write-Ups, and Personal Projects. 
+This is my personal page for Capture The Flag Write-Ups, and Personal Projects. 
 Everything published here was done with explicit permission.
 <br>
 Do not hack this site or steal any of my work as your own. 
