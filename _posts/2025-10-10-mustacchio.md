@@ -15,7 +15,6 @@ comments: false
 ## Navigating to the home webpage we don't see much
 <br>
 ## Let's eumerate the hidden directories
-<br>
 ## Our scan shows:
 > /robots.txt and /custom
 <br>
