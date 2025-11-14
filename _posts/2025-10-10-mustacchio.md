@@ -112,9 +112,10 @@ Lets go back and see what we missed...
 > john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
 
 ## Now we can login with ssh using our new credentials
-> ssh -i id_rsa barry@<target_IP>
+> ssh -i id_rsa barry@target_IP
 > password: uriel james
 <br>
+
 ## We now have a shell and can get user flag !!!!
 <br>
 <br>
