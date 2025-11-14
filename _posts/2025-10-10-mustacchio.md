@@ -22,7 +22,7 @@ comments: false
 ************PIC
 <br>
 > /robots.txt -> shows nothing
-
+> 
 <br>
 ## Enumerating /custom further we see subdirectory /js
 > /custom/js -> shows users backup file
