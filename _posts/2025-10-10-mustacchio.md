@@ -21,15 +21,15 @@ comments: false
 > /robots.txt and /custom
 ************PIC
 <br>
-> /robots.txt -> shows nothing
+> /robots.txt shows nothing
 <br>
 
 ## Enumerating /custom further, we see subdirectory /js
-> /custom/js -> shows users backup file
+
 ************PIC
 <br>
-
-## We will use strings to read the file
+## /custom/js shows users backup file
+We will use strings to read the file
 ## strings shows:
 ************PIC
 
