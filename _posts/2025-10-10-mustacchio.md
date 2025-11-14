@@ -120,7 +120,7 @@ Lets go back and see what we missed...
 <br>
 <br>
 <br>
-# priv esc
+#Priv Esc
 <br>
 <br>
 ## Looking around,
