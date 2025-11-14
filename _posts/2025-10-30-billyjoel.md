@@ -1,6 +1,6 @@
 ---
 layout: post
-title: BILLY JOEL
+title: BILLY JOEL - coming soon
 date:   2025-10-30 11:05
 description: TryHackMe Mr. Robot CTF Write-Up
 tags: tryhackme wordpress 
