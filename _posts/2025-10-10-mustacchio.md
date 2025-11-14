@@ -7,7 +7,7 @@ tags: tryhackme wordpress
 comments: false
 ---
 -TRYHACKME CTF WRITEUP-
-[Link To CTF](https://tryhackme.com/room/mrrobot)
+[Link To CTF](https://tryhackme.com/room/mustacchio)
 <br>
 <br>
 Our nmap scan shows ports 80 and 22 are open
