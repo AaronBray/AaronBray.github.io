@@ -24,10 +24,11 @@ comments: false
 > /robots.txt -> shows nothing
 <br>
 
-## Enumerating /custom further we see subdirectory /js
+## Enumerating /custom further, we see subdirectory /js
 > /custom/js -> shows users backup file
 ************PIC
-<br>  
+<br>
+
 ## We will use strings to read the file
 ## strings shows:
 ************PIC
@@ -53,7 +54,8 @@ Lets go back and see what we missed...
 <br>
 ## The credentials we gathered are accepted here
 ## Logging in we see a message board
-## Putting in random text gives un an error
+## Putting in random text gives us an error
+************PIC
 <br>
 ## Let's send another request and capture the response in burpsuite
 ## Looking at the response we can see:
@@ -62,7 +64,8 @@ Lets go back and see what we missed...
 3. there is a directory /auth/dontforget.bak
 ************PIC
 <br>
-## Looking at this directy path,
+
+## Looking at this directory path,
 ## We can see the xml format we will need to use:
 ************PIC
 < ?xml version="1.0" encoding="UTF-8"?>
@@ -77,7 +80,7 @@ Lets go back and see what we missed...
 <br>
 ## It looks like this is vulnerable to a XXE injection
 ## Let's check out example exploits found below:
-## https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#classic-xxe
+## [Injection#classic-xxe](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#classic-xxe)
 <br>
 ## Let's modify and test the basic blind XXE vulnerability:
 
@@ -104,21 +107,20 @@ Lets go back and see what we missed...
 ************PIC
 -----------------
 ## We now get the ssh id_rsa key for barry
-<br>
 ## We can save this to text file:
-> nano id_rsa
+> $ nano id_rsa
 
 ## We will then lower the permissions:
-> chmod 600 id_rsa
+> $ chmod 600 id_rsa
 
-## Now use sshjohn to create hash 
-> ssh2john id_rsa > hash
+## Now use ssh2john to create hash 
+> $ ssh2john id_rsa > hash
 
 ## Then use JTR to crack hash
-> john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
+> $ john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
 
 ## Now we can login with ssh using our new credentials
-> ssh -i id_rsa barry@target_IP
+> $ ssh -i id_rsa barry@target_IP
 > password: uriel james
 <br>
 
@@ -127,17 +129,17 @@ Lets go back and see what we missed...
 <br>
 <br>
 <br>
-#Priv Esc
+# Priv Esc
 <br>
 <br>
 ## Looking around,
-## We see another user
-## There is an accessible elf file we can read
+## We see another user 
+## There is an accessible elf file that we can read
 ************PIC
 <br>
 ## Running strings we see that its calling another file using tail
 ************PIC
-## We dont have permission to access to this file
+## We dont have permission to access the file being called
 <br>
 ## Lets hijack the "tail" command:
 
@@ -146,7 +148,7 @@ echo "/bin/bash" > tail
 
 ## run the live_log:
 /home/joe/live_log
-
-## We are now root
+<br>
 ************PIC
-## Let's catpure the root flag and pwn the machine !!!
+## We are now root
+## Let's capture the root flag and pwn the machine !!!
