@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Mr.Robot
+title: CONVERSOR
 date:   2025-11-05 11:05
 description: TryHackMe Mr. Robot CTF Write-Up
 tags: tryhackme wordpress 
 comments: false
 ---
-# Mr. Robot
+# CONVERSOR
 -TRYHACKME CTF WRITEUP-
 [Link To CTF](https://tryhackme.com/room/mrrobot)
 
