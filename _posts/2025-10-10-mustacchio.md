@@ -11,29 +11,34 @@ comments: false
 <br>
 <br>
 ## Our nmap scan shows ports 80 and 22 are open
-
+************PIC
+<br>
 ## Navigating to the home webpage we don't see much
+************PIC
 <br>
 ## Let's eumerate the hidden directories
 ## Our scan shows:
 > /robots.txt and /custom
+************PIC
 <br>
 > /robots.txt -> shows nothing
+
 <br>
 ## Enumerating /custom further we see subdirectory /js
 > /custom/js -> shows users backup file
+************PIC
 <br>  
 ## We will use strings to read the file
 ## strings shows:
+************PIC
 
-
-Note: 
+***Note: 
 The cat command may not work as expected for a .bak file primarily because .bak files are often binary files, not plain text files. The cat command is designed to print the raw contents of a file to the terminal, which works well for human-readable text but produces gibberish for binary data
 <br>
 ## We now get a password hash
 ## We will use an online cracker to attempt to crack the hash:
 ### [hashes.com/en/decrypt/hash](https://hashes.com/en/decrypt/hash)
-
+************PIC
 ## We now get the cracked hash:  bulldog19
 <br>
 I got stuck here.
@@ -42,10 +47,10 @@ And ssh with the password was also failing
 Lets go back and see what we missed...
 <br>
 ## AHH, so nmap -p- shows higher port open: 8765
+************PIC
 ## Navigating here shows the admin panel login page
-
-
-
+************PIC
+<br>
 ## The credentials we gathered are accepted here
 ## Logging in we see a message board
 ## Putting in random text gives un an error
@@ -55,10 +60,11 @@ Lets go back and see what we missed...
 1. username: Barry
 2. ssh is allowed with the correct key
 3. there is a directory /auth/dontforget.bak
+************PIC
 <br>
 ## Looking at this directy path,
 ## We can see the xml format we will need to use:
-
+************PIC
 < ?xml version="1.0" encoding="UTF-8"?>
 
 < comment>
@@ -83,9 +89,11 @@ Lets go back and see what we missed...
   < com>&test;</com>
 </comment>
 
+************PIC
 <br>
 ## This works, Lets now try and get barry's credentials:
 
+<br>
 < ?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///home/barry/.ssh/id_rsa'>]>
 < comment>
@@ -93,7 +101,7 @@ Lets go back and see what we missed...
   < author>10DNC</author>
   < com>&test;</com>
 </comment>
-
+************PIC
 -----------------
 ## We now get the ssh id_rsa key for barry
 <br>
@@ -114,6 +122,7 @@ Lets go back and see what we missed...
 > password: uriel james
 <br>
 
+************PIC
 ## We now have a shell and can get user flag !!!!
 <br>
 <br>
@@ -124,8 +133,10 @@ Lets go back and see what we missed...
 ## Looking around,
 ## We see another user
 ## There is an accessible elf file we can read
+************PIC
 <br>
 ## Running strings we see that its calling another file using tail
+************PIC
 ## We dont have permission to access to this file
 <br>
 ## Lets hijack the "tail" command:
@@ -137,4 +148,5 @@ echo "/bin/bash" > tail
 /home/joe/live_log
 
 ## We are now root
+************PIC
 ## Let's catpure the root flag and pwn the machine !!!
