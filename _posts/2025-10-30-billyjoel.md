@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Mr.Robot
+title: BILLY JOEL
 date:   2025-10-30 11:05
 description: TryHackMe Mr. Robot CTF Write-Up
 tags: tryhackme wordpress 
 comments: false
 ---
-# Mr. Robot
+# BILLY JOEL
 -TRYHACKME CTF WRITEUP-
 [Link To CTF](https://tryhackme.com/room/mrrobot)
 
