@@ -1,12 +1,12 @@
 ---
 layout: post
-title: Mr.Robot
+title: Mustaccio
 date:   2025-10-10 11:05
 description: TryHackMe Mr. Robot CTF Write-Up
 tags: tryhackme wordpress 
 comments: false
 ---
-# Mr. Robot
+# Mustaccio
 -TRYHACKME CTF WRITEUP-
 [Link To CTF](https://tryhackme.com/room/mrrobot)
 
