@@ -76,6 +76,8 @@ Lets go back and see what we missed...
 ## Looking at this directory path,
 ## We can see the xml format we will need to use:
 ************PIC
+<br>
+## Let's test this with a benign script:
 {% highlight bash %}
 < ?xml version="1.0" encoding="UTF-8"?>
 
