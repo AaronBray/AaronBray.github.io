@@ -11,17 +11,17 @@ comments: false
 <br>
 <br>
 ## Our nmap scan shows ports 80 and 22 are open
-![Battery Widget]({{ '/assets/images/must/1-m.png' | relative_url }})
+![img]({{ '/assets/images/must/1-m.png' | relative_url }}){: .center-image }
 <br>
 ## Navigating to the home webpage we don't see much
-![Battery Widget]({{ '/assets/images/must/2-m.png' | relative_url }})
+![img]({{ '/assets/images/must/2-m.png' | relative_url }}){: .center-image }
 <br>
 ## Let's eumerate the hidden directories
 ## Our scan shows:
 {% highlight bash %}
 /robots.txt and /custom
 {% endhighlight bash %}
-![Battery Widget]({{ '/assets/images/must/3-m.png' | relative_url }})
+![img]({{ '/assets/images/must/3-m.png' | relative_url }}){: .center-image }
 <br>
 {% highlight bash %}
 /robots.txt shows nothing
@@ -30,15 +30,15 @@ comments: false
 
 ## Enumerating /custom further, we see subdirectory /js
 
-![Battery Widget]({{ '/assets/images/must/4-m.png' | relative_url }})
+![img]({{ '/assets/images/must/4-m.png' | relative_url }}){: .center-image }
 <br>
 ## /custom/js shows users backup file
 
-![Battery Widget]({{ '/assets/images/must/5-m.png' | relative_url }})
+![img]({{ '/assets/images/must/5-m.png' | relative_url }}){: .center-image }
 
 ## We will use strings to read the file
 ## strings shows:
-![Battery Widget]({{ '/assets/images/must/6-m.png' | relative_url }})
+![img]({{ '/assets/images/must/6-m.png' | relative_url }}){: .center-image }
 
 ***Note: 
 The cat command may not work as expected for a .bak file primarily because .bak files are often binary files, not plain text files. The cat command is designed to print the raw contents of a file to the terminal, which works well for human-readable text but produces gibberish for binary data
@@ -46,9 +46,9 @@ The cat command may not work as expected for a .bak file primarily because .bak 
 ## We now get a password hash
 ## We will use an online cracker or JTR to crack the hash:
 ### [hashes.com/en/decrypt/hash](https://hashes.com/en/decrypt/hash)
-![Battery Widget]({{ '/assets/images/must/7-m.png' | relative_url }})
+![img]({{ '/assets/images/must/7-m.png' | relative_url }}){: .center-image }
 
-![Battery Widget]({{ '/assets/images/must/8-m.png' | relative_url }})
+![img]({{ '/assets/images/must/8-m.png' | relative_url }}){: .center-image }
 
 ## We now get the cracked hash:  bulldog19
 <br>
@@ -60,14 +60,14 @@ Lets go back and see what we missed...
 {% endhighlight bash %}
 <br>
 ## AHH, so nmap -p- shows higher port open: 8765
-![Battery Widget]({{ '/assets/images/must/9-m.png' | relative_url }})
+![img]({{ '/assets/images/must/9-m.png' | relative_url }}){: .center-image }
 ## Navigating here shows the admin panel login page
-![Battery Widget]({{ '/assets/images/must/10-m.png' | relative_url }})
+![img]({{ '/assets/images/must/10-m.png' | relative_url }}){: .center-image }
 <br>
 ## The credentials we gathered are accepted here
 ## Logging in we see a message board
 ## Putting in random text gives us an error
-![Battery Widget]({{ '/assets/images/must/11-m.png' | relative_url }})
+![img]({{ '/assets/images/must/11-m.png' | relative_url }}){: .center-image }
 <br>
 ## Let's send another request and capture the response in burpsuite
 ## Looking at the response we can see:
@@ -76,12 +76,12 @@ Lets go back and see what we missed...
 2. ssh is allowed with the correct key
 3. another directory: /auth/dontforget.bak
 {% endhighlight bash %}
-![Battery Widget]({{ '/assets/images/must/12-m.png' | relative_url }})
+![img]({{ '/assets/images/must/12-m.png' | relative_url }}){: .center-image }
 <br>
 
 ## Looking at this directory path,
 ## We can see the xml format we will need to use:
-![Battery Widget]({{ '/assets/images/must/13-m.png' | relative_url }})
+![img]({{ '/assets/images/must/13-m.png' | relative_url }}){: .center-image }
 <br>
 ## Let's test this with a benign script:
 {% highlight bash %}
@@ -108,7 +108,7 @@ Lets go back and see what we missed...
   < com>&test;</com>
 </comment>
 {% endhighlight bash %}
-![Battery Widget]({{ '/assets/images/must/14-m.png' | relative_url }})
+![img]({{ '/assets/images/must/14-m.png' | relative_url }}){: .center-image }
 <br>
 ## This works, Lets now try and get barry's credentials:
 
@@ -122,7 +122,7 @@ Lets go back and see what we missed...
   < com>&test;</com>
 </comment>
 {% endhighlight bash %}
-![Battery Widget]({{ '/assets/images/must/15-m.png' | relative_url }})
+![img]({{ '/assets/images/must/15-m.png' | relative_url }}){: .center-image }
 -----------------
 ## We now get the ssh id_rsa key for barry
 <br>
@@ -142,17 +142,17 @@ $ ssh2john id_rsa > hash
 {% highlight bash %}
 $ john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
 {% endhighlight bash %}
-![Battery Widget]({{ '/assets/images/must/16-m.png' | relative_url }})
+![img]({{ '/assets/images/must/16-m.png' | relative_url }}){: .center-image }
 ## Now we can login with ssh using our new credentials:
 {% highlight bash %}
 $ ssh -i id_rsa barry@target_IP
 password: uriel james
 {% endhighlight bash %}
-![Battery Widget]({{ '/assets/images/must/17-m.png' | relative_url }})
+![img]({{ '/assets/images/must/17-m.png' | relative_url }}){: .center-image }
 <br>
 
 ## We now have a shell and can get user flag !!!!
-![Battery Widget]({{ '/assets/images/must/18-m.png' | relative_url }})
+![img]({{ '/assets/images/must/18-m.png' | relative_url }}){: .center-image }
 <br>
 <br>
 <br>
@@ -162,10 +162,10 @@ password: uriel james
 ## Looking around,
 ## We see another user 
 ## There is an accessible elf file that we can read
-![Battery Widget]({{ '/assets/images/must/19-m.png' | relative_url }})
+![img]({{ '/assets/images/must/19-m.png' | relative_url }}){: .center-image }
 <br>
 ## Running strings we see that its calling another file using tail
-![Battery Widget]({{ '/assets/images/must/20-m.png' | relative_url }})
+![img]({{ '/assets/images/must/20-m.png' | relative_url }}){: .center-image }
 ## We dont have permission to access the file being called
 <br>
 ## Lets hijack the "tail" command:
@@ -179,9 +179,9 @@ echo "/bin/bash" > tail
 {% highlight bash %}
 /home/joe/live_log
 {% endhighlight bash %}
-![Battery Widget]({{ '/assets/images/must/21-m.png' | relative_url }})
+![img]({{ '/assets/images/must/21-m.png' | relative_url }}){: .center-image }
 <br>
 ## We are now root
 
-![Battery Widget]({{ '/assets/images/must/22-m.png' | relative_url }})
+![img]({{ '/assets/images/must/22-m.png' | relative_url }}){: .center-image }
 ## We can now capture the root flag and pwn the machine !!!
