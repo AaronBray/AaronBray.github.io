@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Mustaccio - coming soon
+title: Mustaccio
 date:   2025-10-10 11:05
 description: TryHackMe Mr. Robot CTF Write-Up
-tags: tryhackme wordpress 
+tags: tryhackme xxe
 comments: false
 ---
 -TRYHACKME CTF WRITEUP-
