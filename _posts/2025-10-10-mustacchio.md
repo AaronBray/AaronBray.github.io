@@ -146,7 +146,7 @@ $ john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
 ## Now we can login with ssh using our new credentials:
 {% highlight bash %}
 $ ssh -i id_rsa barry@target_IP
-password: uriel james
+password: [redacted]
 {% endhighlight bash %}
 ![img]({{ '/assets/images/must/17-m.png' | relative_url }}){: .center-image }
 <br>
