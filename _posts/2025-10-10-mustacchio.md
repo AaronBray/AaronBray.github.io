@@ -159,9 +159,8 @@ password: [redacted]
 # Priv Esc
 <br>
 <br>
-## Looking around,
-## We see another user 
-## There is an accessible elf file that we can read
+## Looking around, we see another user 
+## Also, there is an accessible elf file that we can read
 ![img]({{ '/assets/images/must/19-m.png' | relative_url }}){: .center-image }
 <br>
 ## Running strings we see that its calling another file using tail
