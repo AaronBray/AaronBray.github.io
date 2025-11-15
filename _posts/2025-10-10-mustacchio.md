@@ -142,15 +142,17 @@ $ ssh2john id_rsa > hash
 {% highlight bash %}
 $ john -w=/usr/share/wordlists/rockyou.txt mustacchio_hash
 {% endhighlight bash %}
+************PIC
 ## Now we can login with ssh using our new credentials:
 {% highlight bash %}
 $ ssh -i id_rsa barry@target_IP
 password: uriel james
 {% endhighlight bash %}
+************PIC
 <br>
 
-************PIC
 ## We now have a shell and can get user flag !!!!
+************PIC
 <br>
 <br>
 <br>
