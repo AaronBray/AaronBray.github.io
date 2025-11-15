@@ -33,6 +33,9 @@ comments: false
 ************PIC
 <br>
 ## /custom/js shows users backup file
+
+************PIC
+
 ## We will use strings to read the file
 ## strings shows:
 ************PIC
@@ -41,9 +44,12 @@ comments: false
 The cat command may not work as expected for a .bak file primarily because .bak files are often binary files, not plain text files. The cat command is designed to print the raw contents of a file to the terminal, which works well for human-readable text but produces gibberish for binary data
 <br>
 ## We now get a password hash
-## We will use an online cracker to attempt to crack the hash:
+## We will use an online cracker or JTR to crack the hash:
 ### [hashes.com/en/decrypt/hash](https://hashes.com/en/decrypt/hash)
 ************PIC
+
+************PIC
+
 ## We now get the cracked hash:  bulldog19
 <br>
 {% highlight bash %}
@@ -171,7 +177,9 @@ echo "/bin/bash" > tail
 {% highlight bash %}
 /home/joe/live_log
 {% endhighlight bash %}
-<br>
 ************PIC
+<br>
 ## We are now root
+
+************PIC
 ## Let's capture the root flag and pwn the machine !!!
