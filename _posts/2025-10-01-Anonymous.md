@@ -9,7 +9,7 @@ comments: false
 -TRYHACKME CTF WRITEUP-
 <br>
 <br>
-![img]({{ '/assets/images/anon/1-anon.png' | relative_url }})
+![img]({{ '/assets/images/anon/anon.png' | relative_url }})
 [Link To CTF](https://tryhackme.com/room/anonymous)
 <br>
 <br>
