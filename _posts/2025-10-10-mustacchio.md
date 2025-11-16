@@ -10,6 +10,9 @@ comments: false
 [Link To CTF](https://tryhackme.com/room/mustacchio)
 <br>
 <br>
+![img]({{ '/assets/images/must/must.png' | relative_url }}){: .center-image }
+<br>
+<br>
 ## Our nmap scan shows ports 80 and 22 are open
 ![img]({{ '/assets/images/must/1-m.png' | relative_url }}){: .center-image }
 <br>
