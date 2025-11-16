@@ -11,7 +11,7 @@ comments: false
 <br>
 <br>
 <br>
-## Starting with an nmap scan, we see: 
+## Starting with an Nmap scan, we see: 
 
 ******1
 <br>
@@ -58,13 +58,15 @@ wpscan --url http://<target_IP> --usernames bjoel,kwheel --passwords /usr/share/
 ## We get Karen Wheelers username and password
 Username: kwheel
 Password: cutiepie1[redacted]
-******5
+******6
 <br>
 
 ## We now need to find the login page
 ## Looking at robots.txt: 
 Disallow: /wp-admin/
 Allow: /wp-admin/admin-ajax.php
+******7 NEED PIC 
+
 
 ## We find the login page at: /wp-admin/
 
@@ -75,19 +77,22 @@ Allow: /wp-admin/admin-ajax.php
 
 <br>
 ## Searching WordPress 5.0 on Metasploit we can run the 1st option
-> 0   exploit/multi/http/wp_crop_rce   
+
+******8 
+
 >enter: USERNAME PASSWORD RHOST AND LHOST AND LPORT
 
 <br>
 ## We get a meterpreter shell as www-data
-
+******9
 <br>
+
 ## Looking for the user flag, we see it's not where we think it is:
-
+******10
 
 <br>
-## Looking for clues we see a termination letter
-
+## Looking for clues we see a termination letter:
+******11 NEED PIC 
 
 <br>
 ## The company is "rubber ducky" and billy joel was let go for illegal use of removable media
@@ -102,29 +107,24 @@ find / -type f -perm -04000 -ls 2>/dev/null
 ## We see something interesting:
 /usr/sbin/checker
 
-## This is a root owned binary, with SUID flag on
-## It gets the "admin" environment variable and prints out "Not an Admin".
-
-********
-
-## Let's see if we can set this environment variable
-
-$ export admin=1
-$ ltrace checker
-
+## This is a root owned binary, with the SUID flag set
+## It checks the "admin" environment variable and prints out "Not an Admin" if not correct
 <br>
 
-## Now it tries to run bash as root
-## When we run again:
-/usr/sbin/checker
+## Let's see if we can set this environment variable:
+$ export admin=1
+$ ltrace checker
+<br>
 
-## We now get root and see the user flag where we tried to look before
+******12
+## Now it will run bash as root
+## We get root and see the user flag where we tried to look before
 
-*************
+*******13
 
-## We also now get root flag 
+## We can now capture the root flag 
 
-*************
+******14
 
 
 
