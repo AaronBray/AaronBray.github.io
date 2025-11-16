@@ -14,7 +14,7 @@ comments: false
 <br>
 <br>
 <br>
-## Lets start with an nmap scan to enumerate the ports 
+## Let's start with an nmap scan to enumerate the ports 
 {% highlight html %}
 $ nmap -sCV <target_IP>
 {% endhighlight html %}
