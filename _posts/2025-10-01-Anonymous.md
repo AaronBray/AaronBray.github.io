@@ -23,9 +23,9 @@ $ nmap -sCV <target_IP>
 <br>
 
 {% highlight bash %}
-How many ports are open?
+"How many ports are open?
 What service is running on port 21?
-What service is running on ports 139 and 445? 21?
+What service is running on ports 139 and 445? 21?"
 {% endhighlight bash %}
 <br>
 <br>
@@ -37,7 +37,7 @@ $ smbmap -H <target_IP>
 ![img]({{ '/assets/images/anon/2-anon.png' | relative_url }}){: .center-image }
 ## Running this we can see the answer to question 4:
 {% highlight bash %}
-There's a share on the user's computer.  What's it called?
+"There's a share on the user's computer.  What's it called?"
 {% endhighlight bash %}
 <br>
 <br>
