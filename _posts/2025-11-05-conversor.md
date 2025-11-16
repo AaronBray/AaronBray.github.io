@@ -15,54 +15,51 @@ CONVERSOR
 
 
 
-nmap show port 22 and 80 open
+## nmap show port 22 and 80 open
 
 ******************************nmap
+<br>
 
-Doing a deeper scan and navigating to the page
-We can see this IP must be added into our hosts file to resolve the DNS
+## Doing a deeper scan and navigating to the page
+## We can see this IP must be added into our hosts file to resolve the DNS
 
 sudo nano /etc/hosts
-<IP_ address> conversor.htb
+<IP_address> conversor.htb
 
-<br>
+
 ******************************hosts file
+<br>
+
+## After navigating to conversor.htb we get redirected to /login
 
 
-After navigating to conversor.htb we get redirected to /login
-
-
-Looking for hidden directories nothing really stands out
+## Looking for hidden directories nothing really stands out
 
 ****************************** gobuster
+<br>
 
-Lets register a fake user and have a look around the website
+## Lets register a fake user and have a look around the website
 
 ****************************** fake user
+<br>
 
-After signing up, we were taken to the covertsor page, which said to upload an XML file and an XSLT sheet to convert it into a prettier format.
+## After signing up, we were taken to the coversor page, 
+## Which said to upload an XML file and an XSLT sheet to convert it into a prettier format.
+<br>
 
-
-The /about page shows that we can download the source code
+## The /about page shows that we can download the source code
 
 ****************************** source code
 
-unzip and lok at the source code
-
-
-Looking at app.py This shows us the location of the users database:
-
-
+## We can unzip and l0ok at the source code
+## Looking at app.py, We see the location of the users database:
 
 ****************************** app.py1
 
-We can also see the app.secre.key
-
-This looks like an app/api key that will be useful later
+## We can also see the app.secret.key
+## This looks like an app/api key that will be useful later
 
 app.secret_key = 'Changemeplease'
-
-
 
 ****************************** app.py
 
