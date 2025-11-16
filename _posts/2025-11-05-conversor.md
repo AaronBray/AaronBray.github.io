@@ -16,8 +16,7 @@ comments: false
 ***nmap
 <br>
 
-## Doing a deeper scan and navigating to the page
-## We can see this IP must be added into our hosts file to resolve the DNS
+## This IP must be added into our hosts file to resolve the DNS
 
 sudo nano /etc/hosts
 <IP_address> conversor.htb
