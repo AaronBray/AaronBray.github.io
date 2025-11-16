@@ -6,10 +6,14 @@ description: TryHackMe chocolate factory CTF Write-Up
 tags: tryhackme 
 comments: false
 ---
-# CHOCOLATE FACTORY
 -TRYHACKME CTF WRITEUP-
+<br>
+<br>
+![img]({{ '/assets/images/wonka/choc.jpeg' | relative_url }}){: .center-image }
 [Link To CTF](https://tryhackme.com/room/chocolatefactory)
-
+<br>
+<br>
+<br>
 ## We start of by enumerating the open ports with nmap
 
 ## Looking at our output we see:
