@@ -19,7 +19,7 @@ comments: false
 ## This IP must be added into our hosts file to resolve the DNS
 
 sudo nano /etc/hosts
-<IP_address> conversor.htb
+IP_address conversor.htb
 <br>
 
 *********hosts file
