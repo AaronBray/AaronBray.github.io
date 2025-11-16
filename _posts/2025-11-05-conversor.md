@@ -24,7 +24,7 @@ sudo nano /etc/hosts
 
 *********hosts file
 <br>
-
+<br>
 ## After navigating to conversor.htb we get redirected to /login
 <br>
 
