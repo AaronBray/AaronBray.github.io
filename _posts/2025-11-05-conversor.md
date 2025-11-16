@@ -6,15 +6,11 @@ description: TryHackMe Mr. Robot CTF Write-Up
 tags: tryhackme wordpress 
 comments: false
 ---
-# CONVERSOR
 -TRYHACKME CTF WRITEUP-
 [Link To CTF](https://tryhackme.com/room/mrrobot)
-
-
-CONVERSOR
-
-
-
+<br>
+<br>
+<br>
 ## nmap show port 22 and 80 open
 
 ******************************nmap
@@ -25,13 +21,13 @@ CONVERSOR
 
 sudo nano /etc/hosts
 <IP_address> conversor.htb
-
+<br>
 
 *********hosts file
 <br>
 
 ## After navigating to conversor.htb we get redirected to /login
-
+<br>
 
 ## Looking for hidden directories nothing really stands out
 
