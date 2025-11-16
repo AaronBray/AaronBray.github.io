@@ -25,6 +25,7 @@ We can see this IP must be added into our hosts file to resolve the DNS
 sudo nano /etc/hosts
 <IP_ address> conversor.htb
 
+<br>
 ******************************hosts file
 
 
