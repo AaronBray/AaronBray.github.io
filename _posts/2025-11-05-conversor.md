@@ -27,7 +27,7 @@ sudo nano /etc/hosts
 <IP_address> conversor.htb
 
 
-******************************hosts file
+*********hosts file
 <br>
 
 ## After navigating to conversor.htb we get redirected to /login
@@ -35,12 +35,12 @@ sudo nano /etc/hosts
 
 ## Looking for hidden directories nothing really stands out
 
-****************************** gobuster
+************* gobuster
 <br>
 
 ## Lets register a fake user and have a look around the website
 
-****************************** fake user
+************** fake user
 <br>
 
 ## After signing up, we were taken to the coversor page, 
@@ -49,26 +49,26 @@ sudo nano /etc/hosts
 
 ## The /about page shows that we can download the source code
 
-****************************** source code
+*********** source code
 
 ## We can unzip and l0ok at the source code
 ## Looking at app.py, We see the location of the users database:
 
-****************************** app.py1
+************ app.py1
 
 ## We can also see the app.secret.key
 ## This looks like an app/api key that will be useful later
 
 app.secret_key = 'Changemeplease'
 
-****************************** app.py
+************ app.py
 
 
 install.md shows:
 
 
 
-****************************** install.md
+******** install.md
 
 
 So we can write ptyhon file into **/var/www/conversor.htb/scripts/** and wait cron job to execute it.
@@ -119,7 +119,7 @@ $ rlwrap nc -lvnp <listen_port>
 
 -we add rlwrap to give history/arrow capabilities to the shell
 
-****************************** rev shell
+********** rev shell
 
 
 Once we get the shell we can run:
@@ -136,14 +136,14 @@ We can see the users databse file
 
 Looking at this we get fismathack username and password hash
 
-******************************users.db
+************users.db
 
 fismathack5b5c3ac3a1c897c94caad48e6c71fdec
 
 We can easily crack this with an online cracker to get fismathack password
 
 
-******************************hack cracked
+*********hack cracked
 
  Found:
 
@@ -154,14 +154,14 @@ We can now switch users to fismathack
 
 
 
-******************************switch users
+*********switch users
 
 
 we can now navigate to /home/fismathack and read the user flag !!!!!
 
 
 
-****************************** users.txt
+********** users.txt
 
 
 
@@ -174,7 +174,7 @@ ____________________________________________________________
 running sudo -l shows us
 we can run 'needrestart' as root
 
-****************************** sudo -l 
+******* sudo -l 
 
 Doing a google search we can see CVE-2024-48990
 
@@ -189,7 +189,7 @@ https://github.com/ten-ops/CVE-2024-48990_needrestart
 
 I found this 
 
-****************************** github
+****** github
 CVE-2024-48990
 didn't use exploit 
 
@@ -237,8 +237,8 @@ Payload 2: Compiling the Payload
 
 The target is x86_64 Linux. We need to compile lib.c as a 64-bit shared object (.so) file.
 
-# On our Attacker Machine
-# The PDF notes a cross-compiler, but if you're on 64-bit Kali/Parrot:
+## On our Attacker Machine
+## The PDF notes a cross-compiler, but if you're on 64-bit Kali/Parrot:
 gcc -shared -fPIC -o __init__.so lib.c
 -----------------------------
 
