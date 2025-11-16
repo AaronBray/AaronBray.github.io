@@ -13,7 +13,7 @@ comments: false
 <br>
 ## nmap show port 22 and 80 open
 
-******************************nmap
+***nmap
 <br>
 
 ## Doing a deeper scan and navigating to the page
