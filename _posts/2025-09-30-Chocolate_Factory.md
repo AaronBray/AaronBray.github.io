@@ -80,7 +80,7 @@ Keep it safe "
 ![Battery Widget]({{ '/assets/images/wonka/8-wonka.png' | relative_url }}){: .center-image }
 <br>
 
-## Running strings on the file doesn't show us much usefule output
+## Running strings on the file doesn't show us much useful output
 ## Lets run steghide extract any hidden data
 ![Battery Widget]({{ '/assets/images/wonka/9-wonka.png' | relative_url }}){: .center-image }
 
