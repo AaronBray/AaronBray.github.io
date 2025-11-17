@@ -95,7 +95,7 @@ Keep it safe "
 ## We get what looks like a shadow file
 ## At the very end we see the user Charlie and a password hash
 ## Lets crack this hash:
-[hashes.com](https://hashes.com/en/decrypt/hash)
+## [hashes.com](https://hashes.com/en/decrypt/hash)
 
 ## We now get the password for Charlie !
 ![Battery Widget]({{ '/assets/images/wonka/10-wonka.png' | relative_url }}){: .center-image }
@@ -113,7 +113,7 @@ Keep it safe "
 
 
 ## Lets build a reverse shell and start our netcat listener
-[reverse-shell-cheat-sheet](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet])
+## [reverse-shell-cheat-sheet](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet])
 <br>
 
 ## First on our attacker machine we will run the command:
