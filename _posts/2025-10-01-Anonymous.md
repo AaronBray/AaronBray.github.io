@@ -57,7 +57,7 @@ $ smbmap -H <target_IP>
 {% highlight bash %}
 $ ftp anonymous@<target_IP>
 {% endhighlight bash %}
-## We can see a directory named scripts...interesting...:
+## We can see a directory named scripts...interesting
 ![img]({{ '/assets/images/anon/3-anon.png' | relative_url }}){: .center-image }
 <br>
 
@@ -78,7 +78,7 @@ ftp> mget clean.sh removed_files.log to_do.txt
 $ nano clean.sh
 {% endhighlight bash %}
 ## We will use the basic bash script from: 
-[pentest monkey reverse shell](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
+## [pentest monkey reverse shell](https://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
 <br>
 
 ## On our machine, 
@@ -131,7 +131,7 @@ Google search shows:
 "This is a well-documented and easy-to-perform attack if an attacker's user account has been added to the lxd group. LXD's daemon runs as root, and any user with write access to its UNIX socket can execute privileged actions." " The core issue is that the lxd daemon runs with root privileges and will perform privileged actions for members of the lxd group, essentially making anyone in that group a root-equivalent user"
 {% endhighlight bash %}
 ## Exploit DB shows us how this can be exploited:
-[Exploit-db](https://www.exploit-db.com/exploits/46978)
+## [Exploit-db/exploits/46978](https://www.exploit-db.com/exploits/46978)
 <br>
 
 ## First download lxd apline builder on our machine:
