@@ -20,8 +20,8 @@ comments: false
 ![img]({{ '/assets/images/wonka/1-wonka.png' | relative_url }}){: .center-image }
 <br>
 
-## Running our Nmap scan with the -sCV flag shows us where to find "the key"
-## Here we can see text that shows us the directory path of the secret key
+## Running our Nmap scan with the -sCV flag 
+## We can see the directory path of the secret key
 ![img]({{ '/assets/images/wonka/2-wonka.png' | relative_url }}){: .center-image }
 <br>
 
@@ -32,6 +32,7 @@ http://x.x.x.x/key_rev_key
 ![Battery Widget]({{ '/assets/images/wonka/3-wonka.png' | relative_url }}){: .center-image }
 
 ## Looking at this file we can see it's an elf file and already compiled
+<br>
 
 ## lets run the program:
 {% highlight bash %}
@@ -43,84 +44,51 @@ http://x.x.x.x/key_rev_key
 {% highlight bash %}
 chmod +x key_rev_key
 {% endhighlight bash %}
+<br>
 
-## Now lets run it again
-
+## Now lets run it again:
 ![Battery Widget]({{ '/assets/images/wonka/4-wonka.png' | relative_url }}){: .center-image }
 
 ## Looks like it's asking for a name
+## I tested willy, mrwonka & Charlie but they all failed 
+<br>
 
-
-## I tested willy, mrwonka,& Charlie but they all failed 
-
-
-## Lets run strings on the file for more clues
-
+## Lets instead run strings on the file for more clues
 {% highlight bash %}
 $ strings key_rev_key 
 {% endhighlight bash %}
-
-
 ![Battery Widget]({{ '/assets/images/wonka/5-wonka.png' | relative_url }}){: .center-image }
+<br>
 
+## Now we can see the key and the answer to quewstion #1
 {% highlight bash %}
- congratulations you have found the key:   
-b'-VkgXhFf6sAEcAwrC6YR-SZbiuSb8ABXeQuvhcGSQzY='
- Keep its safe
+" congratulations you have found the key:   
+[redacted]
+Keep it safe "
 {% endhighlight bash %}
-
-## Here we can see the key and the answer to quewstion #1
-
-{% highlight bash %}
- congratulations you have found the key:   
-b'-VkgXhFf6sAEcAwrC6YR-SZbiuSb8ABXeQuvhcGSQzY='
-{% endhighlight bash %}
-
+<br>
+<br>
 
 ## While we have the key we dont really know what this is used for yet
-## Lets keep enumerating the machine ...
 <br>
 <br>
 
 ## Lets move to port 21 and see if anonymous login is allowed
-
-{% highlight bash %}
-PORT   STATE SERVICE VERSION
-21/tcp open  ftp     vsftpd 3.0.5
-| ftp-anon: Anonymous FTP login allowed (FTP code 230)
-{% endhighlight bash %}
-
-
 ![Battery Widget]({{ '/assets/images/wonka/6-wonka.png' | relative_url }}){: .center-image }
-
-
+<br>
 
 ## Anonymous is allowed ! 
-
 ## Lets logon to the ftp server
-
-
 ![Battery Widget]({{ '/assets/images/wonka/7-wonka.png' | relative_url }}){: .center-image }
+<br>
 
 ## We see 'gum_room.txt' file
-
 ## Lets download this and inspect it
-
-{% highlight bash %}
->> get gum_room.jpg
-{% endhighlight bash %}
-
 ![Battery Widget]({{ '/assets/images/wonka/8-wonka.png' | relative_url }}){: .center-image }
-
+<br>
 
 ## Running strings on the file doesn't show us much usefule output
-
-Lets run steghide extract any hidden data
-{% highlight bash %}
-$ steghide extract -sf gun_room.jpg
-(no password)
-{% endhighlight bash %}
-
+## Lets run steghide extract any hidden data
 ![Battery Widget]({{ '/assets/images/wonka/9-wonka.png' | relative_url }}){: .center-image }
 
 
