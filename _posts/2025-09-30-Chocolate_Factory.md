@@ -44,15 +44,13 @@ http://x.x.x.x/key_rev_key
 {% highlight bash %}
 chmod +x key_rev_key
 {% endhighlight bash %}
-<br>
 
 ## Now lets run it again:
 ![Battery Widget]({{ '/assets/images/wonka/4-wonka.png' | relative_url }}){: .center-image }
-
-## Looks like it's asking for a name
-## I tested willy, mrwonka & Charlie but they all failed 
 <br>
 
+## Looks like it's asking for a name
+## I tested willy, Mrwonka & Charlie, but they all failed 
 ## Lets instead run strings on the file for more clues
 {% highlight bash %}
 $ strings key_rev_key 
@@ -60,22 +58,17 @@ $ strings key_rev_key
 ![Battery Widget]({{ '/assets/images/wonka/5-wonka.png' | relative_url }}){: .center-image }
 <br>
 
-## Now we can see the key and the answer to quewstion #1
+## We now see the key and the answer to question #1
 {% highlight bash %}
 " congratulations you have found the key:   
 [redacted]
 Keep it safe "
 {% endhighlight bash %}
 <br>
-<br>
 
 ## While we have the key we dont really know what this is used for yet
-<br>
-<br>
-
 ## Lets move to port 21 and see if anonymous login is allowed
 ![Battery Widget]({{ '/assets/images/wonka/6-wonka.png' | relative_url }}){: .center-image }
-<br>
 
 ## Anonymous is allowed ! 
 ## Lets logon to the ftp server
@@ -94,18 +87,14 @@ Keep it safe "
 
 ## We get our output in the b64.txt file
 ## As the name suggests we have Base64 encoded data
+
 ## Lets decode it here: 
-
-
-[base64decode](https://www.base64decode.org/)
-
-
+## [base64decode](https://www.base64decode.org/)
+<br>
 
 ## We get what looks like a shadow file
 ## At the very end we see the user Charlie and a password hash
-## Lets crack this hash
-## First lets see if an online cracker can crack this quickly
-
+## Lets crack this hash:
 [hashes.com](https://hashes.com/en/decrypt/hash)
 
 ## It works and we get the password for Charlie !
