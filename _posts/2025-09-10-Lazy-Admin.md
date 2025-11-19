@@ -73,7 +73,7 @@ hash: 42f749ade7f9e195bf475f37a44cafcb
 {% highlight bash %}
 Account: manager
 Password: [cracked hashed password]
-{% highlight bash %}
+{% endhighlight bash %}
 ![img]({{ '/assets/images/lazyadmin/10-lazyadmin.png' | relative_url }}){: .center-image }
 
 ## SUCCESS !
@@ -165,14 +165,3 @@ We were later able to abuse these privileges by modifying an accessible script w
 
 This attack could have been prevented by emplimenting stronger passwords 
 As well as ensuring credential files are not easily accessible
-
-
-
-
-
-
-
-
-
-
-
