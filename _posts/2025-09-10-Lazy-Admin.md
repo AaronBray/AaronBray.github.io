@@ -20,39 +20,27 @@ comments: false
 $ nmap -sCV x.x.x.x
 {% endhighlight bash %}
 
-##We can see that ports 22 & 80 are open in the nmap scan below
+## We can see that ports 22 & 80 are open in the nmap scan below
 ![img]({{ '/assets/images/lazyadmin/1-lazyadmin.png' | relative_url }}){: .center-image }
+<br>
 
-
-
-Navigating to the webpage shows us a basic apache webserver page
-
-Lets enumerated directories and subdirectories with [dirb](https://www.kali.org/tools/dirb/)
-
-The script below will scan against the common.txt directory wordlist
-
-
+## Navigating to the webpage shows us a basic apache webserver page
+## Lets enumerated directories and subdirectories with [dirb](https://www.kali.org/tools/dirb/)
+## The script below will scan against the common.txt directory wordlist
 {% highlight bash %}
 $ dirb http://x.x.x.x
 {% endhighlight bash %}
 
-We can see in the screenshot below that there are a few directories of interest
-
-
+## We can see in the screenshot below that there are a few directories of interest
 ![img]({{ '/assets/images/lazyadmin/2-lazyadmin.png' | relative_url }}){: .center-image }
 
 
-Navigating to "/content" show us that this site is running CMS sweetRice and not fully developed yet
-Lets see if there are any obvious vulnerabilities that have not yet been patched
-
-
+## Navigating to "/content" show us that this site is running CMS sweetRice and not fully developed yet
+## Lets see if there are any obvious vulnerabilities that have not yet been patched
 ![img]({{ '/assets/images/lazyadmin/3-lazyadmin.png' | relative_url }}){: .center-image }
 
 
-Moving further into the directory into the "/content/as" page shows us that there is a login page
-
-
-
+## Moving further into the directory into the "/content/as" page shows us that there is a login page
 ![img]({{ '/assets/images/lazyadmin/4-lazyadmin.png' | relative_url }}){: .center-image }
 
 
