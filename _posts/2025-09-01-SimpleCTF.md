@@ -159,7 +159,7 @@ Answer: ssh
 ## We now have the initial user flag and our 7th answer !
 <br>
 
-## Question 6 asks? Is there any other user in the home directory? What's its name?
+## Question 8 asks? Is there any other user in the home directory? What's its name?
 ## Looking around the directories shows us another user 
 ![img]({{ '/assets/images/simplectf/12-simple-ctf.png' | relative_url }}){: .center-image }
 {% highlight bash %}
@@ -187,7 +187,7 @@ $ sudo vim -c ':!/bin/sh'
 {% endhighlight bash %}
 ## We can see this command was accepted and we are now the root user
 
-## This gives our our 7th answer
+## This gives our our 9th answer
 {% highlight bash %}
 Answer: VIM
 {% endhighlight bash %}
