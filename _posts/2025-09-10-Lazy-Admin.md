@@ -33,91 +33,69 @@ $ dirb http://x.x.x.x
 
 ## We can see in the screenshot below that there are a few directories of interest
 ![img]({{ '/assets/images/lazyadmin/2-lazyadmin.png' | relative_url }}){: .center-image }
-
+<br>
 
 ## Navigating to "/content" show us that this site is running CMS sweetRice and not fully developed yet
-## Lets see if there are any obvious vulnerabilities that have not yet been patched
 ![img]({{ '/assets/images/lazyadmin/3-lazyadmin.png' | relative_url }}){: .center-image }
 
 
-## Moving further into the directory into the "/content/as" page shows us that there is a login page
+## "/content/as" page shows us that there is a login page
 ![img]({{ '/assets/images/lazyadmin/4-lazyadmin.png' | relative_url }}){: .center-image }
 
 
-I tested different credentials as well as a sqli injection login bypass, but did not have any success
-I also found a "sweetrice" file upload vulnerability that may be possible, but this also failed for me
-
-Going back to our directory scan, lets inspected alternate web pages that were enumerated
-
-Navigating to "/content/inc" we find a directory list and site map
-We show ~30 different files and directories here, but one caught my eye... 
-
->mysql_backup/
-
-
+## Navigating to "/content/inc" we find a directory list and site map
+## We show ~30 different files and directories here, but one caught my eye... 
+{% highlight bash %}
+mysql_backup/
+{% endhighlight bash %}
 ![img]({{ '/assets/images/lazyadmin/5-lazyadmin.png' | relative_url }}){: .center-image }
 
-
-
-
 ![img]({{ '/assets/images/lazyadmin/6-lazyadmin.png' | relative_url }}){: .center-image }
+<br>
 
-Lets download this file and inspect it ...
-
-
+## Lets download this file and inspect it ...
 ![img]({{ '/assets/images/lazyadmin/7-lazyadmin.png' | relative_url }}){: .center-image }
 
-
-Looking at this file we can see that it shows us an admin username and hashed password
-
-
-
-
+## Looking at this file we can see that it shows us an admin username and hashed password
 ![img]({{ '/assets/images/lazyadmin/8-lazyadmin.png' | relative_url }}){: .center-image }
+{% highlight bash %}
+admin user: manager
+hash: 42f749ade7f9e195bf475f37a44cafcb 
+{% highlight bash %}
 
-
->admin user: manager
->hash: 42f749ade7f9e195bf475f37a44cafcb 
-
-
-Lets try to crack this hash first with an online crack tool
-Using [hashes.com](https://hashes.com/en/decrypt/hash), We are able to crack the hash easily
-
-
-
+## Lets try to crack this hash first with an online crack tool
+## Using [hashes.com](https://hashes.com/en/decrypt/hash), We are able to crack the hash easily
 ![img]({{ '/assets/images/lazyadmin/9-lazyadmin.png' | relative_url }}){: .center-image }
+<br>
 
 
-
-Let's try to Login with the new credentials at the login page...
->Account: manager
->Password: [cracked hashed password]
-
-
+## Let's try to Login with the new credentials at the login page
+{% highlight bash %}
+Account: manager
+Password: [cracked hashed password]
+{% highlight bash %}
 ![img]({{ '/assets/images/lazyadmin/10-lazyadmin.png' | relative_url }}){: .center-image }
 
-SUCCESS !
+## SUCCESS !
+<br>
 
-Looking around this page for potential vulnerabilites,
-We can see there is the option to upload files on the "MEDIA CENTER" page
-
-
+## Looking around this page for potential vulnerabilites,
+## We can see there is the option to upload files on the "MEDIA CENTER" page
 ![img]({{ '/assets/images/lazyadmin/11-lazyadmin.png' | relative_url }}){: .center-image }
 
 
-Lets try and upload a known malicious file...
-I tried to upload the php reverse shell from [pentestmonkey](https://github.com/pentestmonkey/php-reverse-shell)
-Not forgetting to modify the IP and port to point to our machine and listener
-This however failed and did not upload successfully 
+## Lets try and upload a known malicious file...
+## I tried to upload the php reverse shell from [pentestmonkey](https://github.com/pentestmonkey/php-reverse-shell)
+## This however failed and did not upload successfully 
+<br>
 
-We can determine that there is a filter in place preventing our upload
-Let's try and modify the request and see if we can bypass the filter
---------------------------------------------------------------------
-Using [Burpsuite](https://portswigger.net/burp/communitydownload)
-Lets reload and capture the page in order to modify the request
-Let's try to change the request from of our payload from '.php' to '.phtml' and forward the request
+## We can determine that there is a filter in place preventing our upload
+## Let's try and modify the request and see if we can bypass the filter
+<br>
 
-
+## Using [Burpsuite](https://portswigger.net/burp/communitydownload)
+## Lets reload and capture the page in order to modify the request
+## Let's try to change the request from of our payload from '.php' to '.phtml' and forward the request
 ![img]({{ '/assets/images/lazyadmin/12-lazyadmin.png' | relative_url }}){: .center-image }
 
 We can see that this bypassed the filter and was succfully uploaded !
