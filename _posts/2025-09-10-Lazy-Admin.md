@@ -6,24 +6,21 @@ description: TryHackMe Lazy Admin CTF Write-Up
 tags: tryhackme
 comments: false
 ---
-
-# LAZY ADMIN 
 -TRYHACKME CTF WRITEUP-
+<br>
+<br>
+<br>
+![img]({{ '/assets/images/lazyadmin/lazyadmin.png' | relative_url }}){: .center-image }
 [Link To CTF](https://tryhackme.com/room/lazyadmin)
+<br>
+<br>
 
-
-
-
-
-We start off running an Nmap scan to enumerate the open ports on the target
-
-
+## We start off running an Nmap scan to enumerate the open ports on the target
 {% highlight bash %}
 $ nmap -sCV x.x.x.x
 {% endhighlight bash %}
 
-We can see that ports 22 & 80 are open in the nmap scan below
-
+##We can see that ports 22 & 80 are open in the nmap scan below
 ![img]({{ '/assets/images/lazyadmin/1-lazyadmin.png' | relative_url }}){: .center-image }
 
 
