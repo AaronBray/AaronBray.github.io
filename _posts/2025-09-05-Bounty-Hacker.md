@@ -26,7 +26,6 @@ description: TryHackMe Bounty Hacker Write-Up
 
 ## This gives us a hint that there is a file that can be read
 ## Lets see if we can log on to the ftp server
-## Logging in with no username or password gives us the output that we are able to login as "anonymous"
 ![img]({{ '/assets/images/bountyhacker/2-bountyhacker.png' | relative_url }}){: .center-image }
 
 ## Lets try to log in as anonymous with no password
