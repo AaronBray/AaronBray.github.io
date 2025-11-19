@@ -8,9 +8,9 @@ description: TryHackMe SimpleCTF CTF Write-Up
 -TRYHACKME CTF WRITEUP-
 <br>
 <br>
-<br>
 ![img]({{ '/assets/images/simplectf/simple.png' | relative_url }}){: .center-image }
 [Link To CTF](https://tryhackme.com/room/easyctf)
+<br>
 <br>
 <br>
 
@@ -141,68 +141,61 @@ $ ssh mitch@<ip> -p 2222
 
 
 ## This gives us our sixth answser
-Question 6 asks? Where can you login with the details obtained?
+## Question 6 asks? 
+{% highlight bash %}
+Where can you login with the details obtained?
+Answer: ssh
+{% endhighlight bash %}
 
->Answer: ssh
-
-Lets run:
+## Lets run:
 {% highlight bash %}
 "/bin/bash"
 {% endhighlight bash %}
-This will convert us into a bash shell
-Immediately we are shown the user.txt file
-
-
+## This will convert us into a bash shell
+## Immediately we are shown the user.txt file
 ![img]({{ '/assets/images/simplectf/11-simple-ctf.png' | relative_url }}){: .center-image }
 
 
-Lets open this file to uncover the user flag
-We now have the initial user flag and our 7th answer
+## We now have the initial user flag and our 7th answer !
+<br>
 
-
->Answer: [redacted]
-
-
-______________________________________________________________
-Question 6 asks? Is there any other user in the home directory? What's its name?
-Looking around the directories shows us another user 
-
+## Question 6 asks? Is there any other user in the home directory? What's its name?
+## Looking around the directories shows us another user 
 ![img]({{ '/assets/images/simplectf/12-simple-ctf.png' | relative_url }}){: .center-image }
-
->Answer: sunbath
+{% highlight bash %}
+Answer: sunbath
+{% endhighlight bash %}
+<br>
+<br>
 
 We now need to escalate our privilege in order to gain to root flag
-Lets look for ways to get root
-Running:
+<br>
+<br>
+
+## Lets look for ways to get root
+## Running:
 {% highlight bash %}
 $ sudo -l
 {% endhighlight bash %}
-We see that VIM commands are allowed to be run as sudo
-
+## We see that VIM commands are allowed to be run as sudo
 ![img]({{ '/assets/images/simplectf/13-simple-ctf.png' | relative_url }}){: .center-image }
 
-Searching [FTGObins](https://gtfobins.github.io/) shows that we can use VIM to escalate our privilege:
-
-Running the commnd:
+## Searching [FTGObins](https://gtfobins.github.io/) shows that we can use VIM to escalate our privilege:
+## Running the commnd:
 {% highlight bash %}
 $ sudo vim -c ':!/bin/sh'
 {% endhighlight bash %}
-We can see this command was accepted and we are now the root user
+## We can see this command was accepted and we are now the root user
 
-This gives our our seventh answer
->Answer: VIM
-
-Lets move into the root directory and capture the root flag
-
-The root.txt flag file shown in the /root directory should now be accessible
-When we cat out this file we can see that we have now captured the root flag!
-
-
+## This gives our our 7th answer
+{% highlight bash %}
+Answer: VIM
+{% endhighlight bash %}
+## Lets move into the root directory and capture the root flag
 ![img]({{ '/assets/images/simplectf/14-simple-ctf.png' | relative_url }}){: .center-image }
-
->Answer: [redacted]
-
-
+<br>
+<br>
+<br>
 
 # LESSONS LEARNED:
 This machine was able to be exploited through a web app that was vulnerable to a known sqli attack.
