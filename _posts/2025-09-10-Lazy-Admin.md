@@ -10,7 +10,7 @@ comments: false
 <br>
 <br>
 <br>
-![img]({{ '/assets/images/lazyadmin/lazyadmin.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/lazyadmin/lazyadmin.jpeg' | relative_url }}){: .center-image }
 [Link To CTF](https://tryhackme.com/room/lazyadmin)
 <br>
 <br>
