@@ -41,16 +41,7 @@ gobuster dir -u http://<target_ip> -w /path/to/wordlist/
 {% endhighlight bash %}
 <br>
 
-## Using Dirb we find:
-{% highlight bash %}
-/robots.txt   
-/simple  
-/simple/admin 
-/simple/admin/login
-{% endhighlight bash %}
-<br>
-
-## Double checking our results with gobuster we show: /simple
+## Looking at our results with gobuster we show: /simple
 ![img]({{ '/assets/images/simplectf/4-simple-ctf.png' | relative_url }}){: .center-image }
 
 ## Enumerating this directory further shows us the /simple/admin directory
