@@ -7,6 +7,7 @@ description: TryHackMe Bounty Hacker Write-Up
 ---
 # BOUNTY HACKER 
 -TRYHACKME CTF WRITEUP- 
+![img]({{ '/assets/images/bountyhacker/bountyhacker.jpeg' | relative_url }}){: .center-image }
 [Link To CTF](https://tryhackme.com/room/cowboyhacker)
 
 
