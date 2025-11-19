@@ -61,7 +61,7 @@ mysql_backup/
 {% highlight bash %}
 admin user: manager
 hash: 42f749ade7f9e195bf475f37a44cafcb 
-{% highlight bash %}
+{% endhighlight bash %}
 
 ## Lets try to crack this hash first with an online crack tool
 ## Using [hashes.com](https://hashes.com/en/decrypt/hash), We are able to crack the hash easily
