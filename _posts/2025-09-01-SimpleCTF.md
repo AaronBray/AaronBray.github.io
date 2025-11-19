@@ -95,10 +95,11 @@ What's the password?
 Password is -> [redacted]
 {% endhighlight bash %}
 <br>
+<br>
 
 {% highlight bash %}
-## "Just for fun, Lets attempt to crack the hash for extra practice
-
+## "Just for fun, Lets attempt to crack the hash for extra practice:
+{% endhighlight bash %}
 Checking [hashes.com](https://hashes.com/en/decrypt/hash) and [crack station](https://crackstation.net/) - Both sites failed to crack the hash
 Lets load the hash into a text file and use Hashcate or JohnTheRipper to check against the rockyou password list
 
@@ -122,16 +123,18 @@ We are able to crack the hash!
 
 >hashcat.exe -m 20 -a 0 hash.txt passwd_list.txt
 ![img]({{ '/assets/images/simplectf/10-simple-ctf.png' | relative_url }}){: .center-image }
-{% endhighlight bash %}
+<br>
 <br>
 
 ## We now have the username email, and cracked password
 ## Let's login to the webpage at /simple/admin/login.php
 ## Logging in as mitch shows that the password is accepted!
+<br>
 
 ## Lets see where else we can use this information to login
 ## Lets try this login information to access the server via ssh
 ## Remember that ssh is being run on port 2222 (not port 22)
+<br>
 
 ## Logging into an ssh session as mitch on port 2222
 ## We can see that the credentials are accepted
