@@ -8,6 +8,7 @@ description: TryHackMe SimpleCTF CTF Write-Up
 
 # SIMPLE CTF 
 -TRYHACKME CTF WRITEUP-
+![img]({{ '/assets/images/simplectf/simple.png' | relative_url }}){: .center-image }
 [Link To CTF](https://tryhackme.com/room/easyctf)
 
 Let's start by running a Nmap scan to enumerate all open ports with the -p- argument
