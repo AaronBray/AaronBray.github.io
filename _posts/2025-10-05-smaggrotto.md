@@ -33,7 +33,7 @@ comments: false
 ![img]({{ '/assets/images/smag/3-smag.png' | relative_url }}){: .center-image }
 
 ## Alternately we can use 'wget' to download the attachment and 'cat' to read it
-![img]({{ '/assets/images/smag/4-smag.png' | relative_url }}){: .center-image }<p style="color: green:>    
+![img]({{ '/assets/images/smag/4-smag.png' | relative_url }}){: .center-image } 
 <style>
   .hoverblur {
     filter: blur(8px); /* Adjust the blur level as needed */
@@ -46,7 +46,7 @@ comments: false
 
 <span class="hoverblur">
 Username=helpdesk<br>
-Password=cH4nG3M3_n0w</p></span>
+Password=cH4nG3M3_n0w</span>
 <br>
 
 
