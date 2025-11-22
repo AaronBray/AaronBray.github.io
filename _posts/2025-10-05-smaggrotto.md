@@ -34,7 +34,7 @@ comments: false
 
 ## Alternately we can use 'wget' to download the attachment and 'cat' to read it
 ![img]({{ '/assets/images/smag/4-smag.png' | relative_url }}){: .center-image }    
-<span class="blur">username=helpdesk&password=cH4nG3M3_n0w</span>
+<p class="blurry-text" onclick="this.classList.add('clear')">username=helpdesk&password=cH4nG3M3_n0w</p>
 <br>
 
 
