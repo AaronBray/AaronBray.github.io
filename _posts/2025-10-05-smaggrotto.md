@@ -34,7 +34,14 @@ comments: false
 
 ## Alternately we can use 'wget' to download the attachment and 'cat' to read it
 ![img]({{ '/assets/images/smag/4-smag.png' | relative_url }}){: .center-image }    
-<p class="blurry-text" onclick="this.classList.add('clear')">username=helpdesk&password=cH4nG3M3_n0w</p>
+.hoverblur {
+filter: blur(8px);
+transition: filter 0.2s ease;
+}
+username=helpdesk&password=cH4nG3M3_n0w</p>
+.hoverblur:hover {
+filter: blur(0);
+}
 <br>
 
 
