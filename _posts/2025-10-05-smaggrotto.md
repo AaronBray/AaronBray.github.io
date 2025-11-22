@@ -34,14 +34,17 @@ comments: false
 
 ## Alternately we can use 'wget' to download the attachment and 'cat' to read it
 ![img]({{ '/assets/images/smag/4-smag.png' | relative_url }}){: .center-image }    
-.hoverblur {
-filter: blur(8px);
-transition: filter 0.2s ease;
-}
-username=helpdesk&password=cH4nG3M3_n0w</p>
-.hoverblur:hover {
-filter: blur(0);
-}
+<style>
+  .hoverblur {
+    filter: blur(8px); /* Adjust the blur level as needed */
+    transition: filter 0.2s ease; /* Smooth transition */
+  }
+  .hoverblur:hover {
+    filter: blur(0); /* Remove blur on hover */
+  }
+</style>
+
+<span class="hoverblur">username=helpdesk&password=cH4nG3M3_n0w</span></p>
 <br>
 
 
