@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Mustaccio
-date:   2025-10-10 11:05
+date:   2025-10-01 11:05
 description: TryHackMe Mr. Robot CTF Write-Up
 tags: tryhackme xxe
 comments: false
