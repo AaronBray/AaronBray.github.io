@@ -44,9 +44,9 @@ comments: false
   }
 </style>
 
-<span class="hoverblur">
-username=helpdesk<br>
-password=cH4nG3M3_n0w</span>
+<span class="hoverblur">p style="color: green:>
+Username=helpdesk<br>
+Password=cH4nG3M3_n0w</span></p>
 <br>
 
 
