@@ -33,14 +33,15 @@ comments: false
 ![img]({{ '/assets/images/smag/3-smag.png' | relative_url }}){: .center-image }
 
 ## Alternately we can use 'wget' to download the attachment and 'cat' to read it
-![img]({{ '/assets/images/smag/4-smag.png' | relative_url }}){: .center-image }    username=helpdesk&password=cH4nG3M3_n0w
+![img]({{ '/assets/images/smag/4-smag.png' | relative_url }}){: .center-image }    
+<span class="blur">username=helpdesk&password=cH4nG3M3_n0w</span>
 <br>
 
 
 ## We can see Username & Password, but also:
 {% highlight bash %}
-## POST path is: /login.php
-## Host is: development.smag.thm
+POST path is: /login.php
+Host is: development.smag.thm
 {% endhighlight bash %}
 <br>
 
