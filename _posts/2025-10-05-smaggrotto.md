@@ -1,3 +1,11 @@
+---
+layout: post
+title: SmagGrotto
+date:   2025-10-05 11:05
+description: TryHackMe CTF Write-Up
+tags: tryhackme pgp
+comments: false
+---
 -TRYHACKME CTF WRITEUP-
 <br>
 <br>
