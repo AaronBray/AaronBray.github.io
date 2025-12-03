@@ -15,7 +15,7 @@ Everything published here was done with explicit permission.
 <br>
 Do not hack this site or steal any of my work as your own. 
 What is posted here is intended for educational purposes only and should not be used for malicious intent.
-Remember only hack systems you have permission to hack :)
+Remember only hack systems that you have been granted permission :)
 <br>
 <br>
 <br>
