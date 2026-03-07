@@ -1,9 +1,9 @@
 ---
 layout: post
-title: CodePartTwo
-date:   2025-11-10 11:05
-description: Hack the Box CodePartTwo CTF Write-Up
-tags: hackthebox js2py
+title: Facts
+date:   2026-03-05 11:05
+description: Hack the Box Facts CTF Write-Up
+tags: hackthebox 
 comments: false
 ---
 [Link To CTF](https://app.hackthebox.com/machines/Facts?sort_by=created_at&sort_type=desc)
